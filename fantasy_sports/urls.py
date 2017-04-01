@@ -9,7 +9,7 @@ urlpatterns = [
         admin.site.urls
     ),
     url(
-        r'^account/',
+        r'^accounts/',
         include('fantasy_sports.apps.registration.urls',
                 namespace='registration')
     ),

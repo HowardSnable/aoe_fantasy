@@ -14,7 +14,7 @@ from crispy_forms.layout import Layout, Submit
 class CreateAccountForm(forms.ModelForm):
     verify_password = forms.CharField(
                           label='Confirm Password',
-                          widget=forms.PasswordInput,
+                          widget=forms.PasswordInput(),
                           required=True,
                       )
 
@@ -58,36 +58,33 @@ class CreateAccountForm(forms.ModelForm):
             Submit('submit', 'Creat Account', css_class='col-xs-offset-4'),
         )
 
-    def clean_first_name(self):
-        first_name = self.cleaned_data.get('first_name')
-        if not first_name:
-            raise forms.ValidationError("Please enter your first name")
-
-        return first_name
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data.get('last_name')
-        if not last_name:
-            raise forms.ValidationError('Please enter your last name')
-
-        return last_name
-
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if not email:
-            raise forms.ValidationError('Please enter your email')
+            raise forms.ValidationError('This field is required.')
 
         email_already_exists = User.objects.filter(email=email).exists()
         if email_already_exists:
-            raise forms.ValidationError('This email is already registered')
+            raise forms.ValidationError('This email is already registered.')
 
         return email
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not username:
+            raise forms.ValidationError('This field is required.')
+
+        username_already_exists = User.objects.filter(username=username).exists()
+        if username_already_exists:
+            raise forms.ValidationError('This username is already in use.')
+
+        return username
 
     def clean_verify_password(self):
         password = self.cleaned_data.get('password')
         verify_password = self.cleaned_data.get('verify_password')
         if password and verify_password and password != verify_password:
-            raise forms.ValidationError('Passwords do not match')
+            raise forms.ValidationError('Passwords do not match.')
 
         validate_password(verify_password)
 
@@ -115,7 +112,7 @@ class RegistrationPasswordResetForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(RegistrationPasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].help_text = \
-            "If found, we'll email instructions on resetting your password."
+            "If found, we'll email instructions to reset your password."
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
