@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordResetForm,
+    SetPasswordForm,
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
@@ -47,7 +48,7 @@ class CreateAccountForm(forms.ModelForm):
         self.helper.label_class = 'col-xs-4'
         self.helper.field_class = 'col-xs-8'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('registration:create')
+        self.helper.form_action = reverse_lazy('account_management:create')
         self.helper.layout = Layout(
             'first_name',
             'last_name',
@@ -63,8 +64,8 @@ class CreateAccountForm(forms.ModelForm):
         if not email:
             raise forms.ValidationError('This field is required.')
 
-        email_already_exists = User.objects.filter(email=email).exists()
-        if email_already_exists:
+        email_exists = User.objects.filter(email=email).exists()
+        if email_exists:
             raise forms.ValidationError('This email is already registered.')
 
         return email
@@ -74,8 +75,8 @@ class CreateAccountForm(forms.ModelForm):
         if not username:
             raise forms.ValidationError('This field is required.')
 
-        username_already_exists = User.objects.filter(username=username).exists()
-        if username_already_exists:
+        username_exists = User.objects.filter(username=username).exists()
+        if username_exists:
             raise forms.ValidationError('This username is already in use.')
 
         return username
@@ -91,16 +92,16 @@ class CreateAccountForm(forms.ModelForm):
         return verify_password
 
 
-class RegistrationLoginForm(AuthenticationForm):
+class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(RegistrationLoginForm, self).__init__(*args, **kwargs)
+        super(LoginForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-xs-4'
         self.helper.field_class = 'col-xs-8'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('registration:login')
+        self.helper.form_action = reverse_lazy('account_management:login')
         self.helper.layout = Layout(
             'username',
             'password',
@@ -108,9 +109,9 @@ class RegistrationLoginForm(AuthenticationForm):
         )
 
 
-class RegistrationPasswordResetForm(PasswordResetForm):
+class PasswordResetForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
-        super(RegistrationPasswordResetForm, self).__init__(*args, **kwargs)
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].help_text = \
             "If found, we'll email instructions to reset your password."
 
@@ -119,8 +120,23 @@ class RegistrationPasswordResetForm(PasswordResetForm):
         self.helper.label_class = 'col-xs-4'
         self.helper.field_class = 'col-xs-8'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('registration:password_reset')
+        self.helper.form_action = reverse_lazy('account_management:password_reset')
         self.helper.layout = Layout(
             'email',
             Submit('submit', 'Reset Password', css_class='col-xs-offset-4'),
+        )
+
+
+class SetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-xs-4'
+        self.helper.field_class = 'col-xs-8'
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'new_password1',
+            'new_password2',
+            Submit('submit', 'Change Password', css_class='col-xs-offset-4'),
         )

@@ -14,13 +14,13 @@
                     {% if request.user.is_authenticated %}
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-wrench fa-fw"></i> Update Password</a></li>
-                        <li><a href="{% url 'registration:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Log out</a></li>
+                        <li><a href="{% url 'account_management:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Log out</a></li>
                     </ul>
                     {% else %}
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'registration:create' %}"><i class="fa fa-plus fa-fw"></i> Create Account</a></li>
-                        <li><a href="{% url 'registration:login' %}"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
-                        <li><a href="{% url 'registration:password_reset' %}"><i class="fa fa-wrench fa-fw"></i> Reset Password</a></li>
+                        <li><a href="{% url 'account_management:create' %}"><i class="fa fa-plus fa-fw"></i> Create Account</a></li>
+                        <li><a href="{% url 'account_management:login' %}"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
+                        <li><a href="{% url 'account_management:password_reset' %}"><i class="fa fa-wrench fa-fw"></i> Reset Password</a></li>
                     </ul>
                     {% endif %}
                 </li>

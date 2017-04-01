@@ -22,7 +22,7 @@ LOCAL_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fantasy_sports',
-    'fantasy_sports.apps.registration',
+    'fantasy_sports.apps.account_management',
     'fantasy_sports.apps.tennis',
 ]
 
@@ -93,7 +93,7 @@ USE_TZ = True
 # login
 # TODO: set to home/ dashboard
 LOGIN_REDIRECT_URL = reverse_lazy('tennis:hello')
-LOGIN_URL = reverse_lazy('registration:login')
+LOGIN_URL = reverse_lazy('account_management:login')
 #  LOGOUT_REDIRECT_URL
 
 # Static files (CSS, JavaScript, Images)

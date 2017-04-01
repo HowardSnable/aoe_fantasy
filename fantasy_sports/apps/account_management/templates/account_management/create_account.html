@@ -8,15 +8,15 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <h4 class="col-xs-offset-4">Create a new account, or login <a href="{% url 'registration:login' %}">here</a>.</h4>
+            <h4 class="col-xs-offset-4">Create a new account, or login <a href="{% url 'account_management:login' %}">here</a>.</h4>
         </div>
         {% crispy form %}
     </div>
     <div class="panel-footer">
         <p class="text-center">
-            <a class="text-muted" href="{% url 'registration:create' %}">Create Account</a> |
-            <a class="text-muted" href="{% url 'registration:login' %}">Login</a> |
-            <a class="text-muted" href="{% url 'registration:password_reset' %}">Reset Password</a>
+            <a class="text-muted" href="{% url 'account_management:create' %}">Create Account</a> |
+            <a class="text-muted" href="{% url 'account_management:login' %}">Login</a> |
+            <a class="text-muted" href="{% url 'account_management:password_reset' %}">Reset Password</a>
         </p>
     </div>
 </div>

@@ -9,8 +9,8 @@ from .forms import CreateAccountForm
 class CreateAccount(FormView):
     form_class = CreateAccountForm
     http_method_names = [u'get', u'post']
-    template_name = 'registration/create_account.html'
-    success_url = reverse_lazy('registration:login')
+    template_name = 'account_management/create_account.html'
+    success_url = reverse_lazy('account_management:login')
 
     def get(self, request, *args, **kwargs):
         return super(CreateAccount, self).get(request, *args, **kwargs)
