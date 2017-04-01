@@ -1,0 +1,5 @@
+*.pyc
+*.sw*
+*.vim
+*.env
+fantasy_sports/settings/development.py
