@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Fantasy Sports</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="fa fa-user"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Account <i class="fa fa-angle-down fa-fw"></i></a>
+                    {% if request.user.is_authenticated %}
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fa fa-wrench fa-fw"></i> Update Password</a></li>
+                        <li><a href="{% url 'registration:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Log out</a></li>
+                    </ul>
+                    {% else %}
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'registration:create' %}"><i class="fa fa-plus fa-fw"></i> Create Account</a></li>
+                        <li><a href="{% url 'registration:login' %}"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
+                        <li><a href="{% url 'registration:password_reset' %}"><i class="fa fa-wrench fa-fw"></i> Reset Password</a></li>
+                    </ul>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

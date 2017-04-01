@@ -1,5 +1,7 @@
 import os
 
+from django.core.urlresolvers import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -90,8 +92,8 @@ USE_TZ = True
 
 # login
 # TODO: set to home/ dashboard
-# LOGIN_REDIRECT_URL = reverse_lazy('tennis:hello')
-# LOGIN_URL = reverse_lazy('registration:login')
+LOGIN_REDIRECT_URL = reverse_lazy('tennis:hello')
+LOGIN_URL = reverse_lazy('registration:login')
 #  LOGOUT_REDIRECT_URL
 
 # Static files (CSS, JavaScript, Images)

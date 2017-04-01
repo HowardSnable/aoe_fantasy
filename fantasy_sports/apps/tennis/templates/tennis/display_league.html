@@ -1,0 +1,20 @@
+{% extends "fantasy_sports/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="text-center">{{ object.name }}</h3>
+    </div>
+    <div class="panel-body">
+        <h4>My Team:</h4>
+        <h4>Current Standings:</h4>
+        <h4>All Teams:</h4>
+        {% if object.administrator == request.user %}
+        <p><a href="{% url 'tennis:update_league' object.id %}">League Settings</a></p>
+        {% endif %}
+    </div>
+    <div class="panel-footer">
+    </div>
+</div>
+{% endblock content %}

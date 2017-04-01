@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Fantasy Sports</title>
+        <link rel="stylesheet" href="{% static "/libs/bootstrap/css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "/libs/font-awesome/css/font-awesome.min.css" %}">
+        <link rel="stylesheet" href="{% static "/css/app.css" %}">
+    </head>
+    <body>
+        {% include "fantasy_sports/navbar.html" %}
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div class="col-xs-12 col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Sports</h3>
+                        </div>
+                        <div id="sidebar" class="list-group">
+                            <a href="#" class="list-group-item active">
+                                <i class="fa fa-home fa-fw"></i> Home
+                            </a>
+                            {% include "tennis/sidebar.html" %}
+                        </div>
+                    </div>
+                </div>
+                <!-- /sidebar -->
+                <!-- main content -->
+                <div class="col-xs-12 col-md-9">
+                    {% include "fantasy_sports/messages.html" %}
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+                <!-- /main content -->
+            </div>
+        </div>
+    </body>
+    <script src="{% static "js/jquery-3.0.0.min.js" %}"></script>
+    <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+</html>    

@@ -1,0 +1,16 @@
+<a href="#tennis" class="list-group-item"  data-parent="#sidebar">
+    <i class="fa fa-angle-down fa-fw"></i> Tennis
+</a>
+<div id="tennis" class="list-group subitem collapse">
+    <a href="{% url 'tennis:my_leagues' %}" class="list-group-item">
+        <i class="fa fa-star fa-fw"></i> My leagues
+    </a>
+    <a href="{% url 'tennis:create_league' %}" class="list-group-item">
+        <i class="fa fa-plus fa-fw"></i> Create a league
+    </a>
+    <a href="{% url 'tennis:find_league' %}" class="list-group-item">
+        <i class="fa fa-search fa-fw"></i> Find a league
+    </a>
+    <a href="#" class="list-group-item">Players</a>
+    <a href="#" class="list-group-item">Tournaments</a>
+</div>
