@@ -1,4 +1,4 @@
-from .hello import Hello
+from .home import Home
 from .create_league import CreateLeague
 from .find_league import FindLeague
 from .my_leagues import MyLeagues

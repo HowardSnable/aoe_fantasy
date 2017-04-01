@@ -91,10 +91,8 @@ USE_L10N = True
 USE_TZ = True
 
 # login
-# TODO: set to home/ dashboard
-LOGIN_REDIRECT_URL = reverse_lazy('tennis:hello')
+LOGIN_REDIRECT_URL = reverse_lazy('tennis:home')
 LOGIN_URL = reverse_lazy('account_management:login')
-#  LOGOUT_REDIRECT_URL
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

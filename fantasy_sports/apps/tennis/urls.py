@@ -5,9 +5,9 @@ from . import views
 
 urlpatterns = [
     url(
-        r'^hello/$',
-        views.Hello.as_view(),
-        name='hello'
+        r'^home/$',
+        views.Home.as_view(),
+        name='home'
     ),
     url(
         r'^create_league/$',
