@@ -12,9 +12,6 @@ class CreateAccount(FormView):
     template_name = 'account_management/create_account.html'
     success_url = reverse_lazy('account_management:login')
 
-    def get(self, request, *args, **kwargs):
-        return super(CreateAccount, self).get(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
