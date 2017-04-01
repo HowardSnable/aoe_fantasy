@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views as account_management_views
 from .forms import (
     FantasySportsAuthenticationForm,
+    FantasySportsChangePasswordForm,
     FantasySportsPasswordResetForm,
     FantasySportsSetPasswordForm,
 )
@@ -13,7 +14,7 @@ urlpatterns = [
     url(
         '^create/$',
         account_management_views.CreateAccount.as_view(),
-        name='create'
+        name='create',
     ),
     url(
         '^login/$',
@@ -28,6 +29,20 @@ urlpatterns = [
         auth_views.logout,
         {'template_name': 'account_management/logout.html', },
         name='logout',
+    ),
+    url(
+        '^change_password/$',
+        auth_views.password_change,
+        {'template_name': 'account_management/change_password.html',
+         'post_change_redirect': 'account_management:change_password_complete',
+         'password_change_form': FantasySportsChangePasswordForm, },
+        name='change_password',
+    ),
+    url(
+        '^change_password/complete/$',
+        auth_views.password_change_done,
+        {'template_name': 'account_management/change_password_complete.html', },
+        name='change_password_complete',
     ),
     url(
         '^password_reset/$',

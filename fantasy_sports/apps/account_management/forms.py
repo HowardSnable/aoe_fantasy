@@ -140,3 +140,19 @@ class FantasySportsSetPasswordForm(SetPasswordForm):
             'new_password2',
             Submit('submit', 'Change Password', css_class='col-xs-offset-4'),
         )
+
+
+class FantasySportsChangePasswordForm(FantasySportsSetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(FantasySportsSetPasswordForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-xs-4'
+        self.helper.field_class = 'col-xs-8'
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'old_password',
+            'new_password1',
+            'new_password2',
+            Submit('submit', 'Change Password', css_class='col-xs-offset-4'),
+        )
