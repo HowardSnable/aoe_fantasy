@@ -3,11 +3,11 @@ from django.views.generic import FormView
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 
-from .forms import CreateAccountForm
+from .forms import FantasySportsCreateAccountForm
 
 
 class CreateAccount(FormView):
-    form_class = CreateAccountForm
+    form_class = FantasySportsCreateAccountForm
     http_method_names = [u'get', u'post']
     template_name = 'account_management/create_account.html'
     success_url = reverse_lazy('account_management:login')
@@ -16,7 +16,7 @@ class CreateAccount(FormView):
         return super(CreateAccount, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = CreateAccountForm(request.POST)
+        form = self.form_class(request.POST)
         if form.is_valid():
             # create user
             user = User.objects.create_user(

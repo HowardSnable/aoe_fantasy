@@ -12,7 +12,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 
 
-class CreateAccountForm(forms.ModelForm):
+class FantasySportsCreateAccountForm(forms.ModelForm):
     verify_password = forms.CharField(
                           label='Confirm Password',
                           widget=forms.PasswordInput(),
@@ -38,7 +38,7 @@ class CreateAccountForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(CreateAccountForm, self).__init__(*args, **kwargs)
+        super(FantasySportsCreateAccountForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['email'].required = True
@@ -92,9 +92,9 @@ class CreateAccountForm(forms.ModelForm):
         return verify_password
 
 
-class LoginForm(AuthenticationForm):
+class FantasySportsAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
+        super(FantasySportsAuthenticationForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -109,9 +109,9 @@ class LoginForm(AuthenticationForm):
         )
 
 
-class PasswordResetForm(PasswordResetForm):
+class FantasySportsPasswordResetForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super(FantasySportsPasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].help_text = \
             "If found, we'll email instructions to reset your password."
 
@@ -127,9 +127,9 @@ class PasswordResetForm(PasswordResetForm):
         )
 
 
-class SetPasswordForm(SetPasswordForm):
+class FantasySportsSetPasswordForm(SetPasswordForm):
     def __init__(self, *args, **kwargs):
-        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        super(FantasySportsSetPasswordForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-xs-4'
