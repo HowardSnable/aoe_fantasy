@@ -10,13 +10,17 @@ urlpatterns = [
     ),
     url(
         r'^accounts/',
-        include('fantasy_sports.apps.account_management.urls',
-                namespace='account_management')
+        include(
+            'fantasy_sports.apps.account_management.urls',
+            namespace='account_management'
+        )
     ),
     url(
         r'^tennis/',
-        include('fantasy_sports.apps.tennis.urls',
-                namespace='tennis')
+        include(
+            'fantasy_sports.apps.tennis.urls',
+            namespace='tennis'
+        )
     ),
 ]
 

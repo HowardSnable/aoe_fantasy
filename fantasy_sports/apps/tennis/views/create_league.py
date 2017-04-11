@@ -18,7 +18,6 @@ class CreateLeague(LoginRequiredMixin, CreateView):
         return self.object.get_absolute_url()
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
         form = CreateTennisLeagueForm(request.POST)
 
         if form.is_valid():

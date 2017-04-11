@@ -26,7 +26,7 @@ class League(AbstractLeague):
         return False
 
     def get_absolute_url(self):
-        return reverse_lazy('tennis.views.DisplayLeague', args=[str(self.id)])
+        return reverse_lazy('tennis:display_league', args=[str(self.id)])
 
 
 class Team(AbstractTeam):
