@@ -8,12 +8,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = False
 
 # Application definition
-
-THIRD_PARTY_APPS = [
-    'django_extensions',
-    'crispy_forms',
-]
-
 LOCAL_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -26,8 +20,14 @@ LOCAL_APPS = [
     'fantasy_sports.apps.tennis',
 ]
 
-INSTALLED_APPS = THIRD_PARTY_APPS + LOCAL_APPS
+THIRD_PARTY_APPS = [
+    'django_extensions',
+    'crispy_forms',
+]
 
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS
+
+# Middleware configuration
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +52,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'debug': DEBUG,
         },
     },
 ]

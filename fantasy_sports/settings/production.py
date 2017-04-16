@@ -3,11 +3,15 @@ from os import environ
 from .common import *
 
 
+DEBUG = False
+
 SECRET_KEY = environ.get('SECRET_KEY')
 
-DEBUG = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-ALLOWED_HOSTS = []
+EMAIL_SUBJECT_PREFIX = '[Fantasy Sports] '
+
+ALLOWED_HOSTS = ['rbennett.io']
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -21,5 +25,3 @@ DATABASES = {
         'PASSWORD': environ.get('DB_DEFAULT_PASSWORD'),
     },
 }
-
-INSTALLED_APPS = INSTALLED_APPS + []
