@@ -16,6 +16,9 @@ class League(AbstractLeague):
     max_teams_per_league = models.PositiveIntegerField()
     max_players_per_team = models.PositiveIntegerField()
     max_injured_players_per_team = models.PositiveIntegerField()
+    points_per_match_win = models.PositiveIntegerField()
+    tournament_win_bonus = models.PositiveIntegerField()
+    grand_slam_point_multiplier = models.PositiveIntegerField()
 
     @property
     def is_administrator_valid(self):

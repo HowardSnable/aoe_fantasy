@@ -17,14 +17,27 @@ class CreateTennisLeagueForm(forms.ModelForm):
             'max_players_per_team',
             'max_injured_players_per_team',
             'is_public',
+            'points_per_match_win',
+            'tournament_win_bonus',
+            'grand_slam_point_multiplier',
         )
 
         labels = {
             'name': 'League name',
-            'max_teams_per_league': 'How many teams are in the league?',
-            'max_players_per_team': 'How many players per team?',
-            'max_injured_players_per_team': 'How many injured players per team?',
+            'max_teams_per_league': 'Number of teams in league',
+            'max_players_per_team': 'Number of players per team',
+            'max_injured_players_per_team': 'Number of injury spots per team',
+            'is_public': 'Publicly visible',
+            'points_per_match_win': 'Points per match win',
+            'tournament_win_bonus': 'Tournament win bonus',
+            'grand_slam_point_multiplier': 'Grand Slam point multiplier',
+        }
+
+        help_texts = {
             'is_public': 'Will this league be publicly visible?',
+            'points_per_match_win': 'How many points will a player earn for winning a match?',
+            'tournament_win_bonus': 'How many bonus points will a player earn for winning a tournament?',
+            'grand_slam_point_multiplier': 'Points earned in Grand Slams will be multipied by this number.',
         }
 
         widgets = {
@@ -38,12 +51,14 @@ class CreateTennisLeagueForm(forms.ModelForm):
         self.helper.label_class = 'col-xs-4'
         self.helper.field_class = 'col-xs-8'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('tennis:create_league')
         self.helper.layout = Layout(
             'name',
             'max_teams_per_league',
             'max_players_per_team',
             'max_injured_players_per_team',
+            'points_per_match_win',
+            'tournament_win_bonus',
+            'grand_slam_point_multiplier',
             'is_public',
             Submit('submit', 'Create League', css_class='col-xs-offset-4'),
         )
@@ -64,6 +79,9 @@ class UpdateTennisLeagueForm(CreateTennisLeagueForm):
             'max_teams_per_league',
             'max_players_per_team',
             'max_injured_players_per_team',
+            'points_per_match_win',
+            'tournament_win_bonus',
+            'grand_slam_point_multiplier',
             'is_public',
             Submit('submit', 'Update League', css_class='col-xs-offset-4'),
         )
