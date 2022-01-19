@@ -1,0 +1,137 @@
+
+{% load crispy_forms_tags %}
+
+{% block transfer %}
+
+         <div class="container">
+              <h4>Available Players</h4>
+               <table align="left">
+               <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                   <th>Team</th>
+                    <th>Price</th>
+                </tr>
+            {% for trm in transfer_market %}
+              <tr>
+                 <td>
+                   {{ trm.player.name }}
+                </td>
+                  <td>
+                   {{ trm.player.points }}
+                </td>
+                <td>
+                    {{ trm.player.team.name }}
+                </td>
+                <td>
+                    {{ trm.player.def_price }}
+                </td>
+               </tr>
+               {% endfor %}
+            </table>
+        </div>
+
+        <div class="container">
+        <h4>My Offers:</h4>
+        <table align="left">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                   <th>Expiration Date</th>
+                    <th>Status</th>
+                </tr>
+
+            {% for ofr in offers_out %}
+              <tr>
+                 <td>
+                   {{ of.player.name }}
+                </td>
+                <td>
+                    {{ ofr.player.team.name }}
+                </td>
+                <td>
+                    {{ ofr.player.price }}
+                </td>
+               </tr>
+               {% endfor %}
+            <tr>
+                <form method="POST" action="" id="offer_form">{% csrf_token %}
+                {% for field in offer_form.visible_fields %}
+                <td>
+                    {{ field }}
+                </td>
+                {% endfor %}
+                <td>
+                    <input type="submit" value="Ok">
+                </td>
+
+            </form>
+            </tr>
+            </table>
+        </div>
+        <div  class="container">
+
+            <h4>Offers for me:</h4>
+        <table align="left">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                   <th>Expiration Date</th>
+                    <th>Status</th>
+                </tr>
+            {% for ofr in offers_in %}
+              <tr>
+                 <td>
+                   {{ of.player.name }}
+                </td>
+                <td>
+                    {{ ofr.player.team.name }}
+                </td>
+                <td>
+                    {{ ofr.price }}
+                </td>
+               </tr>
+               {% endfor %}
+            </tr>
+            </table>
+
+
+        </div>
+
+        <div  class="container">
+        <h4>History:</h4>
+              <table align="left">
+                 <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                   <th>Team</th>
+                    <th>Price</th>
+                </tr>
+            {% for ofr in old_transfers %}
+              <tr>
+                 <td>
+                   {{ of.player.name }}
+                </td>
+                  <td>
+                   {{ ofr.player.points }}
+                </td>
+                <td>
+                    {{ ofr.player.team.name }}
+                </td>
+                <td>
+                    {{ ofr.price }}
+                </td>
+                <td>
+                    {{ ofr.date_end }}
+                </td>
+                <td>
+                    {{ ofr.reciever }}
+                </td>
+                <td>
+                    {{ ofr.sender }}
+                </td>
+               </tr>
+               {% endfor %}
+            </table>
+        </div>
+{% endblock transfer %}

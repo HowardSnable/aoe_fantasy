@@ -1,0 +1,33 @@
+
+{% load crispy_forms_tags %}
+
+{% block team %}
+        <div  class="container">
+        <h4>My Players:</h4>
+
+       <table align="left">
+        <tr>
+            <th>Name</th>
+            <th>Points</th>
+           <th>Team</th>
+        </tr>
+    {% for plr in my_players %}
+      <tr>
+         <td>
+           {{ plr.name }}
+        </td>
+          <td>
+           {{ plr.points }}
+        </td>
+            <td>
+           {{ plr.team.name }}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+        </div>
+        <div   class="container">
+        <h4>My Line-Up:</h4>
+        </div>
+
+{% endblock team %}

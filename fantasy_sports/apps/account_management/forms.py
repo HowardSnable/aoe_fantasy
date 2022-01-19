@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
@@ -56,7 +56,7 @@ class FantasySportsCreateAccountForm(forms.ModelForm):
             'username',
             'password',
             'verify_password',
-            Submit('submit', 'Creat Account', css_class='col-xs-offset-4'),
+            Submit('submit', 'Create Account', css_class='col-xs-offset-4'),
         )
 
     def clean_email(self):

@@ -1,0 +1,33 @@
+
+{% load crispy_forms_tags %}
+
+{% block standings %}
+        <h4>Current Standings:</h4>
+
+
+    <table align="left">
+        <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>User</th>
+            <th>Points</th>
+        </tr>
+    {% for mgr in all_managers %}
+      <tr>
+          <td> {{ forloop.counter }}. </td>
+         <td>
+           {{ mgr.name }}
+        </td>
+          <td>
+           {{ mgr.user.name }}
+        </td>
+        <td>
+            {{ mgr.points }}
+        </td>
+        <td>
+          <img src="{{  mgr.icon }}" width="20" height="20">
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+{% endblock standings %}

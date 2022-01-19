@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.views.generic import FormView
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from .forms import FantasySportsCreateAccountForm
 

@@ -1,31 +1,36 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, re_path
 from django.contrib import admin
-
+from . import views
 
 urlpatterns = [
-    url(
-        r'^admin/',
+    re_path(
+        'admin/',
         admin.site.urls
     ),
-    url(
+    re_path(
         r'^accounts/',
         include(
             'fantasy_sports.apps.account_management.urls',
             namespace='account_management'
         )
     ),
-    url(
-        r'^tennis/',
+    re_path(
+        r'^boa/',
         include(
-            'fantasy_sports.apps.tennis.urls',
-            namespace='tennis'
+            'fantasy_sports.apps.boa.urls',
+            namespace='boa'
         )
+    ),
+    re_path(
+        r'',
+        views.redirect_view
     ),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+       re_path(r'^__debug__/', include(debug_toolbar.urls)),
     ]
+

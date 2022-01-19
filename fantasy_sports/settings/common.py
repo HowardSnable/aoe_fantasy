@@ -1,6 +1,6 @@
 import os
 
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,7 @@ LOCAL_APPS = [
     'django.contrib.staticfiles',
     'fantasy_sports',
     'fantasy_sports.apps.account_management',
-    'fantasy_sports.apps.tennis',
+    'fantasy_sports.apps.boa',
 ]
 
 THIRD_PARTY_APPS = [
@@ -39,6 +39,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'fantasy_sports.urls'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 TEMPLATES = [
     {
@@ -92,7 +95,7 @@ USE_L10N = True
 USE_TZ = True
 
 # login
-LOGIN_REDIRECT_URL = reverse_lazy('tennis:home')
+LOGIN_REDIRECT_URL = reverse_lazy('boa:home')
 LOGIN_URL = reverse_lazy('account_management:login')
 
 # Static files (CSS, JavaScript, Images)
