@@ -23,9 +23,9 @@
         <h4>Leagues where I'm a member:</h4>
         <ul>
             {% for league in non_admin_leagues %}
-            <li>{{ league }}</li>
+           <li><a href="{% url 'boa:display_league' league.id %}">{{ league }}</a></li>
             {% empty %}
-            <li>(None)</li> 
+            <li>(None)</li>
             {% endfor %}
         </ul>
         {% endif %}

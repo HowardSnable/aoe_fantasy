@@ -1,0 +1,82 @@
+{% extends "fantasy_sports/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="text-center">My Leagues</h3>
+    </div>
+    <div class="panel-body">
+              <!-- Nav tabs -->
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#all">All Rounds</a>
+        </li>
+          {% for mday in matchdays %}
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#{{ mday.id }}">{{ mday }}    </a>
+        </li>
+            {% endfor %}
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+           <div class="tab-pane auto active in" id="all}">
+                <table class="table-row" style="float: left">
+        <tr>
+            <th>Name</th>
+            <th>Points</th>
+            <th>Pocket</th>
+            <th> Flank</th>
+            </tr>
+        {% for res in results|get_item:0 %}
+          <tr>
+         <td>
+           {{ res.player.compact_linked }}
+        </td>
+          <td>
+           {{ res.player.get_points|floatformat }}
+        </td>
+           <td>
+           {{ res.games_pocket }}
+        </td>
+          <td>
+           {{ res.games_flank }}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+        </div>
+          {% for mday in matchdays %}
+        <div class="tab-pane auto  fade" id="{{ mday.id }}">
+         <table class="table-row" style="float: left">
+        <tr>
+            <th>Name</th>
+            <th>Points</th>
+            <th>Pocket</th>
+            <th> Flank</th>
+            </tr>
+        {% for res in results|get_item:mday.id %}
+          <tr>
+         <td>
+           {{ res.player.compact_linked }}
+        </td>
+          <td>
+           {{ res.points|floatformat }}
+        </td>
+          <td>
+           {{ res.games_pocket }}
+        </td>
+          <td>
+           {{ res.games_flank }}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+        </div>
+          {% endfor %}
+      </div>
+
+    </div>
+</div>
+{% endblock content %}

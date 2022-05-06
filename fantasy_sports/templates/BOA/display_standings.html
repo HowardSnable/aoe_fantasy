@@ -2,32 +2,46 @@
 {% load crispy_forms_tags %}
 
 {% block standings %}
-        <h4>Current Standings:</h4>
+<div class="panel-body">
 
 
-    <table align="left">
+    <table align="left" class="table-row">
         <tr>
             <th>Rank</th>
             <th>Team</th>
             <th>User</th>
             <th>Points</th>
+            <th>Players</th>
         </tr>
     {% for mgr in all_managers %}
-      <tr>
+         {% if mgr.id == manager.id %}
+        <tr class="highlight_row" >
+          {% else %}
+        <tr>
+          {%  endif %}
           <td> {{ forloop.counter }}. </td>
          <td>
-           {{ mgr.name }}
+            {{ mgr.name }}
         </td>
           <td>
-           {{ mgr.user.name }}
+           {{ mgr.user.username }}
         </td>
         <td>
-            {{ mgr.points }}
+            {{ mgr.points|floatformat }}
         </td>
-        <td>
-          <img src="{{  mgr.icon }}" width="20" height="20">
-        </td>
+          <td>
+              {% for player in teams|get_item:mgr.id %}
+                  {% if forloop.last %}
+                        {{ player.linked_name }}
+                  {% else %}
+                        {{ player.linked_name }},
+                  {% endif %}
+              {% endfor %}
+          </td>
        </tr>
        {% endfor %}
     </table>
+
+</div>
+
 {% endblock standings %}

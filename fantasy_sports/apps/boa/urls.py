@@ -7,7 +7,7 @@ app_name = 'boa'
 urlpatterns = [
     re_path(
         r'^home/$',
-        views.Home.as_view(),
+        views.MyLeagues.as_view(),
         name='home'
     ),
     re_path(
@@ -19,6 +19,11 @@ urlpatterns = [
         r'^find_league/$',
         views.FindLeague.as_view(),
         name='find_league'
+    ),
+    re_path(
+        r'^league/(?P<pk>\d+)/join$',
+        views.JoinLeague.as_view(),
+        name='join_league'
     ),
     re_path(
         r'^my_leagues/$',
@@ -34,5 +39,10 @@ urlpatterns = [
         r'^league/(?P<pk>\d+)/update$',
         views.UpdateLeague.as_view(),
         name='update_league'
+    ),
+    re_path(
+        r'^results$',
+        views.ResultView.as_view(),
+        name='results'
     ),
 ]

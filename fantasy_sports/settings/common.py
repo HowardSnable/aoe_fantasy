@@ -105,3 +105,4 @@ STATIC_URL = '/static/'
 
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+

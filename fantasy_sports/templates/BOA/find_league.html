@@ -9,5 +9,34 @@
     <div class="panel-body">
         {% crispy form %}
     </div>
+
+    <div class="panel-body">
+         <table align="left">
+               <tr>
+                    <th>Name</th>
+                    <th>Managers</th>
+                    <th>Max. Managers</th>
+                </tr>
+            {% for league in leagues %}
+              <tr>
+                  <td>
+                    {{ league.name }}
+                  </td>
+                   <td>
+                    {{ league.name }}
+                  </td>
+                   <td>
+                    {{ league.max_teams_per_league }}
+                  </td>
+                  <td>
+                           <form action="{% url 'boa:join_league' league.id %}" method="get">
+                            {% csrf_token %}
+                            <input type="submit" value="Join">
+                        </form>
+                  </td>
+              </tr>
+             {% endfor %}
+         </table>
+    </div>
 </div>
 {% endblock content %}

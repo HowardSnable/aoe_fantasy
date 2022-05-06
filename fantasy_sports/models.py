@@ -6,7 +6,7 @@ class AbstractLeague(models.Model):
     name = models.CharField(max_length=50, unique=True)
     administrator = models.ForeignKey(User, on_delete=models.PROTECT)
     date_created = models.DateField(auto_now_add=True)
-    is_public = models.BooleanField(default=True)
+    is_public = models.BooleanField(default=False)
 
     class Meta:
         abstract = True

@@ -2,32 +2,80 @@
 {% load crispy_forms_tags %}
 
 {% block team %}
-        <div  class="container">
+        <div  class="panel-body">
         <h4>My Players:</h4>
 
-       <table align="left">
+       <table class="table-row" style="float: left">
         <tr>
             <th>Name</th>
             <th>Points</th>
-           <th>Team</th>
         </tr>
     {% for plr in my_players %}
       <tr>
          <td>
-           {{ plr.name }}
+           {{ plr.compact_linked }}
         </td>
           <td>
-           {{ plr.points }}
-        </td>
-            <td>
-           {{ plr.team.name }}
+           {{ plr.get_points|floatformat }}
         </td>
        </tr>
        {% endfor %}
     </table>
         </div>
-        <div   class="container">
+<div  class="panel-body">
         <h4>My Line-Up:</h4>
+            <table class="table-row" style="float: left">
+                <tr>
+                    <th>Flank</th>
+                    <th>Pocket</th>
+                    <th>Flank</th>
+                    <th></th>
+                </tr>
+
+               {% if my_lineup %}
+                <tr>
+                    <td> {{ my_lineup.flank1 }} </td>
+                    <td> {{ my_lineup.pocket }} </td>
+                    <td> {{ my_lineup.flank2 }} </td>
+                    <td></td>
+                </tr>
+              {% endif %}
+            {% if is_matchday %}
+                 </table>
+                You cannot change your lineup when while games are played!
+            {% else %}
+
+             <form action="" method="POST" id="set_lineup">
+                            {% csrf_token %}
+
+               <tr>
+                    <td> {{ lineup_form.flank1 }} </td>
+                    <td> {{ lineup_form.pocket }} </td>
+                    <td> {{ lineup_form.flank2 }} </td>
+                   <td></td>
+               </tr>
+                 <tr>
+                     {% for choice in lineup_form.captain %}
+                 <td align="canter">
+                  <span class="radio" align="center">
+                      {{ choice.tag }}
+                        <div class="tooltip2"> {{ choice.choice_label }}
+                            <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captains's performance will have a higher impact on your points.</span></span>
+                         </div>
+                    </span>
+                 </td>
+                {% endfor %}
+             </tr>
+                 <tr>
+                       <td>
+                   <input type="submit" value="Change" name="lineup_button">
+                </td>
+                 </tr>
+
+            </form>
+                 </table>
+                {% endif %}
+
         </div>
 
 {% endblock team %}

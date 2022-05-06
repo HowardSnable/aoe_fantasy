@@ -20,7 +20,7 @@ $color-form-highlight: #EEEEEE;
 }
 
 body {
-	padding:$base-spacing-unit;
+	padding:24px;
 	font-family:'Source Sans Pro', sans-serif;
 	margin:0;
 	background :#faebd7;
@@ -31,36 +31,38 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 
-.container {
-	max-width: 1000px;
-	margin-right:auto;
-	margin-left:auto;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:100vh;
-}
-
-.table {
-	width:100%;
-	border:1px solid $color-form-highlight;
-}
-
-.table-header {
-	display:flex;
-	width:100%;
-	background:#000;
-	padding:($half-spacing-unit * 1.5) 0;
-}
+.top-corner{
+   position:absolute;
+   top:0;
+   right:0;
+  }
 
 .table-row {
-	display:flex;
+    overflow:visible;
+    overflow-x:auto;
+    overflow-y:visible;
+    display:block;
 	width:100%;
-	padding:($half-spacing-unit * 1.5) 0;
-	&:nth-of-type(odd) {
-		background:$color-form-highlight;
-	}
+	padding:0px 0px;
 }
+
+
+.table-row th {
+background-color: #EEEEEE;
+}
+.table-row th, td {
+  padding: 5px;
+  text-align: left;
+}
+.table-row tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.highlight_row{
+    font-weight: bold;
+}
+
+tr:hover {background-color: #EEEEEE;}
 
 .table-data, .header__item {
 	flex: 1 1 20%;
@@ -97,4 +99,61 @@ h1,h2,h3,h4,h5,h6 {
 		content: '(asc)';
 	}
 
+}
+/* Tooltip container */
+.tooltip2 {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip2 .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip2 .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip2:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  visibility: hidden;
 }

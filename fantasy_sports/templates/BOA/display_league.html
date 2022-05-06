@@ -23,17 +23,17 @@
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane container active" id="team">
+        <div class="tab-pane auto {% if tab == 'transfer' %} fade {% else %} active {% endif %}" id="team">
             {% include "boa/display_team.html" %}
             {% block team %}
             {% endblock team %}
         </div>
-        <div class="tab-pane container fade" id="standings">
+        <div class="tab-pane auto fade" id="standings">
             {% include "boa/display_standings.html" %}
             {% block standings %}
             {% endblock standings %}
         </div>
-        <div class="tab-pane container fade" id="transfer">
+        <div class="tab-pane auto {% if tab == 'transfer' %}active {% else %} fade {% endif %}" id="transfer">
             {% include "boa/display_transfers.html" %}
             {% block transfers %}
             {% endblock transfers %}
@@ -41,11 +41,12 @@
       </div>
 
     </div>
-
-    <div class="panel-footer">
          {% if object.administrator == request.user %}
+    <div class="panel-footer">
+
         <p><a href="{% url 'boa:update_league' object.id %}">League Settings</a></p>
-        {% endif %}
+
     </div>
+              {% endif %}
 </div>
 {% endblock content %}

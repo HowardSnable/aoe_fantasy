@@ -1,0 +1,13 @@
+League invite bzw password
+League manager limit
+
+Sortierbare Results
+Ideales Lineup
+
+clean models
+tests schreiben
+
+Budget Position fixen
+inline offers
+team icons
+Fix Tooltips 
