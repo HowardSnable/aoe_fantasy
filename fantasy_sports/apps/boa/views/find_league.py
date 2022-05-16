@@ -2,6 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.contrib import messages
+from datetime import date
+from .filters import subtract_date
+
 from ..forms import FindBoaLeagueForm
 from ..models import League
 
@@ -18,10 +21,13 @@ class FindLeague(LoginRequiredMixin, ListView):
         context = super(FindLeague, self).get_context_data(**kwargs)
 
         if not self.leagues:
-            self.leagues = League.objects.filter(is_public=True)
+            full_league_ids = [ll.id for ll in League.objects.all() if ll.is_full() == True]
+            self.leagues = League.objects.exclude(id__in=full_league_ids)
         context.update({
             'leagues': self.leagues,
-            'form': FindBoaLeagueForm()})
+            'form': FindBoaLeagueForm(),
+            'today': date.today()
+        })
         return context
 
     def get(self, request, *args, **kwargs):
@@ -31,13 +37,17 @@ class FindLeague(LoginRequiredMixin, ListView):
         form = FindBoaLeagueForm(request.POST or None)
         self.object_list = self.get_queryset()
         if form.is_valid():
-            self.leagues = League.objects.filter(name__icontains=form.cleaned_data.get('name'))
+            full_league_ids = [ll.id for ll in League.objects.all() if ll.is_full() == True]
+            self.leagues = League.objects.\
+                filter(name__icontains=form.cleaned_data.get('name')).\
+                exclude(id__in=full_league_ids)
+
             if not self.leagues:
                 messages.info(
                     request,
-                    'League not found.'
+                    'No leagues found.'
                 )
         else:
-            self.leagues = League.objects.filter(is_public=True)
+            self.leagues = League.objects.filter(is_full=False)
         return self.render_to_response(self.get_context_data())
 

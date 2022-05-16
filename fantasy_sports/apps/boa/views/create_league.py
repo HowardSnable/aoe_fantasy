@@ -15,16 +15,11 @@ class CreateLeague(LoginRequiredMixin, CreateView):
     http_method_names = [u'get', u'post']
     template_name = 'boa/create_league.html'
 
-    widgets = {
-        'password': forms.PasswordInput(),
-    }
-
     def get_success_url(self):
         return self.object.get_absolute_url()
 
     def post(self, request, *args, **kwargs):
         form = CreateBoaLeagueForm(request.POST)
-
         if form.is_valid():
             league = form.save(commit=False)
             league.administrator = request.user

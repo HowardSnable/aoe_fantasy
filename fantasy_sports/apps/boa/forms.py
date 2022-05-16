@@ -19,19 +19,23 @@ class CreateBoaLeagueForm(forms.ModelForm):
             'name',
             'max_teams_per_league',
             'is_public',
+            'password',
         )
 
         labels = {
             'name': 'League name',
             'max_teams_per_league': 'Number of teams in league',
             'is_public': 'Publicly visible',
+            'password': 'Password',
         }
 
         help_texts = {
             'is_public': 'Will this league be publicly visible?',
+            'password': 'Set a password if you want the league to be private',
         }
 
         widgets = {
+            'password': forms.PasswordInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -45,7 +49,7 @@ class CreateBoaLeagueForm(forms.ModelForm):
         self.helper.layout = Layout(
             'name',
             'max_teams_per_league',
-            'is_public',
+            'password',
             Submit('submit', 'Create League', css_class='col-xs-offset-4'),
         )
 
@@ -71,20 +75,20 @@ class UpdateBoaLeagueForm(CreateBoaLeagueForm):
 
 class FindBoaLeagueForm(forms.Form):
 
-    name = forms.CharField(max_length=20)
+    name = forms.CharField(max_length=20, label="", required=False)
 
     def __init__(self, *args, **kwargs):
         super(FindBoaLeagueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-8'
+        self.helper.form_class = 'form-inline'
+        self.helper.label_class = 'col-xs-6'
+        self.helper.field_class = 'col-xs-4'
         self.helper.form_method = 'post'
         self.helper.form_action = reverse_lazy('boa:find_league')
         self.helper.layout = Layout(
             'name',
-            Submit('submit', 'Find League', css_class='col-xs-offset-4'),
+            Submit('submit', 'Find League', css_class='col-xs'),
         )
 
 

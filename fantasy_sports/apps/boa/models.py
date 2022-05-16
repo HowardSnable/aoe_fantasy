@@ -18,7 +18,7 @@ from fantasy_sports.models import (
 
 class League(AbstractLeague):
 
-    max_teams_per_league = models.PositiveIntegerField()
+    max_teams_per_league = models.PositiveIntegerField(default=10)
     max_players_per_team = models.PositiveIntegerField(default=MAX_PLAYERS_PER_TEAM)
     points_per_match_win = models.FloatField(default=POINTS_PER_MATCH_WIN)
     points_per_match_loss = models.FloatField(default=POINTS_PER_MATCH_LOSS)
@@ -26,7 +26,7 @@ class League(AbstractLeague):
     captain_factor = models.FloatField(default=CAPTAIN_FACTOR)
     points_for_position = models.FloatField(default=POINTS_FOR_POSITION)
     transfers_per_day = models.IntegerField(default=TRANSFERS_PER_DAY)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=50, blank=True)
     @property
     def is_administrator_valid(self):
         admin = self.administrator
@@ -37,6 +37,12 @@ class League(AbstractLeague):
 
     def get_absolute_url(self):
         return reverse_lazy('boa:display_league', args=[str(self.id)])
+
+    def get_mgr_count(self):
+        return Manager.objects.filter(league=self).count()
+
+    def is_full(self):
+        return self.get_mgr_count() >= self.max_teams_per_league
 
 
 class Manager(AbstractManager):
