@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from ..models import Result, MatchDay
 
 
-class ResultView(LoginRequiredMixin, TemplateView):
+class ResultView(TemplateView):
     http_method_names = [u'get']
     template_name = 'boa/results.html'
 
