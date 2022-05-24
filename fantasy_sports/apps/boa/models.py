@@ -72,6 +72,7 @@ class Team(models.Model):
     def linked_name(self):
         return mark_safe(f"""<a href="{self.liquipedia}">
                           <img src="{ f'{settings.STATIC_URL}icons/teams/{self.icon}' }"
+                          height="18"
                           title="{self.long_name}">
                           </a>""")
 
@@ -119,7 +120,7 @@ class Player(AbstractPlayer):
         return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
     def compact_linked(self):
-        return mark_safe(f'{self.linked_name()} {self.team.linked_name()}')
+        return mark_safe(f' {self.team.linked_name()}{self.linked_name()}')
 
     def networth(self, t_start, t_end):
         transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
@@ -127,7 +128,7 @@ class Player(AbstractPlayer):
                                          end_date__gte=t_start,
                                          end_date__lte=t_end)
         if transfers:
-            return sum(transfers) / transfers.count, transfers.count()
+            return sum([ofr.price for ofr in transfers]) / transfers.count(), transfers.count()
         else:
             return self.def_price, 0
 
