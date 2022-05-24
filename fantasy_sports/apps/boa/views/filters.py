@@ -3,7 +3,8 @@ import datetime
 
 @register.filter
 def get_item(dictionary, key):
-    return dictionary.get(key)
+    if dictionary:
+        return dictionary.get(key)
 
 @register.filter(name='subtract_date')
 def subtract_date(value, arg):

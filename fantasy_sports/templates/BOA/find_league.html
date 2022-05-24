@@ -1,5 +1,6 @@
 {% extends "fantasy_sports/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 <div class="panel panel-primary">
@@ -37,7 +38,7 @@
                        </td>
                        <td style="text-align:center;">
                            {% if league.password %}
-                                <img src="../static/icons/password.png" width="20" height="20">
+                                <img src="{% static 'icons/password.png' %}" width="20" height="20">
                            {%  endif %}
                        </td>
                   <td>  {% csrf_token %}

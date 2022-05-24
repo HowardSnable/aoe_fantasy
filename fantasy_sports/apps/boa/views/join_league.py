@@ -20,7 +20,10 @@ class JoinLeague(LoginRequiredMixin, CreateView):
         my_league_id = kwargs['pk']
         league = League.objects.get(id=my_league_id)
 
-        form = JoinBoaLeagueForm()
+        if league.password:
+            form = JoinBoaLeagueForm(pw=True)
+        else:
+            form = JoinBoaLeagueForm(pw=False)
 
         context.update({
             'league': league,
@@ -33,16 +36,37 @@ class JoinLeague(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         print(request.POST)
-        form = JoinBoaLeagueForm(request.POST)
 
         my_league_id = kwargs['pk']
         league = League.objects.get(id=my_league_id)
 
+        has_password = bool(league.password)
+        form = JoinBoaLeagueForm(request.POST, pw=has_password)
+
         if form.is_valid():
+
             manager = form.save(commit=False)
             manager.league = league
             manager.user = self.request.user
 
+            # check password
+            if league.password and not('password' in form.cleaned_data
+                                       and form.cleaned_data['password'] == league.password):
+                form.add_error(
+                    None,
+                    f'Invalid password.'
+                )
+                return self.form_invalid(form)
+
+            #check team count
+            if Manager.objects.filter(league=league).count() >= league.max_teams_per_league:
+                form.add_error(
+                    None,
+                    f'This league is full.'
+                )
+                return self.form_invalid(form)
+
+            #check if already in league and team name
             for other_manager in Manager.objects.filter(league=league):
                 if manager.user == other_manager.user:
                     form.add_error(

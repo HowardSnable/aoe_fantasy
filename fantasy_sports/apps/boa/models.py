@@ -74,6 +74,10 @@ class Team(models.Model):
     def long_linked_name(self):
         return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
 
+    def get_top_worth(self, t_start, t_end):
+        values = [plr.networth(t_start, t_end)[0] for plr in Player.objects.filter(team=self)]
+        return sum(values)
+
 
 class Player(AbstractPlayer):
     manager = models.ManyToManyField(Manager, blank=True)
@@ -113,15 +117,27 @@ class Player(AbstractPlayer):
     def compact_linked(self):
         return mark_safe(f'{self.linked_name()} ({self.team.linked_name()})')
 
+    def networth(self, t_start, t_end):
+        transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
+                                         player=self,
+                                         end_date__gte=t_start,
+                                         end_date__lte=t_end)
+        if transfers:
+            return sum(transfers) / transfers.count, transfers.count()
+        else:
+            return self.def_price, 0
+
     def __str__(self):
         return self.name
 
 
 class MatchDay(models.Model):
     ROUND_CHOICES = (
-        ('128', 'Round of 128'),
-        ('64', 'Round of 64'),
-        ('32', 'Round of 32'),
+       # ('128', 'Round of 128'),
+       # ('64', 'Round of 64'),
+        ('G1', 'Group stage round 1'),
+        ('G2', 'Group stage round 2'),
+        ('G3', 'Group stage round 3'),
         ('16', 'Round of 16'),
         ('8', 'Quarter-Finals'),
         ('4', 'Semi-Finals'),

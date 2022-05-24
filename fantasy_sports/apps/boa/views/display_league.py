@@ -1,4 +1,5 @@
-import datetime
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
@@ -116,8 +117,7 @@ class DisplayLeague(LoginRequiredMixin, View):
         users_in_league = [mgr.user for mgr in context.get("all_managers")]
 
         if request.user not in users_in_league:
-            raise PermissionDenied
-
+            return redirect(reverse_lazy('boa:join_league', args=[str(my_league_id)]))
         forms = get_forms(context)
         context.update(forms)
 

@@ -3,14 +3,9 @@
 
 {% block transfer %}
 
-
-        <div class="panel-body">
-              <h5>My Budget: {{ manager.budget }}</h5>
-        </div>
-
-
-         <div   class="panel-body" >
-              <h4>Available Players</h4>
+ <table><tr><td>
+    <div   class="panel-body" >
+            <h4>Available Players:</h4>
                 {% if transfer_market  %}
                <table align="left" class="table-row">
                <tr>
@@ -53,7 +48,9 @@
             {% else %}
             None
             {% endif %}
-        </div>
+
+</div>
+
 
         {% if my_players %}
         <div class="panel-body">
@@ -114,6 +111,7 @@
                </tr>
                {% endfor %}
             {% endif %}
+            {% if transfer_market %}
             <tr>
                 <form method="POST" action="" id="offer_form">{% csrf_token %}
                 {% for field in offer_form.visible_fields %}
@@ -127,6 +125,7 @@
 
             </form>
             </tr>
+            {% endif %}
             </table>
 
         </div>
@@ -230,4 +229,9 @@
 
         </div>
 {% endif %}
+</td>
+<td align="top"><h5 align="right">Budget: {{ manager.budget }}</h5></td>
+</tr>
+</table>
+
 {% endblock transfer %}
