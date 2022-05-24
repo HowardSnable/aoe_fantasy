@@ -6,3 +6,4 @@ from .display_league import DisplayLeague
 from .update_league import UpdateLeague
 from .join_league import JoinLeague
 from .results_view import ResultView
+from .market_info_view import MarketInfoView

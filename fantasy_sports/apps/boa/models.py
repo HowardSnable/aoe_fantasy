@@ -75,8 +75,8 @@ class Team(models.Model):
         return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
 
     def get_top_worth(self, t_start, t_end):
-        values = [plr.networth(t_start, t_end).first() for plr in Player.objects.filter(team=self)]
-        return values.sort(reverse=True)
+        values = [plr.networth(t_start, t_end)[0] for plr in Player.objects.filter(team=self)]
+        return sum(values)
 
 
 class Player(AbstractPlayer):
@@ -117,11 +117,11 @@ class Player(AbstractPlayer):
     def compact_linked(self):
         return mark_safe(f'{self.linked_name()} ({self.team.linked_name()})')
 
-    def get_networth(self, t_start, t_end):
-        transfers = Offer.objects.filter(accepted=True,
+    def networth(self, t_start, t_end):
+        transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
                                          player=self,
                                          end_date__gte=t_start,
-                                         end_date__let=t_end)
+                                         end_date__lte=t_end)
         if transfers:
             return sum(transfers) / transfers.count, transfers.count()
         else:

@@ -45,4 +45,9 @@ urlpatterns = [
         views.ResultView.as_view(),
         name='results'
     ),
+    re_path(
+        r'^market_info$',
+        views.MarketInfoView.as_view(),
+        name='market_info'
+    ),
 ]

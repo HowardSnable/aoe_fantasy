@@ -1,10 +1,10 @@
 Sortierbare Results
 Ideales Lineup
+Sidebar Icons
 
 clean models
 tests schreiben
 
 Budget Position fixen
-inline offers
 team icons
 Fix Tooltips 
