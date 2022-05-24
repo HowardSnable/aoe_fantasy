@@ -46,12 +46,14 @@
         <div class="tab-pane auto  fade" id="teams">
          <table class="table-row" style="float: left">
         <tr>
+            <th></th>
             <th>Team</th>
             <th>Value Top 3</th>
             <th>Players</th>
             </tr>
         {% for team in team_data %}
           <tr>
+              <td>{{ team.0.linked_name }}</td>
          <td>
            {{ team.0.long_linked_name }}
         </td>
