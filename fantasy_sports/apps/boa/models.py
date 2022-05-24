@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.db import models
 from django.conf import settings
 
+
 from django.utils.safestring import mark_safe
 from fantasy_sports.models import (
     AbstractManager,
@@ -69,7 +70,10 @@ class Team(models.Model):
         return self.name
 
     def linked_name(self):
-        return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
+        return mark_safe(f"""<a href="{self.liquipedia}">
+                          <img src="{ f'{settings.STATIC_URL}icons/teams/{self.icon}' }"
+                          title="{self.long_name}">
+                          </a>""")
 
     def long_linked_name(self):
         return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
@@ -115,7 +119,7 @@ class Player(AbstractPlayer):
         return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
     def compact_linked(self):
-        return mark_safe(f'{self.linked_name()} ({self.team.linked_name()})')
+        return mark_safe(f'{self.linked_name()} {self.team.linked_name()}')
 
     def networth(self, t_start, t_end):
         transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
