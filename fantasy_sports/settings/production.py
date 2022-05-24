@@ -9,9 +9,9 @@ SECRET_KEY = environ.get('SECRET_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_SUBJECT_PREFIX = '[Fantasy Sports] '
+EMAIL_SUBJECT_PREFIX = '[BoA3 Fantasy League] '
 
-ALLOWED_HOSTS = ['rbennett.io']
+ALLOWED_HOSTS = ['*']
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
