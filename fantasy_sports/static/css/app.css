@@ -62,7 +62,7 @@ background-color: #EEEEEE;
     font-weight: bold;
 }
 
-tr:hover {background-color: #EEEEEE;}
+.table-row tr:hover {background-color: #EEEEEE;}
 
 .table-data, .header__item {
 	flex: 1 1 20%;

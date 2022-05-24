@@ -13,6 +13,7 @@
                     <th>Points</th>
                     <th>Manager</th>
                     <th>Price</th>
+                   <th></th>
                 </tr>
             {% for trm in transfer_market %}
               <tr>
@@ -52,7 +53,7 @@
 </div>
 
 </td>
-<td style="vertical-align:top;   width: fill; padding:10px;"><h5 align="right">Budget: {{ manager.budget }}</h5></td>
+<td style="vertical-align:top;   width: fill; padding:15px;"><b align="right">Budget: {{ manager.budget }}</b></td>
 </tr>
 </table>
 
@@ -61,7 +62,7 @@
              <h4>Put on Transfer Market:</h4>
             <form action="" method="POST" id="create_transfer_form">
                             {% csrf_token %}
-                <table class="table-row"><tr>
+                <table><tr>
                   {% for field in  transfer_form.visible_fields %}
                 <td>
                     {{ field }}
@@ -85,6 +86,7 @@
                     <th>Price</th>
                    <th>Expiration Date</th>
                     <th>Manager</th>
+                    <th></th>
                 </tr>
 
             {% for ofr in offers_out %}
@@ -116,7 +118,7 @@
                {% endfor %}
             {% endif %}
             {% if transfer_market %}
-            <tr>
+             <tr style="pointer-events: none;">
                 <form method="POST" action="" id="offer_form">{% csrf_token %}
                 {% for field in offer_form.visible_fields %}
                 <td>
