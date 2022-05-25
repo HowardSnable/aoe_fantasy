@@ -12,8 +12,9 @@
         </tr>
     {% for plr in my_players %}
       <tr>
-         <td>
+         <td> {% if plr.team.is_alive is False %} <del> {% endif %}
            {{ plr.compact_linked }}
+             {% if plr.team.is_alive is False %} </del> {% endif %}
         </td>
           <td>
            {{ plr.get_points|floatformat }}

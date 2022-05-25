@@ -191,7 +191,7 @@ class LineUp(models.Model):
     flank1 = models.ForeignKey(Player, related_name='flank1', on_delete=models.CASCADE, null=True, blank=True)
     pocket = models.ForeignKey(Player, related_name='pocket', on_delete=models.CASCADE, null=True, blank=True)
     flank2 = models.ForeignKey(Player, related_name='flank2', on_delete=models.CASCADE, null=True, blank=True)
-    matchday = models.ForeignKey(Player, related_name='match_day', on_delete=models.CASCADE, null=True)
+    matchday = models.ForeignKey(MatchDay, related_name='l_match_day', on_delete=models.CASCADE, null=True)
     manager = models.OneToOneField(Manager, related_name='lineup_manager', on_delete=models.CASCADE, primary_key=True)
 
     def compute_points(self,  matchday: MatchDay, league: League):
@@ -224,35 +224,43 @@ class LineUp(models.Model):
 class Game(models.Model):
     # A single 3v3 game
 
-    match = models.ForeignKey(Match, related_name='match', on_delete=models.CASCADE)
+    match = models.ForeignKey(Match, related_name='match',
+                              on_delete=models.CASCADE)
 
-    w1 = models.ForeignKey(Player, related_name='w1', on_delete=models.CASCADE)
+    w1 = models.ForeignKey(Player, related_name='w1',
+                           on_delete=models.CASCADE,
+                           )
     #pocket
-    w2 = models.ForeignKey(Player, related_name='w2', on_delete=models.CASCADE)
-    w3 = models.ForeignKey(Player, related_name='w3', on_delete=models.CASCADE)
+    w2 = models.ForeignKey(Player, related_name='w2',
+                           on_delete=models.CASCADE,
+                           )
+    w3 = models.ForeignKey(Player,
+                           related_name='w3',
+                           on_delete=models.CASCADE,
+                           )
 
     l1 = models.ForeignKey(Player,
                            related_name='l1',
                            on_delete=models.CASCADE,
-                           limit_choices_to={'team.is_alive': True})
+                           )
     # pocket
     l2 = models.ForeignKey(Player,
                            related_name='l2',
                            on_delete=models.CASCADE,
-                           limit_choices_to={'team.is_alive': True})
+                           )
     l3 = models.ForeignKey(Player,
                            related_name='l3',
                            on_delete=models.CASCADE,
-                           limit_choices_to={'team.is_alive': True})
+                           )
 
     mvp1 = models.ForeignKey(Player,
                              related_name='mvp1',
                              on_delete=models.CASCADE,
-                             limit_choices_to={'team.is_alive': True})
+                             )
     mvp2 = models.ForeignKey(Player,
                              related_name='mvp2',
                              on_delete=models.CASCADE,
-                             limit_choices_to={'team.is_alive': True})
+                             )
 
     def get_winners(self):
         return [self.w1, self.w2, self.w3]

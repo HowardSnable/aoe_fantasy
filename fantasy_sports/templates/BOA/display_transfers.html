@@ -17,11 +17,12 @@
                 </tr>
             {% for trm in transfer_market %}
               <tr>
-                 <td>
+                 <td>{% if trm.player.team.is_alive is False %} <del> {% endif %}
                    {{ trm.player.compact_linked }}
+                     {% if trm.player.team.is_alive is False %} </del> {% endif %}
                 </td>
                   <td>
-                   {{ trm.player.get_points }}
+                   {{ trm.player.get_points|floatformat }}
                 </td>
                   <td>
                     {% if trm.manager  is None %}

@@ -1,5 +1,3 @@
-Sortierbare Results
 Games Flank überprüfen
-
-clean models
-tests schreiben
+Regeln
+Sortierbare Results
