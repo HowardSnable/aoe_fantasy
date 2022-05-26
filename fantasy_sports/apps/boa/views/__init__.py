@@ -1,4 +1,3 @@
-from .home import Home
 from .create_league import CreateLeague
 from .find_league import FindLeague
 from .my_leagues import MyLeagues
@@ -7,3 +6,4 @@ from .update_league import UpdateLeague
 from .join_league import JoinLeague
 from .results_view import ResultView
 from .market_info_view import MarketInfoView
+from .rules import RulesView

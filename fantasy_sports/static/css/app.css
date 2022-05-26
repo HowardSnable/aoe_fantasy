@@ -8,7 +8,7 @@ div.subitem a.list-group-item {
 $base-spacing-unit: 24px;
 $half-spacing-unit: $base-spacing-unit / 2;
 
-$color-alpha: #1772FF;
+$color-alpha: #FF7217;
 $color-form-highlight: #EEEEEE;
 
 *, *:before, *:after {
