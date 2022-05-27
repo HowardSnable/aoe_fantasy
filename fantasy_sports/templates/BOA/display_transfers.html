@@ -119,7 +119,7 @@
                {% endfor %}
             {% endif %}
             {% if transfer_market %}
-             <tr style="pointer-events: none;">
+             <tr>
                 <form method="POST" action="" id="offer_form">{% csrf_token %}
                 {% for field in offer_form.visible_fields %}
                 <td>

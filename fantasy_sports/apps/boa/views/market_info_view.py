@@ -18,7 +18,7 @@ class MarketInfoView(TemplateView):
 
         player_data = zip(players, [p.networth(t_start, t_end) for p in players])
         player_data = sorted(player_data, key=lambda x: x[1], reverse=True)
-        team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end) for t in teams])
+        team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end, 3) for t in teams])
         team_data = sorted(team_data, key=lambda x: x[2], reverse=True)
 
         context.update({

@@ -47,10 +47,9 @@ class League(AbstractLeague):
 
 
 class Manager(AbstractManager):
-    START_BUDGET = 1000
     points = models.FloatField(default=0)
     budget = models.IntegerField(default=START_BUDGET)
-    icon = models.TextField(default='')
+    icon = models.TextField(default='', blank=True)
     name = models.CharField(default='Team', max_length=20)
 
     league = models.ForeignKey(League, on_delete=models.CASCADE)
@@ -79,9 +78,10 @@ class Team(models.Model):
     def long_linked_name(self):
         return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
 
-    def get_top_worth(self, t_start, t_end):
+    def get_top_worth(self, t_start, t_end, max_p: int):
         values = [plr.networth(t_start, t_end)[0] for plr in Player.objects.filter(team=self)]
-        return sum(values)
+        values.sort(reverse=True)
+        return sum(values[:max_p])
 
 
 class Player(AbstractPlayer):
@@ -168,7 +168,7 @@ class Match(models.Model):
     score = models.TextField(null=True, blank=True)
     date_played = models.DateTimeField(default=None, null=True)
     number_games = models.PositiveIntegerField(default=1)
-    winner = models.IntegerField(default=0)  # 0: not yet played, 1: team1, 2: team2
+    winner = models.IntegerField(default=0, null=True)  # 0: not yet played, 1: team1, 2: team2
 
     team1 = models.ForeignKey(Team, related_name='team1', on_delete=models.CASCADE)
     team2 = models.ForeignKey(Team, related_name='team2', on_delete=models.CASCADE)

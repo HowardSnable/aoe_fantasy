@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import CreateView, FormView
 from django import forms
+from ..management.commands.roll_transfers import add_transfers
 
 from ..forms import CreateBoaLeagueForm
 from ..models import League, Manager
@@ -33,7 +34,7 @@ class CreateLeague(LoginRequiredMixin, CreateView):
                 return self.form_invalid(form)
 
             league.save()
-
+            add_transfers(league, [])
 
             messages.success(
                 request,

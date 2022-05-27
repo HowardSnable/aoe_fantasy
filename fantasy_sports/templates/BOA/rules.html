@@ -36,8 +36,8 @@
 </p>
 <u><h4>Points</h4></u>
 <p>
-After each round is completed, the points for all games and
-players are computed as follows:
+After each round is completed, the points for each game and
+player are computed as follows:
 <table>
     <tr>
         <td>Game won</td><td align="right">{{ POINTS_PER_MATCH_WIN|floatformat }}</td>
@@ -57,7 +57,8 @@ players are computed as follows:
 </table>
 If a player does not play in any game of that round, he will get 0 points.
 You will recieve the sum of all your player's points the were fielded when
-the lineup was locked.
+the lineup was locked. An empty spot in your lineup will be punished by
+{{ POINTS_FOR_EMPTY|floatformat }} points for each round.
 </p>
 
 <u><h4>Transfer Market</h4></u>

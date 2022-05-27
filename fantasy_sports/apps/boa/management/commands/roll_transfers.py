@@ -18,7 +18,8 @@ def add_transfers(league, old_transfers):
     new_players = list(
         Player.objects.exclude(
             id__in=old_player_ids).exclude(
-            manager__in=managers)
+            manager__in=managers).exclude(
+            team__is_alive=False)
         )
 
     # add old players until enough or none left
@@ -51,8 +52,8 @@ class Command(BaseCommand):
             add_transfers(league, transfers)
 
             for transfer in transfers:
-                for offer in Offer.objects.filter(league=league, player=transfer.player):
-                    offer.delete()
+            #     for offer in Offer.objects.filter(league=league, player=transfer.player):
+            #         offer.decline()
                 transfer.delete()
 
 

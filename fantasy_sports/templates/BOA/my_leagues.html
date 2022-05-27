@@ -8,7 +8,7 @@
     </div>
     <div class="panel-body">
         {% if not in_a_league %}
-        <h4>No leagues found for this account. Create one <a href="{% url 'boa:create_league' %}">here.</a></h4>
+        <h4>No leagues found for this account. Find a league <a href="{% url 'boa:find_league' %}">here</a> or create one <a href="{% url 'boa:create_league' %}">here.</a></h4>
         {% else %}
 
         <h4>Leagues that I administrate:</h4>

@@ -2,7 +2,7 @@ from datetime import datetime, timezone, timedelta
 from types import SimpleNamespace
 
 from django.conf import settings
-
+import datetime
 from django.core.management.base import BaseCommand
 
 from fantasy_sports.apps.boa.models import *
@@ -15,8 +15,9 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-
+        logging.info(f'Transfers computed on: {datetime.datetime.utcnow()}. \n')
         for league in League.objects.all():
+            logging.info(f'Transfers for league: {league}. \n')
             for player in Player.objects.all():
                 offers = Offer.objects.filter(
                     league=league,
@@ -30,6 +31,7 @@ class Command(BaseCommand):
                 if not offer_list:
                     continue
 
+                logging.info(f'Transfers for player: {player}.')
                 best_offer = offer_list[0]
 
                 # has to pay minimum price

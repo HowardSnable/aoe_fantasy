@@ -35,9 +35,15 @@
 
                {% if my_lineup %}
                 <tr>
-                    <td> {{ my_lineup.flank1 }} </td>
-                    <td> {{ my_lineup.pocket }} </td>
-                    <td> {{ my_lineup.flank2 }} </td>
+                    <td>{% if my_lineup.captain is 1 %} <u> {% endif %}
+                        {{ my_lineup.flank1 }}
+                    {% if my_lineup.captain is 1 %} </u> {% endif %}</td>
+                    <td>{% if my_lineup.captain is 2 %} <u> {% endif %}
+                        {{ my_lineup.pocket }}
+                          {% if my_lineup.captain is 2 %} </u> {% endif %}</td>
+                    <td>  {% if my_lineup.captain is 3 %} <u> {% endif %}
+                    {{ my_lineup.flank2 }}
+                      {% if my_lineup.captain is 3 %} </u> {% endif %}</td>
                     <td></td>
                 </tr>
               {% endif %}
@@ -67,7 +73,7 @@
                  </td>
                 {% endfor %}
              </tr>
-                 <tr style="pointer-events: none;">
+                 <tr >
                        <td>
                    <input type="submit" value="Change" name="lineup_button">
                 </td>

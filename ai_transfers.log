@@ -1,0 +1,115 @@
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:root:Transfers computed on: 2022-05-27 19:50:07.556470. 
+
+INFO:root:Transfers for league: LB. 
+
+INFO:root:Transfers for league: LC. 
+
+INFO:root:Transfers for league: LD. 
+
+INFO:root:Transfers for league: LA. 
+
+INFO:root:Transfers for player: Viper.
+INFO:root:Accepted: Offer of 1600 for Viper from Team4 to None in league LA.
+INFO:root:Declined: Offer of 1100 for Viper from Team3 to None in league LA.
+INFO:root:Declined: Offer of 800 for Viper from Team2 to None in league LA.
+INFO:root:Transfers for player: Yo.
+INFO:root:Accepted: Offer of 800 for Yo from Team1 to None in league LA.
+INFO:root:Declined: Offer of 700 for Yo from Team2 to None in league LA.
+INFO:root:Transfers for player: Nicov.
+INFO:root:Accepted: Offer of 1200 for Nicov from Team1 to None in league LA.
+INFO:root:Transfers for player: miguel.
+INFO:root:Accepted: Offer of 550 for miguel from Team3 to None in league LA.
+INFO:root:Declined: Offer of 500 for miguel from Team4 to None in league LA.
+INFO:root:Declined: Offer of 200 for miguel from Team2 to None in league LA.
+INFO:root:Transfers for player: slam.
+INFO:root:Accepted: Offer of 550 for slam from Team3 to None in league LA.
+INFO:root:Declined: Offer of 300 for slam from Team2 to None in league LA.
+INFO:root:Transfers for player: Annotoph.
+INFO:root:Accepted: Offer of 500 for Annotoph from Team2 to None in league LA.
+INFO:root:Declined: Offer of 500 for Annotoph from Team1 to None in league LA.
+INFO:root:Transfers computed on: 2022-05-27 19:53:30.324109. 
+
+INFO:root:Transfers for league: LB. 
+
+INFO:root:Transfers for league: LC. 
+
+INFO:root:Transfers for league: LD. 
+
+INFO:root:Transfers for league: LA. 
+
+INFO:root:Transfers for player: TaToH.
+INFO:root:Accepted: Offer of 1200 for TaToH from Team2 to None in league LA.
+INFO:root:Transfers for player: Paladin.
+INFO:root:Accepted: Offer of 550 for Paladin from Team4 to None in league LA.
+INFO:root:Declined: Offer of 500 for Paladin from Team1 to None in league LA.
+INFO:root:Transfers for player: Daniel.
+INFO:root:Accepted: Offer of 800 for Daniel from Team2 to None in league LA.
+INFO:root:Declined: Offer of 350 for Daniel from Team4 to None in league LA.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\management\commands\roll_transfers.py changed, reloading.
+INFO:root:Transfers computed on: 2022-05-27 19:55:27.116239. 
+
+INFO:root:Transfers for league: LB. 
+
+INFO:root:Transfers for league: LC. 
+
+INFO:root:Transfers for league: LD. 
+
+INFO:root:Transfers for league: LA. 
+
+INFO:root:Transfers for player: Liereyy.
+INFO:root:Accepted: Offer of 1300 for Liereyy from Team1 to None in league LA.
+INFO:root:Transfers for player: Lyx.
+INFO:root:Accepted: Offer of 600 for Lyx from Team1 to None in league LA.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\constants.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\rules.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\rules.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\market_info_view.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.
+ERROR:django.request:Internal Server Error: /boa/market_info
+Traceback (most recent call last):
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 101, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 162, in get
+    context = self.get_context_data(**kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\market_info_view.py", line 21, in get_context_data
+    team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end, 3) for t in teams])
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\market_info_view.py", line 21, in <listcomp>
+    team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end, 3) for t in teams])
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py", line 83, in get_top_worth
+    values = values.sort(reverse=True)[:max_p]
+TypeError: 'NoneType' object is not subscriptable
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.
+ERROR:django.request:Internal Server Error: /boa/market_info
+Traceback (most recent call last):
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 101, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\venv\lib\site-packages\django\views\generic\base.py", line 162, in get
+    context = self.get_context_data(**kwargs)
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\market_info_view.py", line 21, in get_context_data
+    team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end, 3) for t in teams])
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\views\market_info_view.py", line 21, in <listcomp>
+    team_data = zip(teams, team_players, [t.get_top_worth(t_start, t_end, 3) for t in teams])
+  File "C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py", line 84, in get_top_worth
+    return sum(values[:max_p])
+TypeError: 'NoneType' object is not subscriptable
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\Kerli\Documents\Programmieren\fantasy\fantasy_sports\apps\boa\models.py changed, reloading.

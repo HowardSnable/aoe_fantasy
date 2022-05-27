@@ -30,11 +30,14 @@ def generate_result(player, matchday, league):
 
 
 def award_points(lineup: LineUp, matchday: MatchDay, league: League):
-    if lineup:
+    if lineup and lineup.get_players():
         points = lineup.compute_points(matchday, league)
         for match in Match.objects.filter(matchday=matchday):
             for game in Game.objects.filter(match=match):
                 points += game.get_points_position(lineup, league)
+
+        # punish empty linueps
+        points += (3 - len(lineup.get_players())) * POINTS_FOR_EMPTY
         manager = lineup.manager
         manager.points += points
         manager.save()

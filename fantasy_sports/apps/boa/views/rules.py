@@ -18,6 +18,7 @@ class RulesView(TemplateView):
             'CAPTAIN_FACTOR': CAPTAIN_FACTOR,
             'POINTS_FOR_POSITION': POINTS_FOR_POSITION,
             'POINT_FOR_MVP': POINT_FOR_MVP,
+            'POINTS_FOR_EMPTY': POINTS_FOR_EMPTY,
         })
 
         return context
