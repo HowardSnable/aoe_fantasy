@@ -25,7 +25,7 @@ def generate_result(player, matchday, league):
                         matchday=matchday,
                         player=player,
                         games_pocket=games_pocket,
-                        games_as_flank=games_flank)
+                        games_flank=games_flank)
         result.save()
 
 
