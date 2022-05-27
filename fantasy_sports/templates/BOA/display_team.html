@@ -7,16 +7,14 @@
 
        <table class="table-row" style="float: left">
         <tr>
-            <th>Name</th>
+            <th colspan="2">Name</th>
             <th>Points</th>
         </tr>
     {% for plr in my_players %}
-      <tr>
-         <td> {% if plr.team.is_alive is False %} <del> {% endif %}
-           {{ plr.compact_linked }}
+      <tr> {% if plr.team.is_alive is False %} <del> {% endif %}
+           {{ plr.table_name }}
              {% if plr.team.is_alive is False %} </del> {% endif %}
-        </td>
-          <td>
+        <td>
            {{ plr.get_points|floatformat }}
         </td>
        </tr>

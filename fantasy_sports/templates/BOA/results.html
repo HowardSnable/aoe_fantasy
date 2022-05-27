@@ -25,16 +25,14 @@
            <div class="tab-pane auto active in" id="all">
                 <table class="table-row" style="float: left">
         <tr>
-            <th>Name</th>
+            <th colspan="2">Name</th>
             <th>Points</th>
             <th>Pocket</th>
             <th> Flank</th>
             </tr>
         {% for res in results|get_item:0 %}
           <tr>
-         <td>
-           {{ res.player.compact_linked }}
-        </td>
+           {{ res.player.table_name }}
           <td>
            {{ res.player.get_points|floatformat }}
         </td>
@@ -52,16 +50,14 @@
         <div class="tab-pane auto  fade" id="{{ mday.id }}">
          <table class="table-row" style="float: left">
         <tr>
-            <th>Name</th>
+            <th colspan="2">Name</th>
             <th>Points</th>
             <th>Pocket</th>
             <th> Flank</th>
             </tr>
         {% for res in results|get_item:mday.id %}
           <tr>
-         <td>
-           {{ res.player.compact_linked }}
-        </td>
+           {{ res.player.table_name }}
           <td>
            {{ res.points|floatformat }}
         </td>

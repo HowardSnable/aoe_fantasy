@@ -9,19 +9,17 @@
                 {% if transfer_market  %}
                <table align="left" class="table-row">
                <tr>
-                    <th>Player</th>
+                    <th colspan="2">Player</th>
                     <th>Points</th>
                     <th>Manager</th>
                     <th>Price</th>
                    <th></th>
                 </tr>
             {% for trm in transfer_market %}
-              <tr>
-                 <td>{% if trm.player.team.is_alive is False %} <del> {% endif %}
-                   {{ trm.player.compact_linked }}
+              <tr>{% if trm.player.team.is_alive is False %} <del> {% endif %}
+                   {{ trm.player.table_name }}
                      {% if trm.player.team.is_alive is False %} </del> {% endif %}
-                </td>
-                  <td>
+                <td>
                    {{ trm.player.get_points|floatformat }}
                 </td>
                   <td>

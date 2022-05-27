@@ -23,15 +23,13 @@
            <div class="tab-pane auto active in" id="players">
                 <table class="table-row" style="float: left">
         <tr>
-            <th>Name</th>
+            <th colspan="2">Name</th>
             <th>Value</th>
             <th>Transfers last week</th>
             </tr>
         {% for player in player_data %}
           <tr>
-         <td>
-           {{ player.0.compact_linked }}
-        </td>
+           {{ player.0.table_name }}
           <td>
            {{ player.1.0|floatformat }}
         </td>

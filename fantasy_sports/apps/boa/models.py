@@ -122,6 +122,9 @@ class Player(AbstractPlayer):
     def compact_linked(self):
         return mark_safe(f' {self.team.linked_name()}{self.linked_name()}')
 
+    def table_name(self):
+        return mark_safe(f' <td>{self.team.linked_name()}</td><td">{self.linked_name()}</td>')
+
     def networth(self, t_start, t_end):
         transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
                                          player=self,
