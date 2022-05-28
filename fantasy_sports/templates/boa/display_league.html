@@ -1,0 +1,52 @@
+{% extends "fantasy_sports/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="text-center">{{ league.name }}</h3>
+        </div>
+
+    <div class="panel-body">
+              <!-- Nav tabs -->
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#team">My Team</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#standings">Standings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#transfer">Transfer Market</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane auto {% if tab == 'transfer' %} fade {% else %} active {% endif %}" id="team">
+            {% include "boa/display_team.html" %}
+            {% block team %}
+            {% endblock team %}
+        </div>
+        <div class="tab-pane auto fade" id="standings">
+            {% include "boa/display_standings.html" %}
+            {% block standings %}
+            {% endblock standings %}
+        </div>
+        <div class="tab-pane auto {% if tab == 'transfer' %}active {% else %} fade {% endif %}" id="transfer">
+            {% include "boa/display_transfers.html" %}
+            {% block transfers %}
+            {% endblock transfers %}
+        </div>
+      </div>
+
+    </div>
+         {% if object.administrator == request.user %}
+    <div class="panel-footer">
+
+        <p><a href="{% url 'boa:update_league' object.id %}">League Settings</a></p>
+
+    </div>
+              {% endif %}
+</div>
+{% endblock content %}
