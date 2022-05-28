@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 from fantasy_sports.apps.boa.models import *
 
 import logging
-logging.basicConfig(filename='./remove_teams.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='./remove_teams.log', level=logging.DEBUG)
 
 
 def validate_args(args):

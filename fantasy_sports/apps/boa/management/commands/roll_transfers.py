@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 from fantasy_sports.apps.boa.models import *
 
 import logging
-logging.basicConfig(filename='./ai_transfers.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)
 
 
 def add_transfers(league, old_transfers):
