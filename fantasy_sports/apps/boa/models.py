@@ -86,12 +86,8 @@ class Team(models.Model):
 
 class Player(AbstractPlayer):
     manager = models.ManyToManyField(Manager, blank=True)
-    liquipedia = models.TextField(default='', blank=True)
-    aoe2net = models.TextField(default='', blank=True)
-    def_price = models.IntegerField(default=0)
-    icon = models.TextField(default='', blank=True)
-    image = models.TextField(default='', blank=True)
-
+    liquipedia = models.TextField(default='', blank=True)   
+    def_price = models.IntegerField(default=100)
     team = models.ForeignKey(Team, related_name='team', on_delete=models.CASCADE)
 
     def get_price(self):

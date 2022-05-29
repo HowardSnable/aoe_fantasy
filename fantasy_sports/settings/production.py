@@ -11,7 +11,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_SUBJECT_PREFIX = '[BoA3 Fantasy League] '
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['raikosef.uber.space', 'localhost']
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

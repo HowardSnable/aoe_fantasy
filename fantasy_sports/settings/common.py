@@ -46,7 +46,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':   [os.path.join(BASE_DIR, 'fantasy_sports/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,9 +98,8 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = reverse_lazy('boa:home')
 LOGIN_URL = reverse_lazy('account_management:login')
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+# Static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # django-crispy-forms
