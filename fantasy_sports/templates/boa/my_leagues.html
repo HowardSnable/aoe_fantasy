@@ -11,14 +11,7 @@
         <h4>No leagues found for this account. Find a league <a href="{% url 'boa:find_league' %}">here</a> or create one <a href="{% url 'boa:create_league' %}">here.</a></h4>
         {% else %}
 
-        <h4>Leagues that I administrate:</h4>
-        <ul>
-            {% for admin_league in admin_leagues %}
-            <li><a href="{% url 'boa:display_league' admin_league.id %}">{{ admin_league }}</a></li>
-            {% empty %}
-            <li>(None)</li> 
-            {% endfor %}
-        </ul>
+      
 
         <h4>Leagues where I'm a member:</h4>
         <ul>
@@ -26,6 +19,15 @@
            <li><a href="{% url 'boa:display_league' league.id %}">{{ league }}</a></li>
             {% empty %}
             <li>(None)</li>
+            {% endfor %}
+        </ul>
+
+ 	<h4>Leagues that I administrate:</h4>
+        <ul>
+            {% for admin_league in admin_leagues %}
+            <li><a href="{% url 'boa:display_league' admin_league.id %}">{{ admin_league }}</a></li>
+            {% empty %}
+            <li>(None)</li> 
             {% endfor %}
         </ul>
         {% endif %}

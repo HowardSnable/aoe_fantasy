@@ -151,7 +151,7 @@ class CreateOfferForm(forms.Form):
                                queryset=Player.objects.all(),
                                label="",
                                empty_label=None)
-    price = forms.IntegerField(widget=forms.NumberInput)
+    price = forms.IntegerField(widget=forms.NumberInput(attrs={'class':'form-number'}))
 
     def __init__(self, *args, **kwargs):
         tr_players = kwargs.pop('tr_players')
@@ -164,7 +164,7 @@ class CreateTransferForm(forms.Form):
                                queryset=Player.objects.all(),
                                label="Player",
                                empty_label=None)
-    price = forms.IntegerField(widget=forms.NumberInput)
+    price = forms.IntegerField(widget=forms.NumberInput(attrs={'class':'form-number'}))
 
     def __init__(self, *args, **kwargs):
         tr_players = kwargs.pop('tr_players')

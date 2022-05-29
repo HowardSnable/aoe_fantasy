@@ -9,7 +9,7 @@
                 {% if transfer_market  %}
                <table align="left" class="table-row">
                <tr>
-                    <th colspan="2">Player</th>
+                    <th colspan="2" align="center">Player</th>
                     <th>Points</th>
                     <th>Manager</th>
                     <th>Price</th>
@@ -19,17 +19,17 @@
               <tr>{% if trm.player.team.is_alive is False %} <del> {% endif %}
                    {{ trm.player.table_name }}
                      {% if trm.player.team.is_alive is False %} </del> {% endif %}
-                <td>
+                <td align="center">
                    {{ trm.player.get_points|floatformat }}
                 </td>
-                  <td>
+                  <td align="center">
                     {% if trm.manager  is None %}
                         -
                      {% else %}
                         {{trm.manager  }}
                       {% endif %}
                   </td>
-                <td>
+                <td align="right">
                     {{ trm.price }}
                 </td>
                   <td>
@@ -83,7 +83,6 @@
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
-                   <th>Expiration Date</th>
                     <th>Manager</th>
                     <th></th>
                 </tr>
@@ -93,13 +92,10 @@
                  <td>
                    {{ ofr.player.name }}
                 </td>
-                <td>
+                <td align="right">
                     {{ ofr.price }}
                 </td>
-                  <td>
-                      {{ ofr.end_date }}
-                  </td>
-                  <td>
+                  <td align="center">
                       {% if offer.reciever is None %}
                       -
                       {% else %}
@@ -140,16 +136,16 @@
         <table align="left"  class="table-row">
             <h4>Offers for me:</h4>
                 <tr>
-                    <th>Player</th>
+                    <th colspan="2" align="center">Player</th>
                     <th>Price</th>
                    <th>From</th>
                 </tr>
             {% for ofr in offers_in %}
               <tr>
                  <td>
-                   {{ ofr.player.name }} ({{ ofr.player.team.name }})
+                    {{ trm.player.table_name }}
                 </td>
-                <td>
+                <td align="right">
                      {{ ofr.price }}
                 </td>
                 <td>
@@ -208,17 +204,17 @@
                 <td>
                     {{ ofr.player.team.long_linked_name }}
                 </td>
-                <td>
+                <td align="right">
                     {{ ofr.price }}
                 </td>
-                <td>
+                <td align="center">
                     {% if ofr.reciever is None %}
                       -
                       {% else %}
                         {{ ofr.reciever }}
                       {% endif %}
                 </td>
-                <td>
+                <td align="center">
                      {% if ofr.sender is None %}
                       -
                       {% else %}

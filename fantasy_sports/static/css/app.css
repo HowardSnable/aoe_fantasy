@@ -30,6 +30,10 @@ h1,h2,h3,h4,h5,h6 {
 	margin:0;
 }
 
+.form-number {
+width: 40pt;
+}
+
 
 .top-corner{
    position:absolute;
@@ -51,8 +55,7 @@ h1,h2,h3,h4,h5,h6 {
 background-color: #EEEEEE;
 }
 .table-row th, td {
-  padding: 5px;
-  text-align: left;
+padding: 4px
 }
 .table-row tr {
   border-bottom: 1px solid #ddd;

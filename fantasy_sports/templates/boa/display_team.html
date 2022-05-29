@@ -3,18 +3,17 @@
 
 {% block team %}
         <div  class="panel-body">
-        <h4>My Players:</h4>
 
        <table class="table-row" style="float: left">
         <tr>
-            <th colspan="2">Name</th>
+            <th colspan="2" align="center">Player</th>
             <th>Points</th>
         </tr>
     {% for plr in my_players %}
       <tr> {% if plr.team.is_alive is False %} <del> {% endif %}
            {{ plr.table_name }}
              {% if plr.team.is_alive is False %} </del> {% endif %}
-        <td>
+        <td align="right">
            {{ plr.get_points|floatformat }}
         </td>
        </tr>
