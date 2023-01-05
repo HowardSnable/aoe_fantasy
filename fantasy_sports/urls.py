@@ -23,6 +23,13 @@ urlpatterns = [
         )
     ),
     re_path(
+        r'^nc23/',
+        include(
+            'fantasy_sports.apps.nc23.urls',
+            namespace='nc23'
+        )
+    ),
+    re_path(
         r'',
         views.redirect_view
     ),

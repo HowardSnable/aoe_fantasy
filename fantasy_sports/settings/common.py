@@ -95,7 +95,7 @@ USE_L10N = True
 USE_TZ = True
 
 # login
-LOGIN_REDIRECT_URL = reverse_lazy('boa:home')
+LOGIN_REDIRECT_URL = reverse_lazy('nc23:home')
 LOGIN_URL = reverse_lazy('account_management:login')
 
 # Static files

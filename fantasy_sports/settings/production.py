@@ -9,7 +9,7 @@ SECRET_KEY = environ.get('SECRET_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_SUBJECT_PREFIX = '[BoA3 Fantasy League] '
+EMAIL_SUBJECT_PREFIX = '[NC23 Fantasy League] '
 
 ALLOWED_HOSTS = ['raikosef.uber.space', 'localhost']
 

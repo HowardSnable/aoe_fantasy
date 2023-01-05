@@ -5,7 +5,7 @@ from django.conf import settings
 
 from django.core.management.base import BaseCommand
 
-from fantasy_sports.apps.boa.models import *
+from fantasy_sports.apps.nc23.models import *
 
 import logging
 logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)

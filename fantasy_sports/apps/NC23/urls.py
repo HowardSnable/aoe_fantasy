@@ -2,7 +2,7 @@ from django.urls import re_path
 
 from . import views
 
-app_name = 'boa'
+app_name = 'nc23'
 
 urlpatterns = [
     re_path(

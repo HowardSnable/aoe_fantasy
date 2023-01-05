@@ -6,13 +6,13 @@ from django.views.generic import CreateView, FormView
 from django import forms
 from ..management.commands.roll_transfers import add_transfers
 
-from ..forms import CreateBoaLeagueForm
+from ..forms import CreateNCLeagueForm
 from ..models import League, Manager
 
 
 class CreateLeague(LoginRequiredMixin, CreateView):
     model = League
-    form_class = CreateBoaLeagueForm
+    form_class = CreateNCLeagueForm
     http_method_names = [u'get', u'post']
     template_name = 'boa/create_league.html'
 
@@ -20,7 +20,7 @@ class CreateLeague(LoginRequiredMixin, CreateView):
         return self.object.get_absolute_url()
 
     def post(self, request, *args, **kwargs):
-        form = CreateBoaLeagueForm(request.POST)
+        form = CreateNCLeagueForm(request.POST)
         if form.is_valid():
             league = form.save(commit=False)
             league.administrator = request.user

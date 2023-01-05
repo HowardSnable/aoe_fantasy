@@ -2,14 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
-from ..forms import UpdateBoaLeagueForm
+from ..forms import UpdateNCLeagueForm
 from ..models import League
 
 
 class UpdateLeague(LoginRequiredMixin, UpdateView):
     http_method_names = [u'get', u'post']
     template_name = 'boa/update_league.html'
-    form_class = UpdateBoaLeagueForm
+    form_class = UpdateNCLeagueForm
     model = League
 
     def get_context_data(self, **kwargs):

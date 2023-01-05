@@ -4,13 +4,13 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import CreateView, FormView
 
-from ..forms import CreateBoaLeagueForm, JoinBoaLeagueForm
+from ..forms import CreateNCLeagueForm, JoinNCLeagueForm
 from ..models import League, Manager
 
 
 class JoinLeague(LoginRequiredMixin, CreateView):
     model = Manager
-    form_class = JoinBoaLeagueForm
+    form_class = JoinNCLeagueForm
     http_method_names = [u'get', u'post']
     template_name = 'boa/join_league.html'
     object = None
@@ -21,9 +21,9 @@ class JoinLeague(LoginRequiredMixin, CreateView):
         league = League.objects.get(id=my_league_id)
 
         if league.password:
-            form = JoinBoaLeagueForm(pw=True)
+            form = JoinNCLeagueForm(pw=True)
         else:
-            form = JoinBoaLeagueForm(pw=False)
+            form = JoinNCLeagueForm(pw=False)
 
         context.update({
             'league': league,
@@ -41,7 +41,7 @@ class JoinLeague(LoginRequiredMixin, CreateView):
         league = League.objects.get(id=my_league_id)
 
         has_password = bool(league.password)
-        form = JoinBoaLeagueForm(request.POST, pw=has_password)
+        form = JoinNCLeagueForm(request.POST, pw=has_password)
 
         if form.is_valid():
 

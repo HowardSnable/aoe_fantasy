@@ -12,7 +12,7 @@ from crispy_forms.layout import Layout, Submit
 from .models import League, Manager, LineUp, Player
 
 
-class CreateBoaLeagueForm(forms.ModelForm):
+class CreateNCLeagueForm(forms.ModelForm):
 
     class Meta:
         model = League
@@ -40,7 +40,7 @@ class CreateBoaLeagueForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(CreateBoaLeagueForm, self).__init__(*args, **kwargs)
+        super(CreateNCLeagueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -55,10 +55,10 @@ class CreateBoaLeagueForm(forms.ModelForm):
         )
 
 
-class UpdateBoaLeagueForm(CreateBoaLeagueForm):
+class UpdateNCLeagueForm(CreateNCLeagueForm):
 
     def __init__(self, *args, **kwargs):
-        super(UpdateBoaLeagueForm, self).__init__(*args, **kwargs)
+        super(UpdateNCLeagueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -74,26 +74,26 @@ class UpdateBoaLeagueForm(CreateBoaLeagueForm):
         )
 
 
-class FindBoaLeagueForm(forms.Form):
+class FindNCLeagueForm(forms.Form):
 
     name = forms.CharField(max_length=20, label="", required=False)
 
     def __init__(self, *args, **kwargs):
-        super(FindBoaLeagueForm, self).__init__(*args, **kwargs)
+        super(FindNCLeagueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-inline'
         self.helper.label_class = 'col-xs-6'
         self.helper.field_class = 'col-xs-4'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse_lazy('boa:find_league')
+        self.helper.form_action = reverse_lazy('nc23:find_league')
         self.helper.layout = Layout(
             'name',
             Submit('submit', 'Find League', css_class='col-xs'),
         )
 
 
-class JoinBoaLeagueForm(forms.ModelForm):
+class JoinNCLeagueForm(forms.ModelForm):
 
     class Meta:
         model = Manager
@@ -116,7 +116,7 @@ class JoinBoaLeagueForm(forms.ModelForm):
             pw = kwargs.pop("pw")
         else:
             pw = False
-        super(JoinBoaLeagueForm, self).__init__(*args, **kwargs)
+        super(JoinNCLeagueForm, self).__init__(*args, **kwargs)
 
         if pw:
             # add password field
@@ -138,7 +138,6 @@ class JoinBoaLeagueForm(forms.ModelForm):
         else:
             self.helper.layout = Layout('name',
                                         Submit('submit', 'Join League', css_class='col-xs-offset-4'), )
-
 
 
 class PlayerChoiceField(ModelChoiceField):
@@ -173,7 +172,8 @@ class CreateTransferForm(forms.Form):
 
 
 CAPTAIN_CHOICES = [(LineUp.FLANK1, 'C'),
-                   (LineUp.POCKET, 'C'),
+                   (LineUp.POCKET1, 'C'),
+                   (LineUp.POCKET2, 'C'),
                    (LineUp.FLANK2, 'C'),
                    (LineUp.NONE, 'No Captain')]
 
@@ -182,13 +182,19 @@ class RadioTableRenderer(forms.RadioSelect):
     def render(self):
         return (mark_safe(u''.join([u'<td>%s</td>' % force_unicode(w.tag()) for w in self])))
 
+
 class CreateLineUpForm(forms.Form):
     flank1 = PlayerChoiceField(widget=forms.Select(),
                                queryset=Player.objects.all(),
                                label="Flank",
                                empty_label=None,
                                required=False)
-    pocket = PlayerChoiceField(widget=forms.Select(),
+    pocket1 = PlayerChoiceField(widget=forms.Select(),
+                               queryset=Player.objects.all(),
+                               label="Pocket",
+                               empty_label=None,
+                               required=False)
+    pocket2 = PlayerChoiceField(widget=forms.Select(),
                                queryset=Player.objects.all(),
                                label="Pocket",
                                empty_label=None,
@@ -206,7 +212,8 @@ class CreateLineUpForm(forms.Form):
             team_players = kwargs.pop('team_players')
             super(CreateLineUpForm, self).__init__(*args, **kwargs)
             self.fields['flank1'].choices = team_players
-            self.fields['pocket'].choices = team_players
+            self.fields['pocket1'].choices = team_players
+            self.fields['pocket2'].choices = team_players
             self.fields['flank2'].choices = team_players
         else:
             super(CreateLineUpForm, self).__init__(*args, **kwargs)
@@ -214,7 +221,8 @@ class CreateLineUpForm(forms.Form):
     def clean(self):
         cd = self.cleaned_data
         flank1 = cd.get('flank1')
-        pocket = cd.get('pocket')
+        pocket = cd.get('pocket1')
+        pocket = cd.get('pocket2')
         flank2 = cd.get('flank2')
 
         players = [flank1, pocket, flank2]
