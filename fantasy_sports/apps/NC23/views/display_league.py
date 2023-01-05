@@ -30,7 +30,8 @@ def get_forms(context):
     if lineup:
         initial_dict.update({
             'flank1': lineup.flank1,
-            'pocket': lineup.pocket,
+            'pocket1': lineup.pocket1,
+            'pocket2': lineup.pocket2,
             'flank2': lineup.flank2,
             'captain': lineup.captain,
         })
@@ -48,7 +49,7 @@ def get_forms(context):
 
 class DisplayLeague(LoginRequiredMixin, View):
     http_method_names = [U'get', U'post']
-    template_name = 'boa/display_league.html'
+    template_name = 'nc23/display_league.html'
 
     def get_context(self, my_league_id):
         league = League.objects.get(id=my_league_id)
@@ -117,7 +118,7 @@ class DisplayLeague(LoginRequiredMixin, View):
         users_in_league = [mgr.user for mgr in context.get("all_managers")]
 
         if request.user not in users_in_league:
-            return redirect(reverse_lazy('boa:join_league', args=[str(my_league_id)]))
+            return redirect(reverse_lazy('nc23:join_league', args=[str(my_league_id)]))
         forms = get_forms(context)
         context.update(forms)
 

@@ -6,7 +6,7 @@ from ..models import Result, MatchDay
 
 class ResultView(TemplateView):
     http_method_names = [u'get']
-    template_name = 'boa/results.html'
+    template_name = 'nc23/results.html'
 
     def get_context_data(self, **kwargs):
         context = {}

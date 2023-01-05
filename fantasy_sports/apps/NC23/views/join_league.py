@@ -12,7 +12,7 @@ class JoinLeague(LoginRequiredMixin, CreateView):
     model = Manager
     form_class = JoinNCLeagueForm
     http_method_names = [u'get', u'post']
-    template_name = 'boa/join_league.html'
+    template_name = 'nc23/join_league.html'
     object = None
 
     def get(self, request, *args, **kwargs):

@@ -1,0 +1,234 @@
+
+{% load crispy_forms_tags %}
+
+{% block transfer %}
+
+ <table><tr><td>
+    <div   class="panel-body" >
+            <h4>Available Players:</h4>
+                {% if transfer_market  %}
+               <table align="left" class="table-row">
+               <tr>
+                    <th colspan="2" align="center">Player</th>
+                    <th>Points</th>
+                    <th>Manager</th>
+                    <th>Price</th>
+                   <th></th>
+                </tr>
+            {% for trm in transfer_market %}
+              <tr>{% if trm.player.team.is_alive is False %} <del> {% endif %}
+                   {{ trm.player.table_name }}
+                     {% if trm.player.team.is_alive is False %} </del> {% endif %}
+                <td align="center">
+                   {{ trm.player.get_points|floatformat }}
+                </td>
+                  <td align="center">
+                    {% if trm.manager  is None %}
+                        -
+                     {% else %}
+                        {{trm.manager  }}
+                      {% endif %}
+                  </td>
+                <td align="right">
+                    {{ trm.price }}
+                </td>
+                  <td>
+                      {%  if trm.manager == manager %}
+                       <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" id="transfer_to_delete" name="transfer_to_delete" value="{{ trm.id }}">
+                            <input type="submit" value="Delete" name="transfer_delete">
+                        </form>
+                      {% endif %}
+                  </td>
+               </tr>
+               {% endfor %}
+            </table>
+
+            {% else %}
+            None
+            {% endif %}
+
+</div>
+
+</td>
+<td style="vertical-align:top;   width: fill; padding:15px;"><b align="right">Budget: {{ manager.budget }}</b></td>
+</tr>
+</table>
+
+        {% if my_players %}
+        <div class="panel-body">
+             <h4>Put on Transfer Market:</h4>
+            <form action="" method="POST" id="create_transfer_form">
+                            {% csrf_token %}
+                <table><tr>
+                  {% for field in  transfer_form.visible_fields %}
+                <td>
+                    {{ field }}
+                </td>
+                {% endfor %}
+                <td>
+                   <input type="submit" value="Add" name="add_transfer">
+                </td>
+                </tr>
+                </table>
+
+            </form></div>
+        {% endif %}
+
+        <div class="panel-body">
+        <h4>My Offers:</h4>
+        <table align="left" class="table-row" >
+            {% if offers_out %}
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Manager</th>
+                    <th></th>
+                </tr>
+
+            {% for ofr in offers_out %}
+              <tr>
+                 <td>
+                   {{ ofr.player.name }}
+                </td>
+                <td align="right">
+                    {{ ofr.price }}
+                </td>
+                  <td align="center">
+                      {% if offer.reciever is None %}
+                      -
+                      {% else %}
+                        {{ ofr.reciever }}
+                      {% endif %}
+                  </td>
+                  <td>
+                          <form action="" method="POST">
+                            {% csrf_token %}
+                              <input type="hidden" id="offer_to_delete" name="offer_to_delete" value= "{{ ofr.id }}" >
+                            <input type="submit" value="Delete" name="offer_delete">
+                        </form>
+                  </td>
+               </tr>
+               {% endfor %}
+            {% endif %}
+            {% if transfer_market %}
+             <tr>
+                <form method="POST" action="" id="offer_form">{% csrf_token %}
+                {% for field in offer_form.visible_fields %}
+                <td>
+                    {{ field }}
+                </td>
+                {% endfor %}
+                <td>
+                    <input type="submit" value="Send"  name="offer_button">
+                </td>
+
+            </form>
+            </tr>
+            {% endif %}
+            </table>
+
+        </div>
+
+            {% if offers_in  %}
+             <div class="panel-body" >
+        <table align="left"  class="table-row">
+            <h4>Offers for me:</h4>
+                <tr>
+                    <th colspan="2" align="center">Player</th>
+                    <th>Price</th>
+                   <th>From</th>
+                </tr>
+            {% for ofr in offers_in %}
+              <tr>
+                 <td>
+                    {{ trm.player.table_name }}
+                </td>
+                <td align="right">
+                     {{ ofr.price }}
+                </td>
+                <td>
+                    {% if ofr.sender is None %}
+                      -
+                      {% else %}
+                        {{ ofr.sender }}
+                      {% endif %}
+                </td>
+                  <td>
+                       <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" id="offer_to_accept" name="offer_to_accept" value="{{ ofr.id }}">
+                            <input type="submit" value="Accept" name="offer_accept">
+                        </form>
+                  </td>
+                   <td>
+                       <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" id="offer_to_decline" name="offer_to_decline" value="{{ ofr.id }}">
+                            <input type="submit" value="Decline" name="offer_decline">
+                        </form>
+                  </td>
+               </tr>
+               {% endfor %}
+            </tr>
+            </table>
+    </div>
+            {% endif %}
+
+
+
+        {% if old_transfers  %}
+
+        <div class="panel-body">
+        <h4>History:</h4>
+
+              <table align="left" class="table-row">
+                 <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                   <th>Team</th>
+                    <th>Price</th>
+                     <th>From</th>
+                     <th>To</th>
+                     <th>Date</th>
+                </tr>
+            {% for ofr in old_transfers %}
+              <tr>
+                 <td>
+                   {{ ofr.player.linked_name }}
+                </td>
+                  <td>
+                   {{ ofr.player.points }}
+                </td>
+                <td>
+                    {{ ofr.player.team.long_linked_name }}
+                </td>
+                <td align="right">
+                    {{ ofr.price }}
+                </td>
+                <td align="center">
+                    {% if ofr.reciever is None %}
+                      -
+                      {% else %}
+                        {{ ofr.reciever }}
+                      {% endif %}
+                </td>
+                <td align="center">
+                     {% if ofr.sender is None %}
+                      -
+                      {% else %}
+                        {{ ofr.sender }}
+                      {% endif %}
+                </td>
+                    <td>
+                         {{ ofr.end_date }}
+                </td>
+               </tr>
+               {% endfor %}
+            </table>
+
+        </div>
+{% endif %}
+
+{% endblock transfer %}

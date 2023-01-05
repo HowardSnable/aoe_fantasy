@@ -13,8 +13,8 @@ class FindLeague(LoginRequiredMixin, ListView):
     model = League
     form_class = FindNCLeagueForm
     http_method_names = [u'get', u'post']
-    template_name = 'boa/find_league.html'
-    success_url = reverse_lazy('boa:find_league')
+    template_name = 'nc23/find_league.html'
+    success_url = reverse_lazy('nc23:find_league')
     leagues = []
 
     def get_context_data(self, **kwargs):

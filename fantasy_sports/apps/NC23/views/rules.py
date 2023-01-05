@@ -6,7 +6,7 @@ from ..constants import *
 
 class RulesView(TemplateView):
     http_method_names = [u'get']
-    template_name = 'boa/rules.html'
+    template_name = 'nc23/rules.html'
 
     def get_context_data(self, **kwargs):
         context = {}

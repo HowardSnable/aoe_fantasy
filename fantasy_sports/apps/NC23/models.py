@@ -37,7 +37,7 @@ class League(AbstractLeague):
         return False
 
     def get_absolute_url(self):
-        return reverse_lazy('boa:display_league', args=[str(self.id)])
+        return reverse_lazy('nc23:display_league', args=[str(self.id)])
 
     def get_mgr_count(self):
         return Manager.objects.filter(league=self).count()

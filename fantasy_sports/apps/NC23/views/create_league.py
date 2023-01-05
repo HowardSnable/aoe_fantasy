@@ -14,7 +14,7 @@ class CreateLeague(LoginRequiredMixin, CreateView):
     model = League
     form_class = CreateNCLeagueForm
     http_method_names = [u'get', u'post']
-    template_name = 'boa/create_league.html'
+    template_name = 'nc23/create_league.html'
 
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -42,6 +42,6 @@ class CreateLeague(LoginRequiredMixin, CreateView):
                     form.cleaned_data['name']
                 )
             )
-            return redirect(reverse_lazy('boa:join_league', args=[str(league.id)]))
+            return redirect(reverse_lazy('nc23:join_league', args=[str(league.id)]))
         else:
             return self.form_invalid(form)

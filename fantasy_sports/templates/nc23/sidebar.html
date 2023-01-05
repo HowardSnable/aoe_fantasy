@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a href="#nc23_links" data-toggle="collapse" data-parent="#accordion">
+                Battle of Africa
+            </a>
+        </h4>
+    </div>
+    <div id="nc23_links" class="panel-collapse collapse in">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{% url 'nc23:my_leagues' %}" class="list-group-item">
+                    <i class="fa fa-home fa-fw"></i> My leagues
+                </a>
+                <a href="{% url 'nc23:create_league' %}" class="list-group-item">
+                    <i class="fa fa-plus fa-fw"></i> Create a league
+                </a>
+                <a href="{% url 'nc23:find_league' %}" class="list-group-item">
+                    <i class="fa fa-search fa-fw"></i> Find a league
+                </a>
+                <a href="{% url 'nc23:results' %}" class="list-group-item">
+                      <i class="fa fa-trophy fa-fw"></i> Results</a>
+                <a href="{% url 'nc23:market_info' %}" class="list-group-item">
+                     <i class="fa fa-balance-scale fa-fw"></i> Transfer statistics</a>
+                 <a href="{% url 'nc23:rules' %}" class="list-group-item">
+                     <i class="fa fa-book fa-fw"></i> Rules</a>
+            </li>
+        </ul>
+    </div>
+</div>
