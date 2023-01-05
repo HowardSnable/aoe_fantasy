@@ -11,14 +11,14 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from fantasy_sports.models import (
     AbstractManager,
-    #  AbstractTournament,
     AbstractPlayer,
     AbstractLeague,
+    User,
 )
 
 
 class League(AbstractLeague):
-
+    administrator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="nc23_admin")
     max_teams_per_league = models.PositiveIntegerField(default=10)
     max_players_per_team = models.PositiveIntegerField(default=MAX_PLAYERS_PER_TEAM)
     points_per_match_win = models.FloatField(default=POINTS_PER_MATCH_WIN)
@@ -47,6 +47,8 @@ class League(AbstractLeague):
 
 
 class Manager(AbstractManager):
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="nc23_manager")
+
     points = models.FloatField(default=0)
     budget = models.IntegerField(default=START_BUDGET)
     icon = models.TextField(default='', blank=True)
