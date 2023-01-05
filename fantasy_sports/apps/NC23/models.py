@@ -183,12 +183,14 @@ class Match(models.Model):
 class LineUp(models.Model):
     NONE = 0
     FLANK1 = 1
-    POCKET = 2
-    FLANK2 = 3
+    POCKET1 = 2
+    POCKET2 = 3
+    FLANK2 = 4
     captain = models.IntegerField(default=NONE)
 
     flank1 = models.ForeignKey(Player, related_name='flank1', on_delete=models.CASCADE, null=True, blank=True)
-    pocket = models.ForeignKey(Player, related_name='pocket', on_delete=models.CASCADE, null=True, blank=True)
+    pocket1 = models.ForeignKey(Player, related_name='pocket1', on_delete=models.CASCADE, null=True, blank=True)
+    pocket2 = models.ForeignKey(Player, related_name='pocket2', on_delete=models.CASCADE, null=True, blank=True)
     flank2 = models.ForeignKey(Player, related_name='flank2', on_delete=models.CASCADE, null=True, blank=True)
     matchday = models.ForeignKey(MatchDay, related_name='l_match_day', on_delete=models.CASCADE, null=True)
     manager = models.OneToOneField(Manager, related_name='lineup_manager', on_delete=models.CASCADE, primary_key=True)
@@ -214,8 +216,10 @@ class LineUp(models.Model):
             return None
         if self.captain == self.FLANK1:
             return self.flank1
-        if self.captain == self.POCKET:
-            return self.pocket
+        if self.captain == self.POCKET1:
+            return self.pocket1
+        if self.captain == self.POCKET2:
+            return self.pocket2
         if self.captain == self.FLANK2:
             return self.flank2
 
@@ -233,8 +237,13 @@ class Game(models.Model):
     w2 = models.ForeignKey(Player, related_name='w2',
                            on_delete=models.CASCADE,
                            )
-    w3 = models.ForeignKey(Player,
-                           related_name='w3',
+    #pocket
+    w3 = models.ForeignKey(Player, related_name='w3',
+                           on_delete=models.CASCADE,
+                           )
+
+    w4 = models.ForeignKey(Player,
+                           related_name='w4',
                            on_delete=models.CASCADE,
                            )
 
@@ -247,8 +256,14 @@ class Game(models.Model):
                            related_name='l2',
                            on_delete=models.CASCADE,
                            )
+    # pocket
     l3 = models.ForeignKey(Player,
                            related_name='l3',
+                           on_delete=models.CASCADE,
+                           )
+
+    l4 = models.ForeignKey(Player,
+                           related_name='l4',
                            on_delete=models.CASCADE,
                            )
 
@@ -262,19 +277,19 @@ class Game(models.Model):
                              )
 
     def get_winners(self):
-        return [self.w1, self.w2, self.w3]
+        return [self.w1, self.w2, self.w3, self.w4]
 
     def get_losers(self):
-        return [self.l1, self.l2, self.l3]
+        return [self.l1, self.l2, self.l3, self.l4]
 
     def get_mvps(self):
         return [self.mvp1, self.mvp2]
 
     def get_pockets(self):
-        return [self.w2, self.l2]
+        return [self.w2, self.w3, self.l2, self.l3]
 
     def get_flanks(self):
-        return [self.w1, self.w3, self.l1, self.l3]
+        return [self.w1, self.w4, self.l1, self.l4]
 
     def get_points(self, player: Player, league: League):
         points = 0.
@@ -293,9 +308,13 @@ class Game(models.Model):
             points += league.points_for_position
             if lineup.captain == LineUp.FLANK1:
                 points += extra_captain_points
-        if lineup.pocket in self.get_pockets():
+        if lineup.pocket1 in self.get_pockets():
             points += league.points_for_position
-            if lineup.captain == LineUp.POCKET:
+            if lineup.captain == LineUp.POCKET1:
+                points += extra_captain_points
+        if lineup.pocket2 in self.get_pockets():
+            points += league.points_for_position
+            if lineup.captain == LineUp.POCKET2:
                 points += extra_captain_points
         if lineup.flank2 in self.get_flanks():
             points += league.points_for_position
