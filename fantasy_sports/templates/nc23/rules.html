@@ -7,7 +7,7 @@
     <div class="panel-body">
 <u><h4>Basics</h4></u>
     <p>You are in the role of a Aoe2 team manager and have to field a team
-        for the <a href="https://liquipedia.net/ageofempires/Battle_of_Africa/3">Battle of Africa 3</a> Tournament hosted by <a href="https://www.twitch.tv/membtv">MembTV</a>.
+        for the <a href="https://liquipedia.net/ageofempires/Nations_Cup/2023">Nations Cup 2023</a> Tournament.
     On the transfer market you bet with competing managers
         for the players participating in the tournament.
     You will be awarded points for the performance of your players,
@@ -15,11 +15,10 @@
     </p>
 <u><h4>Lineup</h4></u>
 <p>
-    You can field up to three players in your lineup.
-    If you field less, you recieve negative points
-    (unless the lineup has 0 players, then it will get no points).
-    You can field one flank and two pockets.
-    If the fielded player plays in the tournament on the same position as in your lineup
+    You can field up to four players in your lineup.
+    If you field less, you recieve negative points.
+    You can field two flanks and two pockets.
+    If a player plays in the tournament on the same position as in your lineup
     you will get bonus points.
     Additionally, you can choose a captain.
     The captain's performance has a higher impact on your score.
@@ -58,7 +57,8 @@ player are computed as follows:
 If a player does not play in any game of that round, he will get 0 points.
 You will recieve the sum of all your player's points the were fielded when
 the lineup was locked. An empty spot in your lineup will be punished by
-{{ POINTS_FOR_EMPTY|floatformat }} points for each round.
+{{ POINTS_FOR_EMPTY|floatformat }} points for each round. 
+    A completely empty lineup will get 0 points.
 </p>
 
 <u><h4>Transfer Market</h4></u>
@@ -70,7 +70,9 @@ the lineup was locked. An empty spot in your lineup will be punished by
 
     You can also decide to sell your players to other managers,
     then the prices and terms can be decided by you.
-</p><p>
+</p>
+
+<p>
     If players are out of the tournament,
     their name will be displayed <del>struck through</del>.
     Such a player can still be fielded in a lineup to avoid negative points.
