@@ -17,7 +17,7 @@ LOCAL_APPS = [
     'django.contrib.staticfiles',
     'fantasy_sports',
     'fantasy_sports.apps.account_management',
-    'fantasy_sports.apps.boa',
+    'fantasy_sports.apps.nc23',
 ]
 
 THIRD_PARTY_APPS = [

@@ -197,7 +197,7 @@ class LineUp(models.Model):
     matchday = models.ForeignKey(MatchDay, related_name='l_match_day', on_delete=models.CASCADE, null=True)
     manager = models.OneToOneField(Manager, related_name='lineup_manager', on_delete=models.CASCADE, primary_key=True)
 
-    def compute_points(self,  matchday: MatchDay, league: League):
+    def compute_points(self, matchday: MatchDay, league: League):
         results = Result.objects.filter(player__in=self.get_players(), matchday=matchday)
         points = 0.
         for result in results:
