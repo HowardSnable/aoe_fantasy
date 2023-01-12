@@ -2,4 +2,11 @@
 *.sw*
 *.vim
 *.env
+*.log
+
+
+fantasy_sports/**/migrations/*
+fantasy_sports/.idea/*
+static/libs/*
+
 fantasy_sports/settings/development.py
