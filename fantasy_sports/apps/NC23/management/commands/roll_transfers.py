@@ -25,9 +25,10 @@ def add_transfers(league, old_transfers):
     # add old players until enough or none left
     old_list = list(old_transfers)
     while len(new_players) < league.transfers_per_day:
-        new_players.append(old_list.pop().player)
         if not old_transfers:
             break
+        new_players.append(old_list.pop().player)
+
 
     random.shuffle(new_players)
     if len(new_players) > league.transfers_per_day:

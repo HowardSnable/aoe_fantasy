@@ -3,7 +3,7 @@
 
 {% block team %}
         <div  class="panel-body">
-
+        {% if my_players %}
        <table class="table-row" style="float: left">
         <tr>
             <th colspan="2" align="center">Player</th>
@@ -25,6 +25,7 @@
             <table class="table-row" style="float: left">
                 <tr>
                     <th>Flank</th>
+                    <th>Pocket</th>
                     <th>Pocket</th>
                     <th>Flank</th>
                     <th></th>
@@ -64,11 +65,11 @@
                </tr>
                  <tr>
                      {% for choice in lineup_form.captain %}
-                 <td align="canter">
+                 <td align="center">
                   <span class="radio" align="center">
                       {{ choice.tag }}
                         <div class="tooltip2"> {{ choice.choice_label }}
-                            <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captains's performance will have a higher impact on your points.</span></span>
+                            <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captains's performance has a higher impact.</span></span>
                          </div>
                     </span>
                  </td>
@@ -84,6 +85,10 @@
                  </table>
                 {% endif %}
 
+            {% else %} <!-- if my_players --->
+    You have no players in your team yet. Check out the transfer market!
+
+    {% endif %}
         </div>
 
 {% endblock team %}

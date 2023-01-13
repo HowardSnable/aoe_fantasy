@@ -29,7 +29,7 @@
         <td align="right">
             {{ mgr.points|floatformat }}
         </td>
-          <td>
+          <td> {% if teams|get_item:mgr.id %}
               {% for player in teams|get_item:mgr.id %}
                   {% if forloop.last %}
                         {{ player.linked_name }}
@@ -37,6 +37,10 @@
                         {{ player.linked_name }},
                   {% endif %}
               {% endfor %}
+
+              {% else %}
+              <div align="center"> - </div>
+              {% endif %}
           </td>
        </tr>
        {% endfor %}

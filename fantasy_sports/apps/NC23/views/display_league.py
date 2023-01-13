@@ -138,7 +138,7 @@ class DisplayLeague(LoginRequiredMixin, View):
 
         try:
             if request.POST.get("lineup_button"):
-                handle_lineup_form(lineup_form, request, my_league, context.get('my_lineup'))
+                handle_lineup_form(lineup_form, request, context.get('my_lineup'), context.get('manager'))
             if request.POST.get("offer_button"):
                 handle_offer_form(offer_form, request, my_league)
                 context.update({'tab': 'transfer'})

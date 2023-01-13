@@ -18,7 +18,7 @@ from fantasy_sports.models import (
 
 
 class League(AbstractLeague):
-    administrator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="nc23_admin")
+    administrator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="admin_leagues")
     max_teams_per_league = models.PositiveIntegerField(default=10)
     max_players_per_team = models.PositiveIntegerField(default=MAX_PLAYERS_PER_TEAM)
     points_per_match_win = models.FloatField(default=POINTS_PER_MATCH_WIN)
@@ -31,7 +31,7 @@ class League(AbstractLeague):
     @property
     def is_administrator_valid(self):
         admin = self.administrator
-        if admin.league_set.count() < MAX_LEAGUES_PER_ADMIN:
+        if admin.admin_leagues.count() < MAX_LEAGUES_PER_ADMIN:
             return True
 
         return False
@@ -47,7 +47,7 @@ class League(AbstractLeague):
 
 
 class Manager(AbstractManager):
-    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="nc23_manager")
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="managers")
 
     points = models.FloatField(default=0)
     budget = models.IntegerField(default=START_BUDGET)
@@ -90,7 +90,7 @@ class Player(AbstractPlayer):
     manager = models.ManyToManyField(Manager, blank=True)
     liquipedia = models.TextField(default='', blank=True)   
     def_price = models.IntegerField(default=100)
-    team = models.ForeignKey(Team, related_name='team', on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, related_name='players', on_delete=models.CASCADE)
 
     def get_price(self):
         return self.def_price
@@ -173,7 +173,7 @@ class Match(models.Model):
 
     team1 = models.ForeignKey(Team, related_name='team1', on_delete=models.CASCADE)
     team2 = models.ForeignKey(Team, related_name='team2', on_delete=models.CASCADE)
-    matchday = models.ForeignKey(MatchDay, related_name='match_day', on_delete=models.CASCADE)
+    matchday = models.ForeignKey(MatchDay, related_name='matches', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.team1} vs {self.team2}, {self.matchday}"
@@ -194,8 +194,8 @@ class LineUp(models.Model):
     pocket1 = models.ForeignKey(Player, related_name='pocket1', on_delete=models.CASCADE, null=True, blank=True)
     pocket2 = models.ForeignKey(Player, related_name='pocket2', on_delete=models.CASCADE, null=True, blank=True)
     flank2 = models.ForeignKey(Player, related_name='flank2', on_delete=models.CASCADE, null=True, blank=True)
-    matchday = models.ForeignKey(MatchDay, related_name='l_match_day', on_delete=models.CASCADE, null=True)
-    manager = models.OneToOneField(Manager, related_name='lineup_manager', on_delete=models.CASCADE, primary_key=True)
+    matchday = models.ForeignKey(MatchDay, related_name='lineups', on_delete=models.CASCADE, null=True)
+    manager = models.OneToOneField(Manager, related_name='lineups', on_delete=models.CASCADE, primary_key=True)
 
     def compute_points(self, matchday: MatchDay, league: League):
         results = Result.objects.filter(player__in=self.get_players(), matchday=matchday)
@@ -229,7 +229,7 @@ class LineUp(models.Model):
 class Game(models.Model):
     # A single 3v3 game
 
-    match = models.ForeignKey(Match, related_name='match',
+    match = models.ForeignKey(Match, related_name='games',
                               on_delete=models.CASCADE)
 
     w1 = models.ForeignKey(Player, related_name='w1',
@@ -335,9 +335,9 @@ class Offer(models.Model):
     end_date = models.DateTimeField(default=None, null=True)
     price = models.IntegerField(default=0)
     status = models.IntegerField(default=STATUS_OPEN)
-    player = models.ForeignKey(Player, related_name='player', on_delete=models.CASCADE)
-    sender = models.ForeignKey(Manager, related_name='sender', on_delete=models.CASCADE)
-    reciever = models.ForeignKey(Manager, related_name='reciever', on_delete=models.CASCADE, null=True)
+    player = models.ForeignKey(Player, related_name='offers', on_delete=models.CASCADE)
+    sender = models.ForeignKey(Manager, related_name='sent_offers', on_delete=models.CASCADE)
+    reciever = models.ForeignKey(Manager, related_name='recieved_offers', on_delete=models.CASCADE, null=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE)
 
     def accept(self):
@@ -377,17 +377,17 @@ class Offer(models.Model):
 
 
 class TransferMarket(models.Model):
-    player = models.ForeignKey(Player, related_name='tr_player', on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, related_name='markets', on_delete=models.CASCADE)
     league = models.ForeignKey(League, related_name='tr_league', on_delete=models.CASCADE)
-    manager = models.ForeignKey(Manager, related_name='tr_manager', on_delete=models.CASCADE, null=True, blank=True)
+    manager = models.ForeignKey(Manager, related_name='markets', on_delete=models.CASCADE, null=True, blank=True)
     start_date = models.DateTimeField(default=None, null=True)
     end_date = models.DateTimeField(default=None, null=True, blank=True)
     price = models.IntegerField(default=0)
 
 
 class Result(models.Model):
-    player = models.ForeignKey(Player, related_name='res_player', on_delete=models.CASCADE)
-    matchday = models.ForeignKey(MatchDay, related_name='res_day', on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, related_name='results', on_delete=models.CASCADE)
+    matchday = models.ForeignKey(MatchDay, related_name='results', on_delete=models.CASCADE)
     points = models.FloatField()
     games_pocket = models.IntegerField(default=0)
     games_flank = models.IntegerField(default=0)

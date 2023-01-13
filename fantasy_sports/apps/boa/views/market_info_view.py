@@ -5,7 +5,7 @@ from ..models import Team, Player
 
 class MarketInfoView(TemplateView):
     http_method_names = [u'get']
-    template_name = 'boa/market_info.html'
+    template_name = '/market_info.html'
 
     def get_context_data(self, **kwargs):
         context = {}

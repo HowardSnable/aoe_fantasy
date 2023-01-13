@@ -221,15 +221,12 @@ class CreateLineUpForm(forms.Form):
     def clean(self):
         cd = self.cleaned_data
         flank1 = cd.get('flank1')
-        pocket = cd.get('pocket1')
-        pocket = cd.get('pocket2')
+        pocket1 = cd.get('pocket1')
+        pocket2 = cd.get('pocket2')
         flank2 = cd.get('flank2')
 
-        players = [flank1, pocket, flank2]
+        players = [flank1, pocket1, pocket2, flank2]
         players = list(filter(None, players))
-
-        if not any(players):
-            raise ValidationError("No player selected")
 
         if len(players) != len(set(players)):
             raise ValidationError("Cannot filed the same player twice!")

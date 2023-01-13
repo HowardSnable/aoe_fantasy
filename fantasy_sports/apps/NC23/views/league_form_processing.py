@@ -94,7 +94,7 @@ def handle_offer_form(offer_form, request, my_league):
         )
 
 
-def handle_lineup_form(lineup_form, request, my_league, lineup):
+def handle_lineup_form(lineup_form, request, lineup, manager):
 
     if is_matchday():
         messages.error(request,
@@ -103,12 +103,13 @@ def handle_lineup_form(lineup_form, request, my_league, lineup):
 
     if lineup_form.is_valid():
         flank1 = request.POST.get('flank1')
-        pocket = request.POST.get('pocket')
+        pocket1 = request.POST.get('pocket1')
+        pocket2 = request.POST.get('pocket2')
         flank2 = request.POST.get('flank2')
-        players = [flank1, pocket, flank2]
+        players = [flank1, pocket1, pocket2, flank2]
         players = list(filter(None, players))
 
-        if len(players) < 3:
+        if players and len(players) < 4:
             messages.warning(
                 request,
                 f'Leaving positions empty will give negative score!'
@@ -120,15 +121,19 @@ def handle_lineup_form(lineup_form, request, my_league, lineup):
             lineup.flank1 = Player.objects.get(id=flank1)
         else:
             lineup.flank1 = None
-        if pocket:
-            lineup.pocket = Player.objects.get(id=pocket)
+        if pocket1:
+            lineup.pocket1 = Player.objects.get(id=pocket1)
         else:
-            lineup.pocket = None
+            lineup.pocket1 = None
+        if pocket2:
+            lineup.pocket2 = Player.objects.get(id=pocket2)
+        else:
+            lineup.pocket2 = None
         if flank2:
             lineup.flank2 = Player.objects.get(id=flank2)
         else:
             lineup.flank2 = None
-        lineup.manager = Player.objects.get(id=players[0]).get_manager(my_league)
+        lineup.manager = manager
 
         lineup.captain = request.POST.get('captain')
         if lineup.captain is None:
