@@ -77,6 +77,12 @@ class Team(models.Model):
                           title="{self.long_name}">
                           </a>""")
 
+    def flag_html(self):
+        return mark_safe(f"""
+                                  <img src="{f'{settings.STATIC_URL}icons/teams/{self.icon}'}"
+                                  height="18" 
+                                  title="{self.long_name}"> """)
+
     def long_linked_name(self):
         return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
 
@@ -117,6 +123,9 @@ class Player(AbstractPlayer):
     def linked_name(self):
         return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
+    def choice_name(self):
+        return mark_safe(self.team.flag_html() + self.name)
+
     def compact_linked(self):
         return mark_safe(f' {self.team.linked_name()}{self.linked_name()}')
 
@@ -133,8 +142,9 @@ class Player(AbstractPlayer):
         else:
             return self.def_price, 0
 
+
     def __str__(self):
-        return self.name
+        return mark_safe( self.team.flag_html() + self.name)
 
 
 class MatchDay(models.Model):

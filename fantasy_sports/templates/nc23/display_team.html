@@ -2,27 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block team %}
-        <div  class="panel-body">
-        {% if my_players %}
-       <table class="table-row" style="float: left">
-        <tr>
-            <th colspan="2" align="center">Player</th>
-            <th>Points</th>
-        </tr>
-    {% for plr in my_players %}
-      <tr> {% if plr.team.is_alive is False %} <del> {% endif %}
-           {{ plr.table_name }}
-             {% if plr.team.is_alive is False %} </del> {% endif %}
-        <td align="right">
-           {{ plr.get_points|floatformat }}
-        </td>
-       </tr>
-       {% endfor %}
-    </table>
-        </div>
+
+
 <div  class="panel-body">
-        <h4>My Line-Up:</h4>
-            <table class="table-row" style="float: left">
+    {% if not my_players %}
+    You have no players in your team yet. Check out the transfer market!
+            {% else %}
+
+        <h4 align="center">My Line-Up:</h4>
+            <table class="table-row" style="text-align:center">
                 <tr>
                     <th>Flank</th>
                     <th>Pocket</th>
@@ -77,7 +65,7 @@
              </tr>
                  <tr >
                        <td>
-                   <input type="submit" value="Change" name="lineup_button">
+                   <input type="submit" value="Change Line-Up" name="lineup_button">
                 </td>
                  </tr>
 
@@ -85,10 +73,28 @@
                  </table>
                 {% endif %}
 
-            {% else %} <!-- if my_players --->
-    You have no players in your team yet. Check out the transfer market!
+
+        </div>
+
+        <div  class="panel-body">
+       <table class="table-row" style="float: left">
+        <tr>
+            <th colspan="2" align="center">Player</th>
+            <th>Points</th>
+        </tr>
+    {% for plr in my_players %}
+      <tr> {% if plr.team.is_alive is False %} <del> {% endif %}
+           {{ plr.table_name }}
+             {% if plr.team.is_alive is False %} </del> {% endif %}
+        <td align="right">
+           {{ plr.get_points|floatformat }}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
 
     {% endif %}
         </div>
 
-{% endblock team %}
+
+{% endblock team %} <!-- if not my_players --->

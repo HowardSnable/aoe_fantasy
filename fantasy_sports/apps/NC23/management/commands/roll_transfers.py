@@ -13,6 +13,11 @@ logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)
 
 
 def add_transfers(league, old_transfers):
+    num_transfers = league.transfers_per_day
+    # add more players to transfer market in new leagues
+    if not old_transfers:
+        num_transfers *= 2
+
     old_player_ids = [transfer.player.id for transfer in old_transfers]  # not necessarily DauT
     managers = Manager.objects.filter(league=league)
     new_players = list(
@@ -24,7 +29,7 @@ def add_transfers(league, old_transfers):
 
     # add old players until enough or none left
     old_list = list(old_transfers)
-    while len(new_players) < league.transfers_per_day:
+    while len(new_players) < num_transfers:
         if not old_transfers:
             break
         new_players.append(old_list.pop().player)

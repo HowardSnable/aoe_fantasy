@@ -9,9 +9,9 @@
                 {% if transfer_market  %}
                <table align="left" class="table-row">
                <tr>
-                    <th colspan="2" align="center">Player</th>
+                    <th colspan="2" >Player</th>
                     <th>Points</th>
-                    <th>Manager</th>
+                    <th>Team (Manager)</th>
                     <th>Price</th>
                    <th></th>
                 </tr>
@@ -19,17 +19,17 @@
               <tr>{% if trm.player.team.is_alive is False %} <del> {% endif %}
                    {{ trm.player.table_name }}
                      {% if trm.player.team.is_alive is False %} </del> {% endif %}
-                <td align="center">
+                <td style="text-align:right">
                    {{ trm.player.get_points|floatformat }}
                 </td>
-                  <td align="center">
+                  <td style="text-align:center      ">
                     {% if trm.manager  is None %}
                         -
                      {% else %}
-                        {{trm.manager  }}
+                        {{trm.manager}}({{trm.manager.user}})
                       {% endif %}
                   </td>
-                <td align="right">
+                <td style="text-align:right">
                     {{ trm.price }}
                 </td>
                   <td>
@@ -52,13 +52,13 @@
 </div>
 
 </td>
-<td style="vertical-align:top;   width: fill; padding:15px;"><b align="right">Budget: {{ manager.budget }}</b></td>
+<td style="vertical-align:top;   width: fill; padding:15px;"><b style="text-align:right">Budget: {{ manager.budget }}</b></td>
 </tr>
 </table>
 
         {% if my_players %}
         <div class="panel-body">
-             <h4>Put on Transfer Market:</h4>
+             <h4>Put player on the transfer list:</h4>
             <form action="" method="POST" id="create_transfer_form">
                             {% csrf_token %}
                 <table><tr>
@@ -77,11 +77,12 @@
         {% endif %}
 
         <div class="panel-body">
-        <h4>My Offers:</h4>
+
+        {% if offers_out %}
+        <h4>Outgoing offers:</h4>
         <table align="left" class="table-row" >
-            {% if offers_out %}
                 <tr>
-                    <th>Name</th>
+                    <th colspan="2" >Player</th>
                     <th>Price</th>
                     <th>Manager</th>
                     <th></th>
@@ -89,10 +90,8 @@
 
             {% for ofr in offers_out %}
               <tr>
-                 <td>
-                   {{ ofr.player.name }}
-                </td>
-                <td align="right">
+                   {{ ofr.player.table_name }}
+                <td style="text-align:right">
                     {{ ofr.price }}
                 </td>
                   <td align="center">
@@ -111,12 +110,25 @@
                   </td>
                </tr>
                {% endfor %}
+            {% else %}
+            <h4>Create offer:</h4>
+            <table align="left" class="table-row" >
+                <tr>
+                    <th colspan="2" >Player</th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
             {% endif %}
             {% if transfer_market %}
              <tr>
                 <form method="POST" action="" id="offer_form">{% csrf_token %}
                 {% for field in offer_form.visible_fields %}
-                <td>
+                     {% if offer_form.visible_fields|first  %}
+                        <td colspan="2">
+                    {% else %}
+                        <td>
+                    {% endif %}
                     {{ field }}
                 </td>
                 {% endfor %}
@@ -134,18 +146,18 @@
             {% if offers_in  %}
              <div class="panel-body" >
         <table align="left"  class="table-row">
-            <h4>Offers for me:</h4>
+            <h4>Incoming offers:</h4>
                 <tr>
-                    <th colspan="2" align="center">Player</th>
+                    <th colspan="2">Player</th>
                     <th>Price</th>
-                   <th>From</th>
+                   <th>Bidder</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             {% for ofr in offers_in %}
               <tr>
-                 <td>
-                    {{ trm.player.table_name }}
-                </td>
-                <td align="right">
+                    {{ ofr.player.table_name }}
+                <td style="text-align:right">
                      {{ ofr.price }}
                 </td>
                 <td>
@@ -204,7 +216,7 @@
                 <td>
                     {{ ofr.player.team.long_linked_name }}
                 </td>
-                <td align="right">
+                <td style="text-align:right">
                     {{ ofr.price }}
                 </td>
                 <td align="center">
