@@ -4,26 +4,39 @@
 {% block content %}
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="text-center">{{ league.name }}</h3>
+            <h3 class="text-center">League "{{ league.name }}"</h3>
         </div>
 
     <div class="panel-body">
               <!-- Nav tabs -->
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#team">My Team</a>
+              {% if transfer_tab %}
+            <a class="nav-link" data-toggle="tab" href="#team">My Team</a>
+        {% else %}
+             <a class="nav-link active" data-toggle="tab" href="#team">My Team</a>
+         {% endif %}
+
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#standings">Standings</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#transfer">Transfer Market</a>
+             {% if transfer_tab %}
+             <a class="nav-link active" data-toggle="tab" href="#transfer">Transfer Market</a>
+        {% else %}
+             <a class="nav-link" data-toggle="tab" href="#transfer">Transfer Market</a>
+         {% endif %}
         </li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane auto {% if tab == 'transfer' %} fade {% else %} active {% endif %}" id="team">
+          {% if transfer_tab %}
+            <div class="tab-pane auto fade" id="team">
+        {% else %}
+            <div class="tab-pane auto active" id="team">
+         {% endif %}
             {% include "nc23/display_team.html" %}
             {% block team %}
             {% endblock team %}
@@ -33,7 +46,11 @@
             {% block standings %}
             {% endblock standings %}
         </div>
-        <div class="tab-pane auto {% if tab == 'transfer' %}active {% else %} fade {% endif %}" id="transfer">
+        {% if transfer_tab %}
+        <div class="tab-pane auto active " id="transfer">
+        {% else %}
+        <div class="tab-pane auto fade " id="transfer">
+        {% endif %}
             {% include "nc23/display_transfers.html" %}
             {% block transfers %}
             {% endblock transfers %}

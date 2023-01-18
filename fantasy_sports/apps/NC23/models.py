@@ -142,9 +142,8 @@ class Player(AbstractPlayer):
         else:
             return self.def_price, 0
 
-
     def __str__(self):
-        return mark_safe( self.team.flag_html() + self.name)
+        return mark_safe(self.team.flag_html() + self.name)
 
 
 class MatchDay(models.Model):
@@ -220,7 +219,7 @@ class LineUp(models.Model):
         return points
 
     def get_players(self):
-        players = [self.flank1, self.pocket, self.flank2]
+        players = [self.flank1, self.pocket1, self.pocket2, self.flank2]
         return list(filter(None, players))
 
     def get_captain(self):

@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 
-from .models import League, Manager, LineUp, Player
+from .models import League, Manager, LineUp, Player, settings
 
 
 class CreateNCLeagueForm(forms.ModelForm):
@@ -142,7 +142,7 @@ class JoinNCLeagueForm(forms.ModelForm):
 
 class PlayerChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
-        return obj.name
+        return "aaa" #obj.choice_name()
 
 
 class CreateOfferForm(forms.Form):
@@ -171,11 +171,15 @@ class CreateTransferForm(forms.Form):
         self.fields['player'].choices = tr_players
 
 
-CAPTAIN_CHOICES = [(LineUp.FLANK1, 'C'),
-                   (LineUp.POCKET1, 'C'),
-                   (LineUp.POCKET2, 'C'),
-                   (LineUp.FLANK2, 'C'),
-                   (LineUp.NONE, 'No Captain')]
+captain_img = mark_safe(f'''<img src="{settings.STATIC_URL}icons/mvp.png"
+                                  height="25" title="captain">''')
+no_captain_img = mark_safe(f'''<img src="{settings.STATIC_URL}icons/no_captain.png"
+                                  height="25" title="no captain">''')
+CAPTAIN_CHOICES = [(LineUp.FLANK1, captain_img),
+                   (LineUp.POCKET1, captain_img),
+                   (LineUp.POCKET2, captain_img),
+                   (LineUp.FLANK2, captain_img),
+                   (LineUp.NONE, no_captain_img)]
 
 
 class RadioTableRenderer(forms.RadioSelect):
