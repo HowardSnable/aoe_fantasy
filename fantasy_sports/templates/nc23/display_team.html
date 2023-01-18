@@ -8,10 +8,10 @@
     {% if not my_players %}
     You have no players in your team yet. Check out the transfer market!
             {% else %}
-
-        <h4 align="center">My Line-Up:</h4>
             <table class="table-row" style="text-align:center">
                 <tr>
+                    <th colspan="5"><h4 align="center">Line-Up</h4></th>
+                </tr><tr>
                     <th>Flank</th>
                     <th>Pocket</th>
                     <th>Pocket</th>
@@ -64,7 +64,7 @@
                 {% endfor %}
              </tr>
                  <tr >
-                       <td>
+                       <td colspan="5">
                    <input type="submit" value="Change Line-Up" name="lineup_button">
                 </td>
                  </tr>
@@ -76,8 +76,9 @@
 
         </div>
 
-        <div  class="panel-body">
-       <table class="table-row" style="float: left">
+        <div  class="panel-body" >
+       <table class="table-row"  style="text-align:center">
+           <tr><th colspan="3"><h4 align="center">{{ manager }}'s Roster</h4></th></tr>
         <tr>
             <th colspan="2" align="center">Player</th>
             <th>Points</th>

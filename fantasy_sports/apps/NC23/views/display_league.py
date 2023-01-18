@@ -108,7 +108,7 @@ class DisplayLeague(LoginRequiredMixin, View):
             'teams': teams,
             'my_lineup': lineup,
             'is_matchday': matchday,
-            'tab': 'lineup'
+            'transfer_tab': False
         }
 
     def get(self, request, *args, **kwargs):
@@ -135,28 +135,29 @@ class DisplayLeague(LoginRequiredMixin, View):
         lineup_form = CreateLineUpForm(request.POST)
 
         context = self.get_context(my_league_id)
-
+        transfer_tab = False
+    
         try:
             if request.POST.get("lineup_button"):
                 handle_lineup_form(lineup_form, request, context.get('my_lineup'), context.get('manager'))
             if request.POST.get("offer_button"):
+                transfer_tab = True
                 handle_offer_form(offer_form, request, my_league)
-                context.update({'tab': 'transfer'})
             if request.POST.get("transfer_delete"):
+                transfer_tab = True
                 delete_transfer(request.POST.get("transfer_to_delete"))
-                context.update({'tab': 'transfer'})
             if request.POST.get("add_transfer"):
+                transfer_tab = True
                 create_transfer(request, my_league)
-                context.update({'tab': 'transfer'})
             if request.POST.get("offer_accept"):
+                transfer_tab = True
                 offer_accept(request.POST.get("offer_to_accept"))
-                context.update({'tab': 'transfer'})
             if request.POST.get("offer_decline"):
+                transfer_tab = True
                 offer_delete(request.POST.get("offer_to_decline"))
-                context.update({'tab': 'transfer'})
             if request.POST.get("offer_delete"):
+                transfer_tab = True
                 offer_delete(request.POST.get("offer_to_delete"))
-                context.update({'tab': 'transfer'})
         except ObjectDoesNotExist:
             messages.error(request,
                            "Could not handle your request, you probably sent it twice.")
@@ -164,6 +165,7 @@ class DisplayLeague(LoginRequiredMixin, View):
         context = self.get_context(my_league_id)  # reload
         forms = get_forms(context)
         context.update(forms)
+        context.update({'transfer_tab': transfer_tab})
 
         return render(request, self.template_name, context)
 

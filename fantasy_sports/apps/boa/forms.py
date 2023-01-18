@@ -182,6 +182,7 @@ class RadioTableRenderer(forms.RadioSelect):
     def render(self):
         return (mark_safe(u''.join([u'<td>%s</td>' % force_unicode(w.tag()) for w in self])))
 
+
 class CreateLineUpForm(forms.Form):
     flank1 = PlayerChoiceField(widget=forms.Select(),
                                queryset=Player.objects.all(),
