@@ -3,21 +3,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-{% load static %}
-
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="text-center">My Leagues</h3>
+        <h3 class="text-center">Transfer Statistics</h3>
     </div>
-
-
-     {% if not player_data %}
-    <div class="panel-body">
-        Player points can be found here after the first round is completed.
-    </div>
-    {% else %}
-
     <div class="panel-body">
               <!-- Nav tabs -->
       <ul class="nav nav-tabs">
@@ -35,15 +24,14 @@
                 <table class="table-row" style="float: left">
         <tr>
             <th colspan="2" align="center">Name</th>
-            <th style="text-align: center"> 	&#x00D8; Price</th>
+            <th>&#x00D8; Price</th>
             <th> Transfers</th>
             </tr>
         {% for player in player_data %}
           <tr>
            {{ player.0.table_name }}
-          <td  style="text-align: center">
-           {{ player.1.0|floatformat }}  <img src="{% static 'icons/gold.png' %}"
-                                  height="18" title="gold">
+          <td>
+           {{ player.1.0|floatformat }}
         </td>
               <td align="right">
                  {{ player.1.1 }}
@@ -58,7 +46,7 @@
         <tr>
             <th></th>
             <th>Team</th>
-            <th  style="text-align: center">	&#x00D8; Price</th>
+            <th>	&#x00D8; Price</th>
             <th>Players</th>
             </tr>
         {% for team in team_data %}
@@ -68,9 +56,8 @@
            {{ team.0.long_linked_name }}
         </td>
 
-          <td align="right">
-           {{ team.2|floatformat }}  <img src="{% static 'icons/gold.png' %}"
-                                  height="18" title="gold">
+          <td>
+           {{ team.2|floatformat }}
         </td>
          <td>
               {% for player in team.1 %}
@@ -88,6 +75,5 @@
       </div>
 
     </div>
-    {% endif %}
 </div>
 {% endblock content %}

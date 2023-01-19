@@ -36,8 +36,8 @@ def add_transfers(league, old_transfers):
 
 
     random.shuffle(new_players)
-    if len(new_players) > league.transfers_per_day:
-        new_players = new_players[0:league.transfers_per_day]
+    if len(new_players) > num_transfers:
+        new_players = new_players[0:num_transfers]
 
     for player in new_players:
         transfer = TransferMarket(player=player,

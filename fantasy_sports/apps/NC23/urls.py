@@ -55,4 +55,9 @@ urlpatterns = [
         views.RulesView.as_view(),
         name='rules'
     ),
+    re_path(
+        r'^vote',
+        views.VoteView.as_view(),
+        name='vote'
+    ),
 ]

@@ -55,9 +55,10 @@
                      {% for choice in lineup_form.captain %}
                  <td align="center">
                   <span class="radio" align="center">
+                     {% if forloop.last %} &ensp;&ensp;{% endif %}
                       {{ choice.tag }}
                         <div class="tooltip2"> {{ choice.choice_label }}
-                            <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captains's performance has a higher impact.</span></span>
+                            <span class="tooltip-wrapper"><spa  n class="tooltiptext"> Your Captains's performance has a higher impact.</span></span>
                          </div>
                     </span>
                  </td>

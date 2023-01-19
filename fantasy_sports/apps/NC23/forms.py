@@ -120,7 +120,7 @@ class JoinNCLeagueForm(forms.ModelForm):
 
         if pw:
             # add password field
-            password_field = forms.CharField(widget=forms.PasswordInput, label="Password:")
+            password_field = forms.CharField(widget=forms.PasswordInput, label="League password:")
             fields = list(self.fields.items())
             fields.append(('password', password_field))
             self.fields = collections.OrderedDict(fields)

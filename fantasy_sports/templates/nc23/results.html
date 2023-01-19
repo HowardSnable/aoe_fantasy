@@ -5,8 +5,14 @@
 {% block content %}
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="text-center">My Leagues</h3>
+        <h3 class="text-center">Results</h3>
     </div>
+    {% if not results|get_item:0 %}
+    <div class="panel-body">
+        Player points can be found here after the first round is completed.
+    </div>
+    {% else %}
+
     <div class="panel-body">
               <!-- Nav tabs -->
       <ul class="nav nav-tabs">
@@ -75,5 +81,7 @@
       </div>
 
     </div>
+
+    {% endif %}
 </div>
 {% endblock content %}
