@@ -8,7 +8,7 @@
                         <img src="{% static 'icons/gold.png' %}"
                                   height="18" title="gold">
 
-                {% if transfer_market  %}
+                    {% if transfer_market  %}
                <table align="center" class="table-row">
                    <tr>
                        <th colspan="6" style="text-align:center">
@@ -54,7 +54,7 @@
             </table>
 
             {% else %}
-            None
+        <div align="left"> No players are listed for auction. </div>
             {% endif %}
 
 </div>
@@ -121,7 +121,7 @@
                   </td>
                </tr>
                {% endfor %}
-            {% else %}
+            {% else %}   {% if transfer_market  %}
             <h4>Create offer:</h4>
             <table align="left" class="table-row" >
                 <tr>
@@ -149,7 +149,7 @@
 
             </form>
             </tr>
-            {% endif %}
+            {% endif %}{% endif %}
             </table>
 
         </div>

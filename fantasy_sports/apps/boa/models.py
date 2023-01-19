@@ -59,9 +59,7 @@ class Manager(AbstractManager):
 
 
 class Team(models.Model):
-    liquipedia = models.TextField(default='', blank=True)
     name = models.TextField(default='', blank=True)
-    long_name = models.TextField(default='', blank=True)
     icon = models.TextField(default='', blank=True)
     is_alive = models.BooleanField(default=True)
 
@@ -72,11 +70,11 @@ class Team(models.Model):
         return mark_safe(f"""<a href="{self.liquipedia}">
                           <img src="{ f'{settings.STATIC_URL}icons/teams/{self.icon}' }"
                           height="18"
-                          title="{self.long_name}">
+                          title="{self.name}">
                           </a>""")
 
     def long_linked_name(self):
-        return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
+        return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
     def get_top_worth(self, t_start, t_end, max_p: int):
         values = [plr.networth(t_start, t_end)[0] for plr in Player.objects.filter(team=self)]
