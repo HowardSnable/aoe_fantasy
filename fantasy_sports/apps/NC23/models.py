@@ -6,7 +6,7 @@ from .constants import *
 from django.urls import reverse_lazy
 from django.db import models
 from django.conf import settings
-
+from django.db.models import Count
 
 from django.utils.safestring import mark_safe
 from fantasy_sports.models import (
@@ -400,3 +400,22 @@ class Result(models.Model):
     points = models.FloatField()
     games_pocket = models.IntegerField(default=0)
     games_flank = models.IntegerField(default=0)
+
+
+class Poll(models.Model):
+    matchday = models.ForeignKey(MatchDay, related_name='poll', on_delete=models.CASCADE)
+    start = models.DateTimeField(default=None, null=True, blank=True)
+    end = models.DateTimeField(default=None, null=True, blank=True)
+
+    def best_players(self, n):
+        return (Vote.objects
+                .filter(poll=self)
+                .values('player')
+                .annotate(dcount=Count('player'))
+                .order_by()[:n])
+
+
+class Vote(models.Model):
+    poll = models.ForeignKey(Poll, related_name='votes', on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, related_name='votes', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='vote', on_delete=models.CASCADE)

@@ -236,3 +236,15 @@ class CreateLineUpForm(forms.Form):
             raise ValidationError("Cannot filed the same player twice!")
 
         return cd
+
+
+class VoteForm(forms.Form):
+    voted_player = PlayerChoiceField(widget=forms.Select(),
+                               queryset=Player.objects.filter(team__is_alive=True),
+                               label="Player",
+                               empty_label=None,
+                               required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(VoteForm, self).__init__(*args, **kwargs)
+

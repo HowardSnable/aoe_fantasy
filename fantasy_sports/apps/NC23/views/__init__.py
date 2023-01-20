@@ -7,4 +7,4 @@ from .join_league import JoinLeague
 from .results_view import ResultView
 from .market_info_view import MarketInfoView
 from .rules import RulesView
-from .vote_view import VoteView
+from .vote import VoteView

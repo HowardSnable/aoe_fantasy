@@ -51,7 +51,7 @@ urlpatterns = [
         name='market_info'
     ),
     re_path(
-        r'^rules',
+        r'^rules$',
         views.RulesView.as_view(),
         name='rules'
     ),
