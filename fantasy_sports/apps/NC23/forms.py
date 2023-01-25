@@ -5,11 +5,12 @@ from django.forms import ModelChoiceField
 from django.urls import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
+from django_select2 import forms as s2forms
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 
-from .models import League, Manager, LineUp, Player, settings
+from .models import League, Manager, LineUp, Player, settings, Vote
 
 
 class CreateNCLeagueForm(forms.ModelForm):
@@ -142,7 +143,7 @@ class JoinNCLeagueForm(forms.ModelForm):
 
 class PlayerChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
-        return "aaa" #obj.choice_name()
+        return obj.choice_name()
 
 
 class CreateOfferForm(forms.Form):
@@ -238,12 +239,18 @@ class CreateLineUpForm(forms.Form):
         return cd
 
 
+class VotePlayerWidget(s2forms.Select2Widget):
+    search_fields = [
+        "name__icontains",
+    ]
+
+
 class VoteForm(forms.Form):
-    voted_player = PlayerChoiceField(widget=forms.Select(),
+    voted_player = ModelChoiceField(widget=VotePlayerWidget,
                                queryset=Player.objects.filter(team__is_alive=True),
                                label="Player",
                                empty_label=None,
-                               required=True)
+                               required=True,)
 
     def __init__(self, *args, **kwargs):
         super(VoteForm, self).__init__(*args, **kwargs)

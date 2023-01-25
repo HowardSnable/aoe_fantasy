@@ -23,6 +23,7 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'django_extensions',
     'crispy_forms',
+    'django_select2',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS

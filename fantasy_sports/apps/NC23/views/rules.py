@@ -12,13 +12,16 @@ class RulesView(TemplateView):
         context = {}
 
         context.update({
-            'POINTS_PER_MATCH_WIN': POINTS_PER_MATCH_WIN,
-            'POINTS_PER_MATCH_LOSS': POINTS_PER_MATCH_LOSS,
+            'POINTS_PER_MATCH_WIN': POINTS_PER_GAME_WIN,
+            'POINTS_PER_MATCH_LOSS': POINTS_PER_GAME_LOSS,
             'POINT_FOR_MVP': POINT_FOR_MVP,
             'CAPTAIN_FACTOR': CAPTAIN_FACTOR,
             'POINTS_FOR_POSITION': POINTS_FOR_POSITION,
             'POINT_FOR_MVP': POINT_FOR_MVP,
             'POINTS_FOR_EMPTY': POINTS_FOR_EMPTY,
+            'POINTS_VOTE': [POINTS_FOR_VOTE1,
+                            POINTS_FOR_VOTE2,
+                            POINTS_FOR_VOTE3],
         })
 
         return context

@@ -39,13 +39,13 @@
         {% for res in results|get_item:0 %}
           <tr>
            {{ res.player.table_name }}
-          <td>
+          <td style="text-align:right">
            {{ res.player.get_points|floatformat }}
         </td>
-           <td>
+           <td style="text-align:right">
            {{ res.games_pocket }}
         </td>
-          <td>
+          <td style="text-align:right">
            {{ res.games_flank }}
         </td>
        </tr>

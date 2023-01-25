@@ -6,10 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Riko Ukena">
         <title>Nations Cup 23 Fantasy League</title>
         <link rel="stylesheet" href="{% static "/libs/bootstrap/css/bootstrap.min.css" %}">
         <link rel="stylesheet" href="{% static "/libs/font-awesome/css/font-awesome.min.css" %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" />
         <link rel="stylesheet" href="{% static "/css/app.css" %}">
   	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
     </head>
@@ -34,9 +35,11 @@
             </div>
         </div>
     </body>
+
     <script src="{% static "js/jquery-3.0.0.min.js" %}"></script>
     <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
     {% block extra_js %}
     {% endblock extra_js %}
 </html>    

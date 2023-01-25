@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.urls import include, re_path
+from django.urls import include, re_path, path
 from django.contrib import admin
 from . import views
 
 urlpatterns = [
+    path("select2/", include("django_select2.urls")),
     re_path(
         'admin/',
         admin.site.urls
@@ -33,6 +34,7 @@ urlpatterns = [
         r'',
         views.redirect_view
     ),
+
 ]
 
 

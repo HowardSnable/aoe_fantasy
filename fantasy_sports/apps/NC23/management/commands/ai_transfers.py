@@ -1,21 +1,20 @@
-from datetime import datetime, timezone, timedelta
 from types import SimpleNamespace
 
 from django.conf import settings
-import datetime
+from django.utils import timezone
 from django.core.management.base import BaseCommand
 
 from fantasy_sports.apps.nc23.models import *
 
 import logging
-logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)
 
 
 class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        logging.info(f'Transfers computed on: {datetime.datetime.utcnow()}. \n')
+        logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)
+        logging.info(f'Transfers computed on: {timezone.now()}. \n')
         for league in League.objects.all():
             logging.info(f'Transfers for league: {league}. \n')
             for player in Player.objects.all():

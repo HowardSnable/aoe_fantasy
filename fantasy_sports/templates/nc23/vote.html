@@ -1,4 +1,3 @@
-
 {% extends "fantasy_sports/base.html" %}
 {% load crispy_forms_tags %}
 
@@ -9,25 +8,91 @@
     </div>
     <div class="panel-body">
 
+    <div class="panel-body">
         {% if current_poll %}
-            {% if vote %}
-                    You have voted for {{ vote.player }}
-            {% else %}
-                  Vote for the player of the week.
-            <form method="POST" action="" id="vote_form">{% csrf_token %}
-                    {% for field in form.visible_fields %}
-                        {{ field }}
-                    {% endfor %}
-                        <input type="submit" value="Vote"  name="vote_button">
-                </form>
-            {% endif %}
+            <h4> Best player of {{ current_poll.matchday }} </h4>
+        {% if vote %}
+        You have voted for {{ vote.player }}.
+        <form action="" method="POST"> {% csrf_token %}
+            <input type="submit" value="Delete vote" name="delete_vote_button">
+        </form>
+        {% else %}
+        {{ form.media.css }}
+        Vote for the player of the week.
+        <form method="POST" action="" id="vote_form">{% csrf_token %}
+            {% for field in form.visible_fields %}
+            {{ field }}
+            {% endfor %}
+            <input type="submit" value="Vote" name="vote_button">
+        </form>
+        {{ form.media.js }}
+        {% endif %}
 
         {% else %}
         {% if next_poll_date %}
-                The net poll starts {{ next_poll_date }}.
+        The next poll starts at {{ next_poll_date }} UTC.
         {% else %}
-                There are no more polls.
+        There are no more polls.
+        {% endif %}
         {% endif %}
     </div>
+
+    {% if old_polls %}
+    <div class=panel-body>
+         <h4> Previous Results:</h4>
+        <ul class="nav nav-tabs">
+            <!--
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#all">All Rounds</a>
+            </li>
+            -->
+            {% for poll in old_polls %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#{{ poll.id }}">{{ poll.matchday }} </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!--
+        <div class="tab-pane auto active in" id="all">
+            <table class="table-row" style="float: left">
+                <tr>
+                    <th colspan="2">Name</th>
+                    <th>Votes</th>
+                </tr>
+                {% for res in results|get_item:0 %}
+                <tr>
+                    {{ res.player.table_name }}
+                    <td>
+                        {{ res.player.get_points|floatformat }} &#37;
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        -->
+        {% for poll in old_polls %}
+        <div class="tab-pane" id="{{ poll.id }}">
+            <table class="table-row" style="float: left">
+                <tr>
+                    <th colspan="2">Name</th>
+                    <th>Votes</th>
+                </tr>
+                {% for res in results|get_item:poll.id %}
+                <tr>
+
+                    {{ res.0.table_name }}
+                    <td>
+                        {{ res.1|floatformat }} &#37;
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
 </div>
+    </div>
 {% endblock content %}

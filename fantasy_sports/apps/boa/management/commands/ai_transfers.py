@@ -1,8 +1,8 @@
-from datetime import datetime, timezone, timedelta
+from django.utils import timezone, timezone, timedelta
 from types import SimpleNamespace
 
 from django.conf import settings
-import datetime
+from django.utils import timezone
 from django.core.management.base import BaseCommand
 
 from fantasy_sports.apps.boa.models import *
@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        logging.info(f'Transfers computed on: {datetime.datetime.utcnow()}. \n')
+        logging.info(f'Transfers computed on: {timezone.now()}. \n')
         for league in League.objects.all():
             logging.info(f'Transfers for league: {league}. \n')
             for player in Player.objects.all():

@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 import logging
 
 from .constants import *
@@ -21,8 +21,8 @@ class League(AbstractLeague):
     administrator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="admin_leagues")
     max_teams_per_league = models.PositiveIntegerField(default=10)
     max_players_per_team = models.PositiveIntegerField(default=MAX_PLAYERS_PER_TEAM)
-    points_per_match_win = models.FloatField(default=POINTS_PER_MATCH_WIN)
-    points_per_match_loss = models.FloatField(default=POINTS_PER_MATCH_LOSS)
+    points_per_match_win = models.FloatField(default=POINTS_PER_GAME_WIN)
+    points_per_match_loss = models.FloatField(default=POINTS_PER_GAME_LOSS)
     point_for_mvp = models.FloatField(default=POINT_FOR_MVP)
     captain_factor = models.FloatField(default=CAPTAIN_FACTOR)
     points_for_position = models.FloatField(default=POINTS_FOR_POSITION)
@@ -93,10 +93,10 @@ class Team(models.Model):
 
 
 class Player(AbstractPlayer):
+    team = models.ForeignKey(Team, related_name='players', on_delete=models.CASCADE)
     manager = models.ManyToManyField(Manager, blank=True)
     liquipedia = models.TextField(default='', blank=True)   
     def_price = models.IntegerField(default=100)
-    team = models.ForeignKey(Team, related_name='players', on_delete=models.CASCADE)
 
     def get_price(self):
         return self.def_price
@@ -130,7 +130,16 @@ class Player(AbstractPlayer):
         return mark_safe(f' {self.team.linked_name()}{self.linked_name()}')
 
     def table_name(self):
-        return mark_safe(f' <td padding-right="0">{self.team.linked_name()}</td><td>{self.linked_name()}</td>')
+        table_name = f' <td padding-right="0">{self.team.linked_name()}</td><td>{self.linked_name()}'
+        img_str = f"""<img src="{ f'{settings.STATIC_URL}icons/star.png' }"
+                          height="15"
+                          title="Player of the week">"""
+        polls_won = [poll for poll in Poll.objects.filter(end__lte=timezone.now())
+                     if self == poll.best_players(1)[0][0]]
+        for _ in polls_won:
+            table_name += img_str
+        table_name += '</td>'
+        return mark_safe(table_name)
 
     def networth(self, t_start, t_end):
         transfers = Offer.objects.filter(status=Offer.STATUS_ACCEPTED,
@@ -150,9 +159,9 @@ class MatchDay(models.Model):
     ROUND_CHOICES = (
        # ('128', 'Round of 128'),
        # ('64', 'Round of 64'),
-        ('G1', 'Group stage round 1'),
-        ('G2', 'Group stage round 2'),
-        ('G3', 'Group stage round 3'),
+        ('G1', 'Group Stage Round 1'),
+        ('G2', 'Group Stage Round 2'),
+        ('G3', 'Group Stage Round 3'),
         ('16', 'Round of 16'),
         ('8', 'Quarter-Finals'),
         ('4', 'Semi-Finals'),
@@ -165,7 +174,7 @@ class MatchDay(models.Model):
     end_date = models.DateTimeField(default=None, null=True)
 
     def __str__(self):
-        return self.tournament_round
+        return dict(self.ROUND_CHOICES).get(self.tournament_round)
 
     def book(self):
         self.is_booked = True
@@ -174,12 +183,6 @@ class MatchDay(models.Model):
 
 class Match(models.Model):
     # two teams facing each other
-
-    score = models.TextField(null=True, blank=True)
-    date_played = models.DateTimeField(default=None, null=True)
-    number_games = models.PositiveIntegerField(default=1)
-    winner = models.IntegerField(default=0, null=True)  # 0: not yet played, 1: team1, 2: team2
-
     team1 = models.ForeignKey(Team, related_name='team1', on_delete=models.CASCADE)
     team2 = models.ForeignKey(Team, related_name='team2', on_delete=models.CASCADE)
     matchday = models.ForeignKey(MatchDay, related_name='matches', on_delete=models.CASCADE)
@@ -188,7 +191,7 @@ class Match(models.Model):
         return f"{self.team1} vs {self.team2}, {self.matchday}"
 
     class Meta:
-        unique_together = (('team1', 'team2'),)
+        unique_together = (('team1', 'team2', 'matchday'),)
 
 
 class LineUp(models.Model):
@@ -278,23 +281,12 @@ class Game(models.Model):
                            on_delete=models.CASCADE,
                            )
 
-    mvp1 = models.ForeignKey(Player,
-                             related_name='mvp1',
-                             on_delete=models.CASCADE,
-                             )
-    mvp2 = models.ForeignKey(Player,
-                             related_name='mvp2',
-                             on_delete=models.CASCADE,
-                             )
-
     def get_winners(self):
         return [self.w1, self.w2, self.w3, self.w4]
 
     def get_losers(self):
         return [self.l1, self.l2, self.l3, self.l4]
 
-    def get_mvps(self):
-        return [self.mvp1, self.mvp2]
 
     def get_pockets(self):
         return [self.w2, self.w3, self.l2, self.l3]
@@ -308,8 +300,6 @@ class Game(models.Model):
             points += league.points_per_match_win
         if player in self.get_losers():
             points += league.points_per_match_loss
-        if player in self.get_mvps():
-            points += league.point_for_mvp
         return points, player in self.get_pockets(), player in self.get_flanks()
 
     def get_points_position(self, lineup: LineUp, league: League):
@@ -358,7 +348,7 @@ class Offer(models.Model):
             self.player.manager.remove(self.reciever)
         self.player.manager.add(self.sender)
         self.player.save()
-        self.end_date = datetime.datetime.utcnow()
+        self.end_date = timezone.now()
         self.status = self.STATUS_ACCEPTED
         self.save()
         self.remove_tansfer_market()
@@ -401,21 +391,31 @@ class Result(models.Model):
     games_pocket = models.IntegerField(default=0)
     games_flank = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.player.name + str(self.matchday)
+
 
 class Poll(models.Model):
     matchday = models.ForeignKey(MatchDay, related_name='poll', on_delete=models.CASCADE)
     start = models.DateTimeField(default=None, null=True, blank=True)
     end = models.DateTimeField(default=None, null=True, blank=True)
 
+    def total_votes(self):
+        return Vote.objects.filter(poll=self).count()
+
     def best_players(self, n):
-        return (Vote.objects
+        results = (Vote.objects
                 .filter(poll=self)
                 .values('player')
                 .annotate(dcount=Count('player'))
-                .order_by()[:n])
+                .order_by("-dcount")[:n])
+        return [(Player.objects.get(id=res['player']),
+                   100 * float(res['dcount']) / self.total_votes()
+                   ) for res in results]
 
 
 class Vote(models.Model):
     poll = models.ForeignKey(Poll, related_name='votes', on_delete=models.CASCADE)
     player = models.ForeignKey(Player, related_name='votes', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='vote', on_delete=models.CASCADE)
+    ip = models.CharField(max_length=50, blank=True)

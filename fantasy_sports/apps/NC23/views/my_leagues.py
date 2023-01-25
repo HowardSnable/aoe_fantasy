@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from datetime import date
 
-from ..models import League
+from ..models import League, Manager
 
 
 class MyLeagues(LoginRequiredMixin, TemplateView):
@@ -20,10 +21,16 @@ class MyLeagues(LoginRequiredMixin, TemplateView):
 
         in_a_league = admin_leagues.exists() or non_admin_leagues.exists()
 
+        managers = dict([(league,
+                          Manager.objects.get(user=self.request.user, league=league))
+                         for league in non_admin_leagues
+                         ])
         context.update({
             'admin_leagues': admin_leagues,
             'non_admin_leagues': non_admin_leagues,
             'in_a_league': in_a_league,
+            'managers': managers,
+            'today': date.today(),
         })
 
         return context

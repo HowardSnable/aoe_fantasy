@@ -1,11 +1,11 @@
-import datetime
+from django.utils import timezone
 from django.contrib import messages
 from ..models import Manager, TransferMarket, Offer, MatchDay, Player, LineUp
 from .filters import get_item
 
 
 def is_matchday():
-    time_now = datetime.datetime.utcnow()
+    time_now = timezone.now()
     if any(MatchDay.objects.filter(start_date__lte=time_now,
                                    end_date__gte=time_now)):
         return True
@@ -75,8 +75,8 @@ def handle_offer_form(offer_form, request, my_league):
             offer = Offer()
 
         offer.player = my_player
-        offer.start_date = datetime.datetime.utcnow()
-        offer.end_date = datetime.datetime.utcnow() + datetime.timedelta(days=7)
+        offer.start_date = timezone.now()
+        offer.end_date = timezone.now() + datetime.timedelta(days=7)
         offer.price = request.POST['price']
         offer.sender = my_manager
         offer.status = Offer.STATUS_OPEN

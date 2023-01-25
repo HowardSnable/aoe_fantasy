@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, timezone, timedelta
+from django.utils import timezone
 from types import SimpleNamespace
 
 from django.conf import settings
@@ -37,7 +37,7 @@ def add_transfers(league, old_transfers):
         transfer = TransferMarket(player=player,
                                   league=league,
                                   manager=None,
-                                  start_date=datetime.datetime.utcnow().replace(tzinfo=timezone.utc),
+                                  start_date=timezone.now().replace(tzinfo=timezone.utc),
                                   price=player.def_price)
         transfer.save()
 

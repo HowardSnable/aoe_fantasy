@@ -1,8 +1,3 @@
-from datetime import datetime, timezone, timedelta
-from types import SimpleNamespace
-
-from django.conf import settings
-
 from django.core.management.base import BaseCommand
 
 from fantasy_sports.apps.boa.models import *
@@ -37,7 +32,7 @@ def award_points(lineup: LineUp, matchday: MatchDay, league: League):
                 points += game.get_points_position(lineup, league)
 
         # punish empty linueps
-        points += (3 - len(lineup.get_players())) * POINTS_FOR_EMPTY
+        points += (N_PLAYERS - len(lineup.get_players())) * POINTS_FOR_EMPTY
         manager = lineup.manager
         manager.points += points
         manager.save()

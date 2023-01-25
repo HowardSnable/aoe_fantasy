@@ -1,4 +1,4 @@
-from datetime import datetime, timezone, timedelta
+from django.utils import timezone, timezone, timedelta
 from types import SimpleNamespace
 
 from django.conf import settings

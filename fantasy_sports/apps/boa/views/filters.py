@@ -1,5 +1,5 @@
 from django.template.defaulttags import register
-import datetime
+from django.utils import timezone
 
 @register.filter
 def get_item(dictionary, key):

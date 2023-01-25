@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 import logging
 
 from .constants import *
@@ -326,7 +326,7 @@ class Offer(models.Model):
             self.player.manager.remove(self.reciever)
         self.player.manager.add(self.sender)
         self.player.save()
-        self.end_date = datetime.datetime.utcnow()
+        self.end_date = timezone.now()
         self.status = self.STATUS_ACCEPTED
         self.save()
         self.remove_tansfer_market()

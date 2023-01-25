@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from django.utils import timezone
 import datetime
 from ..models import Team, Player
 
@@ -13,8 +14,8 @@ class MarketInfoView(TemplateView):
         teams = Team.objects.all()
         team_players = [Player.objects.filter(team=team) for team in teams]
 
-        t_end = datetime.datetime.utcnow()
-        t_start = datetime.datetime.utcnow() - datetime.timedelta(days=7)
+        t_end = timezone.now()
+        t_start = timezone.now() - datetime.timedelta(days=7)
 
         player_data = zip(players, [p.networth(t_start, t_end) for p in players])
         player_data = sorted(player_data, key=lambda x: x[1], reverse=True)

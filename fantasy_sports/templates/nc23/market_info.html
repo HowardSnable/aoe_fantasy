@@ -37,6 +37,7 @@
             <th colspan="2" align="center">Name</th>
             <th style="text-align: center"> 	&#x00D8; Price</th>
             <th> Transfers</th>
+            <th>Points</th>
             </tr>
         {% for player in player_data %}
           <tr>
@@ -47,6 +48,9 @@
         </td>
               <td align="right">
                  {{ player.1.1 }}
+              </td>
+              <td align="right">
+                 {{ player.0.get_points }}
               </td>
        </tr>
        {% endfor %}

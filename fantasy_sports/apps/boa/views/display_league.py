@@ -61,8 +61,8 @@ class DisplayLeague(LoginRequiredMixin, View):
         ).order_by('-points')
         transfer_market = TransferMarket.objects.filter(
             league_id=my_league_id,
-            # start_date__lte=datetime.datetime.utcnow(),
-            # end_date__gte=datetime.datetime.utcnow(),
+            # start_date__lte=timezone.now(),
+            # end_date__gte=timezone.now(),
         )
         old_transfers = Offer.objects.filter(
             league_id=my_league_id,

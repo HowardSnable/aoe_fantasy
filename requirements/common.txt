@@ -1,6 +1,8 @@
 Django==2.1
 django-crispy-forms==1.8
 django-extensions==2.1
+django-select2
 psycopg2==2.8.6
 python-decouple
 django-bootstrap3
+
