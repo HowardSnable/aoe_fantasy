@@ -44,11 +44,11 @@ width: 40pt;
     overflow:visible;
     overflow-x:auto;
     overflow-y:visible;
+    table-layout: auto;
     display:block;
 	width:100%;
 	padding:0px 0px;
 }
-
 
 .table-row th {
 background-color: #EEEEEE;

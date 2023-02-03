@@ -3,13 +3,13 @@
 
 {% block transfer %}
 {% load static %}
-    <div   class="panel-body"  style="text-align:right" >
+    <div   class="panel-body"  style="text-align:right">
         <b>Budget: {{ manager.budget }} </b>
                         <img src="{% static 'icons/gold.png' %}"
                                   height="18" title="gold">
 
                     {% if transfer_market  %}
-               <table align="center" class="table-row">
+               <table align="left" class="table-row">
                    <tr>
                        <th colspan="6" style="text-align:center">
                            <h4><b>Available Players</b></h4>
@@ -62,10 +62,12 @@
 
         {% if my_players %}
         <div class="panel-body">
-             <h4>Put player on the transfer list:</h4>
             <form action="" method="POST" id="create_transfer_form">
                             {% csrf_token %}
                 <table class="table-row">
+                    <tr><th colspan="5" style="text-align:center">
+                        <h4><b>Put player on the transfer list:</b></h4>
+                    </th></tr>
                 <tr>
                     <th >Player</th>
                     <th>Price</th>
@@ -89,8 +91,9 @@
         <div class="panel-body">
 
         {% if offers_out %}
-        <h4>Outgoing offers:</h4>
+
         <table align="left" class="table-row" >
+            <tr><th colspan="5" style="text-align:center"><h4><b>Outgoing offers:</b></h4></th></tr>
                 <tr>
                     <th colspan="2" >Player</th>
                     <th>Price</th>
@@ -122,8 +125,8 @@
                </tr>
                {% endfor %}
             {% else %}   {% if transfer_market  %}
-            <h4>Create offer:</h4>
             <table align="left" class="table-row" >
+                <tr><th colspan="5" style="text-align:center"><h4><b>Create offer:</b></h4></th></tr>
                 <tr>
                     <th colspan="2" >Player</th>
                     <th>Price</th>
@@ -157,7 +160,7 @@
             {% if offers_in  %}
              <div class="panel-body" >
         <table align="left"  class="table-row">
-            <h4>Incoming offers:</h4>
+             <tr><th colspan="5" style="text-align:center"><h4><b>Incoming offers:</b></h4></th></tr>
                 <tr>
                     <th colspan="2">Player</th>
                     <th>Price</th>
@@ -205,8 +208,8 @@
         {% if old_transfers  %}
 
         <div class="panel-body">
-        <h4>History:</h4>
               <table align="left" class="table-row">
+                  <tr><th colspan="7" style="text-align:center"><h4><b>Transfer History</b></h4></th></tr>
                  <tr>
                     <th colspan="2" style="text-align:center">Player</th>
                     <th>Points</th>

@@ -9,7 +9,8 @@ def is_matchday():
     time_now = timezone.now()
     if any(MatchDay.objects.filter(start_date__lte=time_now,
                                    end_date__gte=time_now)):
-        return True
+        return MatchDay.objects.filter(start_date__lte=time_now,
+                                        end_date__gte=time_now).get()
     else:
         return False
 
@@ -95,12 +96,8 @@ def handle_offer_form(offer_form, request, my_league):
         )
 
 
-def handle_lineup_form(lineup_form, request, lineup, manager):
+def handle_lineup_form(lineup_form, request, lineup, manager, matchday):
 
-    if is_matchday():
-        messages.error(request,
-                       'Cannot change Line-Up while games are played!')
-        return
 
     if lineup_form.is_valid():
         flank1 = request.POST.get('flank1')
@@ -118,6 +115,9 @@ def handle_lineup_form(lineup_form, request, lineup, manager):
 
         if not lineup:
             lineup = LineUp()
+
+        if matchday:
+            lineup.matchday = MatchDay.objects.get(id=matchday)
         if flank1:
             lineup.flank1 = Player.objects.get(id=flank1)
         else:

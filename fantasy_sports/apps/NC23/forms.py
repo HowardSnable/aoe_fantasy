@@ -234,7 +234,7 @@ class CreateLineUpForm(forms.Form):
         players = list(filter(None, players))
 
         if len(players) != len(set(players)):
-            raise ValidationError("Cannot filed the same player twice!")
+            raise ValidationError("Cannot field the same player twice!")
 
         return cd
 

@@ -63,7 +63,6 @@ class Manager(AbstractManager):
 class Team(models.Model):
     liquipedia = models.TextField(default='', blank=True)
     name = models.TextField(default='', blank=True)
-    long_name = models.TextField(default='', blank=True)
     icon = models.TextField(default='', blank=True)
     is_alive = models.BooleanField(default=True)
 
@@ -74,17 +73,17 @@ class Team(models.Model):
         return mark_safe(f"""<a href="{self.liquipedia}">
                           <img src="{ f'{settings.STATIC_URL}icons/teams/{self.icon}' }"
                           height="18"
-                          title="{self.long_name}">
+                          title="{self.name}">
                           </a>""")
 
     def flag_html(self):
         return mark_safe(f"""
                                   <img src="{f'{settings.STATIC_URL}icons/teams/{self.icon}'}"
                                   height="18" 
-                                  title="{self.long_name}"> """)
+                                  title="{self.name}"> """)
 
     def long_linked_name(self):
-        return mark_safe(f'<a href="{self.liquipedia}">{self.long_name}</a>')
+        return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
     def get_top_worth(self, t_start, t_end, max_p: int):
         values = [plr.networth(t_start, t_end)[0] for plr in Player.objects.filter(team=self)]
@@ -124,7 +123,7 @@ class Player(AbstractPlayer):
         return mark_safe(f'<a href="{self.liquipedia}">{self.name}</a>')
 
     def choice_name(self):
-        return mark_safe(self.team.flag_html() + self.name)
+        return mark_safe(self.name)
 
     def compact_linked(self):
         return mark_safe(f' {self.team.linked_name()}{self.linked_name()}')
@@ -135,7 +134,7 @@ class Player(AbstractPlayer):
                           height="15"
                           title="Player of the week">"""
         polls_won = [poll for poll in Poll.objects.filter(end__lte=timezone.now())
-                     if self == poll.best_players(1)[0][0]]
+                     if poll.best_players(1) and self == poll.best_players(1)[0][0]]
         for _ in polls_won:
             table_name += img_str
         table_name += '</td>'
@@ -159,11 +158,11 @@ class MatchDay(models.Model):
     ROUND_CHOICES = (
        # ('128', 'Round of 128'),
        # ('64', 'Round of 64'),
-        ('G1', 'Group Stage Round 1'),
-        ('G2', 'Group Stage Round 2'),
-        ('G3', 'Group Stage Round 3'),
+        ('G1', 'Group Stage'),
+        ('G2', 'Group Stage'),
+        ('G3', 'Group Stage'),
         ('16', 'Round of 16'),
-        ('8', 'Quarter-Finals'),
+        ('8', 'Quarter-Finals, LB Round 1 & 2'),
         ('4', 'Semi-Finals'),
         ('2', 'Finals'),
     )

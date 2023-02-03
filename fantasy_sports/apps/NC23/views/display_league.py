@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.utils import timezone
 from ..models import Manager, TransferMarket, Offer, League, Player, LineUp, MatchDay
 from ..forms import CreateOfferForm, CreateTransferForm, CreateLineUpForm
 from .league_form_processing import offer_delete, offer_accept, create_transfer, delete_transfer, handle_lineup_form, \
@@ -25,7 +26,7 @@ def get_forms(context):
 
     players = [(None, '-----')] + players
 
-    lineup = context.get('my_lineup')
+    lineup = context.get('new_lineup')
     initial_dict = {}
     if lineup:
         initial_dict.update({
@@ -45,6 +46,37 @@ def get_forms(context):
         'transfer_form': transfer_form,
         'lineup_form': lineup_form,
     }
+
+
+def get_matchdays():
+    time_now = timezone.now()
+    next_matchdays = MatchDay.objects.filter(start_date__gte=time_now).order_by('start_date')
+    if next_matchdays:
+        return is_matchday(), next_matchdays.get()
+    return is_matchday(), None
+
+
+def get_lineups(manager, current_matchday, next_matchday):
+
+    if current_matchday:
+        lineups = LineUp.objects.filter(manager=manager, matchday=current_matchday)
+        if lineups:
+            old_lineup = lineups.get()
+        else:
+            old_lineup = None
+    else:
+        old_lineup = None
+
+    if next_matchday:
+        lineups = LineUp.objects.filter(manager=manager, matchday=next_matchday)
+        if lineups:
+            new_lineup = lineups.get()
+        else:
+            new_lineup = None
+    else:
+        new_lineup = None
+
+    return old_lineup, new_lineup
 
 
 class DisplayLeague(LoginRequiredMixin, View):
@@ -88,13 +120,8 @@ class DisplayLeague(LoginRequiredMixin, View):
             for manager in Manager.objects.filter(league=my_league_id)
             }
 
-        lineups = LineUp.objects.filter(manager=manager)
-        if lineups.exists():
-            lineup = lineups[0]
-        else:
-            lineup = None
-
-        matchday = is_matchday()
+        current_matchday, next_matchday = get_matchdays()
+        old_lineup, new_lineup = get_lineups(manager, current_matchday, next_matchday)
 
         return {
             'league': league,
@@ -106,8 +133,10 @@ class DisplayLeague(LoginRequiredMixin, View):
             'offers_out': offers_out,
             'my_players': my_players,
             'teams': teams,
-            'my_lineup': lineup,
-            'is_matchday': matchday,
+            'new_lineup': new_lineup,
+            'old_lineup': old_lineup,
+            'current_matchday': current_matchday,
+            'next_matchday': next_matchday,
             'transfer_tab': False
         }
 
@@ -139,7 +168,10 @@ class DisplayLeague(LoginRequiredMixin, View):
     
         try:
             if request.POST.get("lineup_button"):
-                handle_lineup_form(lineup_form, request, context.get('my_lineup'), context.get('manager'))
+                handle_lineup_form(lineup_form, request,
+                                   context.get('new_lineup'),
+                                   context.get('manager'),
+                                   context.get('next_matchday'))
             if request.POST.get("offer_button"):
                 transfer_tab = True
                 handle_offer_form(offer_form, request, my_league)

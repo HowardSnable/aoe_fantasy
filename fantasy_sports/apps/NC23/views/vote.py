@@ -20,7 +20,7 @@ def get_polls():
     else:
         current_poll = None
 
-    previous_polls = Poll.objects.filter(end__lte=dtime)
+    previous_polls = Poll.objects.filter(end__lte=dtime).order_by('end')
     future_polls = Poll.objects.filter(start__gte=dtime).order_by('start')
     if future_polls:
         next_poll_start = future_polls.first().start
