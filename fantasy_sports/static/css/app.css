@@ -3,12 +3,15 @@ div.subitem a.list-group-item {
 }
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+@import "libs/bootstrap/css/bootstrap";
 
 $base-spacing-unit: 24px;
 $half-spacing-unit: $base-spacing-unit / 2;
 
-$color-alpha: #FF7217;
-$color-form-highlight: #EEEEEE;
+
+$color-alpha: #EAB464;
+$color-form-highlight: #646E78;
+
 
 *, *:before, *:after {
 	box-sizing:border-box;
@@ -22,7 +25,7 @@ body {
 	padding:24px;
 	font-family:'Source Sans Pro', sans-serif;
 	margin:0;
-	background :#faebd7;
+	background:#A7754D;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -45,26 +48,25 @@ width: 40pt;
     overflow-x:auto;
     overflow-y:visible;
     table-layout: auto;
-    display:block;
-	width:100%;
+    display: block;
 	padding:0px 0px;
 }
 
 .table-row th {
-background-color: #EEEEEE;
+background-color: #8D98A7;
 }
 .table-row th, td {
 padding: 4px
 }
 .table-row tr {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #646E78;
 }
 
 .highlight_row{
     font-weight: bold;
 }
 
-.table-row tr:hover {background-color: #EEEEEE;}
+.table-row tr:hover {background-color: #8D98A7;}
 
 .table-data, .header__item {
 	flex: 1 1 20%;
@@ -163,3 +165,32 @@ padding: 4px
   position: absolute;
   visibility: hidden;
 }
+
+.data-toggle {
+    background-color: #DCCCBB !important;
+}
+
+.panel-body{
+    background-color: #DCCCBB !important;
+}
+
+.panel-heading{
+    background-color: #646E78 !important;
+}
+
+.navbar{
+    background-color: #646E78 !important;
+    border-color: #646E78  !important;
+}
+
+.navbar-brand{
+color: #FFFFFF !important;
+}
+
+.dropdown-toggle{
+color: #FFFFFF !important;
+}
+
+.collapse.in {background: #DCCCBB  !important;}
+.list-group {background-color: #DCCCBB  !important;}
+.list-group-item {background-color: #DCCCBB  !important;}

@@ -175,6 +175,7 @@ class MatchDay(models.Model):
     def __str__(self):
         return dict(self.ROUND_CHOICES).get(self.tournament_round)
 
+
     def book(self):
         self.is_booked = True
         self.save()
@@ -206,7 +207,13 @@ class LineUp(models.Model):
     pocket2 = models.ForeignKey(Player, related_name='pocket2', on_delete=models.CASCADE, null=True, blank=True)
     flank2 = models.ForeignKey(Player, related_name='flank2', on_delete=models.CASCADE, null=True, blank=True)
     matchday = models.ForeignKey(MatchDay, related_name='lineups', on_delete=models.CASCADE, null=True)
-    manager = models.OneToOneField(Manager, related_name='lineups', on_delete=models.CASCADE, primary_key=True)
+    manager = models.ForeignKey(Manager, related_name='lineups', on_delete=models.CASCADE, primary_key=True)
+
+    class Meta:
+        unique_together = (('manager', 'matchday'),)
+
+    def __str__(self):
+        return f'{self.manager} for {self.matchday}'
 
     def compute_points(self, matchday: MatchDay, league: League):
         results = Result.objects.filter(player__in=self.get_players(), matchday=matchday)

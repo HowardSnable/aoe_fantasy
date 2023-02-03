@@ -117,7 +117,7 @@ def handle_lineup_form(lineup_form, request, lineup, manager, matchday):
             lineup = LineUp()
 
         if matchday:
-            lineup.matchday = MatchDay.objects.get(id=matchday)
+            lineup.matchday = matchday
         if flank1:
             lineup.flank1 = Player.objects.get(id=flank1)
         else:
