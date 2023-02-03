@@ -47,9 +47,9 @@ width: 40pt;
     overflow:visible;
     overflow-x:auto;
     overflow-y:visible;
-    table-layout: auto;
-    display: block;
 	padding:0px 0px;
+	border: 1px solid #646E78;
+	border-bottom:0 ;
 }
 
 .table-row th {
@@ -172,6 +172,7 @@ padding: 4px
 
 .panel-body{
     background-color: #DCCCBB !important;
+    overflow-x:auto;
 }
 
 .panel-heading{
@@ -194,3 +195,4 @@ color: #FFFFFF !important;
 .collapse.in {background: #DCCCBB  !important;}
 .list-group {background-color: #DCCCBB  !important;}
 .list-group-item {background-color: #DCCCBB  !important;}
+.nav-tabs>li.active>a{background: #DFCDBD  !important;}

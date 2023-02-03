@@ -10,12 +10,12 @@
         {% if not in_a_league %}
         <h4>No leagues found for this account. Find a league <a href="{% url 'nc23:find_league' %}">here</a> or create one <a href="{% url 'nc23:create_league' %}">here.</a></h4>
         {% else %}
-        <table class="table-row">
+        <table class="table-row" align="left">
             <tr>
                 <th>League</th>
                 <th>Team</th>
                 <th>Host</th>
-                <th>Teams (Max)</th>
+                    <th>Teams (Max)</th>
                <th>Created</th>
             </tr>
             {% for league in non_admin_leagues %}

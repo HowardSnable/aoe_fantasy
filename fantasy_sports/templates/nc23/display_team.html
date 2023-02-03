@@ -8,7 +8,7 @@
     
      {% if current_matchday %}
 <div  class="panel-body">
-      <table class="table-row" style="text-align:center">
+      <table class="table-row" align="center" style="text-align:center">
                 <tr>
                     <th colspan="5"><h4 align="center"><b>Line-Up for {{ current_matchday }}</b></h4></th>
                 </tr><tr>
@@ -40,12 +40,12 @@
       </table>
 </div>
 {% endif %}
-<div  class="panel-body">
+<div  class="panel-body" >
               {% if not my_players %}
     You have no players in your team yet. Check out the transfer market!
             {% else %}
           {% if next_matchday %}
-            <table class="table-row" style="text-align:center">
+            <table class="table-row"  style="text-align:center">
                 <tr>
                     <th colspan="5"><h4 align="center"><b>Line-Up for {{ next_matchday }}</b></h4></th>
                 </tr><tr>
@@ -84,14 +84,16 @@
                     <td> {{ lineup_form.flank2 }} </td>
                    <td></td>
                </tr>
-                 <tr>
+                 <tr >
                      {% for choice in lineup_form.captain %}
-                 <td align="center">
+                 <td>
                   <span class="radio" align="center">
                      {% if forloop.last %} &ensp;&ensp;{% endif %}
                       {{ choice.tag }}
                         <div class="tooltip2"> {{ choice.choice_label }}
-                            <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captains's performance has a higher impact.</span></span>
+                            {% if not forloop.last %}
+                             <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captain's performance has a higher impact.</span></span>
+                            {% endif %}
                          </div>
                     </span>
                  </td>

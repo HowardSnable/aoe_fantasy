@@ -88,7 +88,7 @@ class Command(BaseCommand):
         logging.info(f"Results generated for all players.")
 
         # get points for positions for each manager and save
-        for lineup in LineUp.objects.all():
+        for lineup in LineUp.objects.filter(matchday=matchday):
             award_points(lineup, matchday, league)
 
         logging.info(f"Points awarded for all lineups.")
