@@ -31,7 +31,7 @@ urlpatterns = [
         )
     ),
     re_path(
-        r'',
+        r'^$',
         views.redirect_view
     ),
 
