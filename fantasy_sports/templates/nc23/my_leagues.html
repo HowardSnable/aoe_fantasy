@@ -17,6 +17,7 @@
                 <th>Host</th>
                     <th>Teams (Max)</th>
                <th>Created</th>
+                <th></th>
             </tr>
             {% for league in non_admin_leagues %}
             <tr>
@@ -29,6 +30,9 @@
                        <td style="text-align:right;">
                            {{today|subtract_date:league.date_created }} days ago
                        </td>
+                <td><button onclick="window.location.href='{% url 'nc23:display_league' league.id %}'">
+                    View
+                </button></td>
             </tr>
             {% endfor %}
         </table>

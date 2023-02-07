@@ -46,7 +46,7 @@ class CreateNCLeagueForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-8'
+        self.helper.field_class = 'col-xs-4'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             'name',

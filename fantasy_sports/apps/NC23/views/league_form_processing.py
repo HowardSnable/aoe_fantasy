@@ -20,8 +20,11 @@ def offer_delete(pk_offer):
     offer.decline()
 
 
-def offer_accept(pk_offer):
+def offer_accept(pk_offer, context, request):
     offer = Offer.objects.get(pk=pk_offer)
+    if offer.player in context.get("new_lineup").get_players():
+        messages.error(request,"You cannot sell a player that is in your line-up!")
+        return
     offer.accept()
 
 

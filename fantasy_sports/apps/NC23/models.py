@@ -207,7 +207,7 @@ class LineUp(models.Model):
     pocket2 = models.ForeignKey(Player, related_name='pocket2', on_delete=models.CASCADE, null=True, blank=True)
     flank2 = models.ForeignKey(Player, related_name='flank2', on_delete=models.CASCADE, null=True, blank=True)
     matchday = models.ForeignKey(MatchDay, related_name='lineups', on_delete=models.CASCADE, null=True)
-    manager = models.ForeignKey(Manager, related_name='lineups', on_delete=models.CASCADE, primary_key=True)
+    manager = models.ForeignKey(Manager, related_name='lineups', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('manager', 'matchday'),)
@@ -293,7 +293,6 @@ class Game(models.Model):
     def get_losers(self):
         return [self.l1, self.l2, self.l3, self.l4]
 
-
     def get_pockets(self):
         return [self.w2, self.w3, self.l2, self.l3]
 
@@ -345,6 +344,9 @@ class Offer(models.Model):
     reciever = models.ForeignKey(Manager, related_name='recieved_offers', on_delete=models.CASCADE, null=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.price} for {self.player.name} from {self.sender}"
+
     def accept(self):
         if self.status == self.STATUS_ACCEPTED:
             return
@@ -357,14 +359,14 @@ class Offer(models.Model):
         self.end_date = timezone.now()
         self.status = self.STATUS_ACCEPTED
         self.save()
-        self.remove_tansfer_market()
+        self.remove_transfer_market()
 
     def decline(self):
         self.sender.budget = self.sender.budget + self.price
         self.sender.save()
         self.delete()
 
-    def remove_tansfer_market(self):
+    def remove_transfer_market(self):
         try:
             transfer_market = TransferMarket.objects.get(player=self.player, league=self.league)
             if transfer_market:

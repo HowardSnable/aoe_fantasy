@@ -4,10 +4,10 @@
 {% block transfer %}
 {% load static %}
     <div   class="panel-body"  style="text-align:center" >
-        <b>Budget: {{ manager.budget }} </b>
+        <h4><b>Budget: {{ manager.budget }} </b>
                         <img src="{% static 'icons/gold.png' %}"
-                                  height="18" title="gold">
-
+                                  height="25" title="gold">
+</h4>
                     {% if transfer_market  %}
                <table  class="table-row">
                    <tr>
@@ -161,7 +161,7 @@
             {% if offers_in  %}
              <div class="panel-body" >
         <table align="left"  class="table-row">
-             <tr><th colspan="5" style="text-align:center"><h4><b>Incoming offers:</b></h4></th></tr>
+             <tr><th colspan="6" style="text-align:center"><h4><b>Incoming offers:</b></h4></th></tr>
                 <tr>
                     <th colspan="2">Player</th>
                     <th>Price</th>

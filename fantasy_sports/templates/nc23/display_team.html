@@ -19,18 +19,18 @@
                     <th></th>
                 </tr>
                 <tr> {% if old_lineup %}
-                      <td>{% if old_lineup.captain is 1 %} <u> {% endif %}
+                      <td>{% if old_lineup.captain is 1 %} <b> {% endif %}
                         {{ old_lineup.flank1 }}
-                    {% if old_lineup.captain is 1 %} </u> {% endif %}</td>
-                    <td>{% if old_lineup.captain is 2 %} <u> {% endif %}
+                    {% if old_lineup.captain is 1 %} </b> {% endif %}</td>
+                    <td>{% if old_lineup.captain is 2 %} <b> {% endif %}
                         {{ old_lineup.pocket1 }}
-                          {% if old_lineup.captain is 2 %} </u> {% endif %}</td>
-                    <td>{% if old_lineup.captain is 3 %} <u> {% endif %}
+                          {% if old_lineup.captain is 2 %} </b> {% endif %}</td>
+                    <td>{% if old_lineup.captain is 3 %} <b> {% endif %}
                         {{ old_lineup.pocket2 }}
-                          {% if old_lineup.captain is 3 %} </u> {% endif %}</td>
-                    <td>  {% if old_lineup.captain is 4 %} <u> {% endif %}
+                          {% if old_lineup.captain is 3 %} </b> {% endif %}</td>
+                    <td>  {% if old_lineup.captain is 4 %} <b> {% endif %}
                     {{ old_lineup.flank2 }}
-                      {% if old_lineup.captain is 4 %} </u> {% endif %}</td>
+                      {% if old_lineup.captain is 4 %} </b> {% endif %}</td>
                     <td></td>
                     
                 {% else %}
@@ -58,18 +58,18 @@
 
                {% if new_lineup %}
                 <tr>
-                    <td>{% if new_lineup.captain is 1 %} <u> {% endif %}
+                    <td>{% if new_lineup.captain is 1 %} <b> {% endif %}
                         {{ new_lineup.flank1 }}
-                    {% if new_lineup.captain is 1 %} </u> {% endif %}</td>
-                    <td>{% if new_lineup.captain is 2 %} <u> {% endif %}
+                    {% if new_lineup.captain is 1 %} </b> {% endif %}</td>
+                    <td>{% if new_lineup.captain is 2 %} <b> {% endif %}
                         {{ new_lineup.pocket1 }}
-                          {% if new_lineup.captain is 2 %} </u> {% endif %}</td>
-                    <td>{% if new_lineup.captain is 3 %} <u> {% endif %}
+                          {% if new_lineup.captain is 2 %} </b> {% endif %}</td>
+                    <td>{% if new_lineup.captain is 3 %} <b> {% endif %}
                         {{ new_lineup.pocket2 }}
-                          {% if new_lineup.captain is 3 %} </u> {% endif %}</td>
-                    <td>  {% if new_lineup.captain is 4 %} <u> {% endif %}
+                          {% if new_lineup.captain is 3 %} </b> {% endif %}</td>
+                    <td>  {% if new_lineup.captain is 4 %} <b> {% endif %}
                     {{ new_lineup.flank2 }}
-                      {% if new_lineup.captain is 4 %} </u> {% endif %}</td>
+                      {% if new_lineup.captain is 4 %} </b> {% endif %}</td>
                     <td></td>
                 </tr>
               {% endif %}           

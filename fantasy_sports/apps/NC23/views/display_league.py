@@ -183,7 +183,7 @@ class DisplayLeague(LoginRequiredMixin, View):
                 create_transfer(request, my_league)
             if request.POST.get("offer_accept"):
                 transfer_tab = True
-                offer_accept(request.POST.get("offer_to_accept"))
+                offer_accept(request.POST.get("offer_to_accept"), context, request)
             if request.POST.get("offer_decline"):
                 transfer_tab = True
                 offer_delete(request.POST.get("offer_to_decline"))
