@@ -8,3 +8,5 @@ from .results_view import ResultView
 from .market_info_view import MarketInfoView
 from .rules import RulesView
 from .vote import VoteView
+from .home_view import home_view
+from .welcome import WelcomeView

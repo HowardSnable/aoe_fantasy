@@ -7,7 +7,7 @@ app_name = 'nc23'
 urlpatterns = [
     re_path(
         r'^home/$',
-        views.MyLeagues.as_view(),
+        views.home_view,
         name='home'
     ),
     re_path(
@@ -59,5 +59,11 @@ urlpatterns = [
         r'^vote',
         views.VoteView.as_view(),
         name='vote'
+    ),
+
+    re_path(
+        r'^welcome',
+        views.WelcomeView.as_view(),
+        name='welcome'
     ),
 ]

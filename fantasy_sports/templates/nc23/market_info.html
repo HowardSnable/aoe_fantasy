@@ -34,9 +34,20 @@
            <div class="tab-pane auto active in" id="players">
                 <table class="table-row" style="float: left">
         <tr>
-            <th colspan="2" align="center">Name</th>
-            <th style="text-align: center"> 	&#x00D8; Price</th>
-            <th> Transfers</th>
+            <th colspan="2" align="center"> Name
+            </th>
+            <th style="text-align: center"><div class="tooltip2">
+                Price
+                <span class="tooltip-wrapper"><span class="tooltiptext">
+                    Average price of transfers last week.
+                </span></span></div>
+            </th>
+            <th style="text-align: center"><div class="tooltip2">
+                 &#8644;
+                <span class="tooltip-wrapper"><span class="tooltiptext">
+                    Total number of transfers last week.
+                </span></span></div>
+           </th>
             <th>Points</th>
             </tr>
         {% for player in player_data %}

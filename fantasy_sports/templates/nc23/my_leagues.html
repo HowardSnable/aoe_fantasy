@@ -10,26 +10,26 @@
         {% if not in_a_league %}
         <h4>No leagues found for this account. Find a league <a href="{% url 'nc23:find_league' %}">here</a> or create one <a href="{% url 'nc23:create_league' %}">here.</a></h4>
         {% else %}
-        <table class="table-row" align="left">
+        <table class="table-row">
             <tr>
                 <th>League</th>
-                <th>Team</th>
-                <th>Host</th>
-                    <th>Teams (Max)</th>
-               <th>Created</th>
+                <th>My Team</th>
+               <!-- <th>Host</th> -->
+                    <th>Teams</th>
+               <!-- <th>Created</th> -->
                 <th></th>
             </tr>
             {% for league in non_admin_leagues %}
             <tr>
                 <td><a href="{% url 'nc23:display_league' league.id %}">{{ league }}</a></td>
                 <td>{{ managers|get_item:league }}</td>
-                <td> {{ league.administrator.username }} </td>
+                <!-- <td> {{ league.administrator.username }} </td> -->
                    <td style="text-align:center;">
-                    {{ league.get_mgr_count }}({{ league.max_teams_per_league }})
+                    {{ league.get_mgr_count }}/{{ league.max_teams_per_league }}
                   </td>
-                       <td style="text-align:right;">
+                      <!-- <td style="text-align:right;">
                            {{today|subtract_date:league.date_created }} days ago
-                       </td>
+                       </td> -->
                 <td><button onclick="window.location.href='{% url 'nc23:display_league' league.id %}'">
                     View
                 </button></td>

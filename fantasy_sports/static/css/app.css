@@ -190,6 +190,7 @@ padding: 4px
 .navbar{
     background-color:  var(--heading1) !important;
     border-color:  var(--heading1)  !important;
+    border-radius: 4px;
 }
 
 .navbar-brand{
@@ -206,6 +207,7 @@ color: #FFFFFF !important;
 .nav-tabs>li.active>a{background:  var(--main-light)  !important;}
 
 .panel-primary{border: 1px solid  var(--heading1);}
+.col-xs-12{padding: 5px !important;}
 
 input[type="text"] {  background-color :  var(--inputs) !important;}
 input[type="submit"], button {  background-color :  var(--inputs) !important;

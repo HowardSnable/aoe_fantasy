@@ -26,7 +26,7 @@ class CreateNCLeagueForm(forms.ModelForm):
 
         labels = {
             'name': 'League name',
-            'max_teams_per_league': 'Number of teams in league',
+            'max_teams_per_league': 'Number of teams',
             'is_public': 'Publicly visible',
             'password': 'Password',
         }
@@ -44,9 +44,9 @@ class CreateNCLeagueForm(forms.ModelForm):
         super(CreateNCLeagueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-4'
+        self.helper.form_class = 'form-vertical'
+        self.helper.label_class = 'col-xs-7'
+        self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             'name',
@@ -63,8 +63,8 @@ class UpdateNCLeagueForm(CreateNCLeagueForm):
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-8'
+        self.helper.label_class = 'col-xs-7'
+        self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             'name',
@@ -84,8 +84,8 @@ class FindNCLeagueForm(forms.Form):
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-inline'
-        self.helper.label_class = 'col-xs-6'
-        self.helper.field_class = 'col-xs-4'
+        self.helper.label_class = 'col-xs-7'
+        self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'
         self.helper.form_action = reverse_lazy('nc23:find_league')
         self.helper.layout = Layout(
@@ -128,8 +128,8 @@ class JoinNCLeagueForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-8'
+        self.helper.label_class = 'col-xs-7'
+        self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'
 
         if pw:

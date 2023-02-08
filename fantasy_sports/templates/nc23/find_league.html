@@ -16,9 +16,8 @@
                <tr>
                     <th>Name</th>
                    <th>Host</th>
-                    <th>Teams (Max)</th>
+                    <th>Teams</th>
                    <th>Created</th>
-                   <th>Password</th>
                    <th></th>
                 </tr>
             {% for league in leagues %}
@@ -26,20 +25,18 @@
                    <form action="{% url 'nc23:join_league' league.id %}" method="get">
                   <td>
                     {{ league.name }}
+                      {% if league.password %}
+                                <img src="{% static 'icons/password.png' %}" width="20" height="20">
+                           {%  endif %}
                   </td>
                    <td>
                     {{ league.administrator.username }}
                   </td>
                    <td style="text-align:center;">
-                    {{ league.get_mgr_count }}({{ league.max_teams_per_league }})
+                    {{ league.get_mgr_count }}/{{ league.max_teams_per_league }}
                   </td>
                        <td style="text-align:right;">
                            {{today|subtract_date:league.date_created }} days ago
-                       </td>
-                       <td style="text-align:center;">
-                           {% if league.password %}
-                                <img src="{% static 'icons/password.png' %}" width="20" height="20">
-                           {%  endif %}
                        </td>
                   <td>  {% csrf_token %}
                             <input type="submit" value="Join">
