@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 from fantasy_sports.apps.nc23.models import *
 
 import logging
-logging.basicConfig(filename='./remove_teams.log', level=logging.DEBUG)
 
 
 def validate_args(args):
@@ -26,7 +25,7 @@ class Command(BaseCommand):
         parser.add_argument('--compensation')
 
     def handle(self, *args, **options):
-
+        logging.getLogger('nc23_manager')
         try:
             team, compensation = validate_args(options)
         except Exception as e:

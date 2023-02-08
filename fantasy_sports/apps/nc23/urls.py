@@ -63,7 +63,7 @@ urlpatterns = [
 
     re_path(
         r'^welcome',
-        views.WelcomeView.as_view(),
+        views.welcome_view,
         name='welcome'
     ),
 ]

@@ -108,4 +108,33 @@ STATIC_URL = '/static/'
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+LOGGING_ROOT = os.path.join(BASE_DIR, 'logs')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+         'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': LOGGING_ROOT + "/nc23.log",
+        },
+        'nc23_manager': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOGGING_ROOT + "/management.log",
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'nc23_manager': {
+            'handlers': ['nc23_manager'],
+            'level': 'INFO',
+            'propagate': False,
+        }
+    },
+}

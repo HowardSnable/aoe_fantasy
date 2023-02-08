@@ -5,6 +5,8 @@ from fantasy_sports.apps.nc23.models import *
 
 import logging
 
+
+
 def generate_result(player, matchday, league, top_players):
     points = 0.
     games_pocket = games_flank = 0
@@ -59,7 +61,7 @@ class Command(BaseCommand):
         matchday_id = int(options["day_id"].pop())
         matchday = MatchDay.objects.get(id=matchday_id)
 
-        logging.basicConfig(filename=f'./points_{matchday_id}.log', level=logging.DEBUG)
+        logging.getLogger('nc23_manager')
         logging.info(f'Booking Matchday {matchday} with id {matchday_id} at {timezone.now()}.')
 
         if matchday.is_booked:

@@ -127,7 +127,7 @@ class JoinNCLeagueForm(forms.ModelForm):
             self.fields = collections.OrderedDict(fields)
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
+        self.helper.form_class = 'form-vertical'
         self.helper.label_class = 'col-xs-7'
         self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'

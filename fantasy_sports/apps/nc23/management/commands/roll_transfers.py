@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 from fantasy_sports.apps.nc23.models import *
 
 import logging
-logging.basicConfig(filename='./ai_transfers.log', level=logging.DEBUG)
+
 
 
 def add_transfers(league, old_transfers):
@@ -52,7 +52,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-
+        logging.getLogger('nc23_manager')
         for league in League.objects.all():
             transfers = TransferMarket.objects.filter(league=league, manager=None)
             add_transfers(league, transfers)

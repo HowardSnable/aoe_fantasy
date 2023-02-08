@@ -22,8 +22,6 @@ class FantasySportsCreateAccountForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'first_name',
-            'last_name',
             'email',
             'username',
             'password',
@@ -44,16 +42,14 @@ class FantasySportsCreateAccountForm(forms.ModelForm):
         self.fields['email'].required = True
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
+        self.helper.form_class = 'form-vertical'
         self.helper.label_class = 'col-xs-4'
-        self.helper.field_class = 'col-xs-8'
+        self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'
         self.helper.form_action = reverse_lazy('account_management:create')
         self.helper.layout = Layout(
-            'first_name',
-            'last_name',
+                        'username',
             'email',
-            'username',
             'password',
             'verify_password',
             Submit('submit', 'Create Account', css_class='col-xs-offset-4'),

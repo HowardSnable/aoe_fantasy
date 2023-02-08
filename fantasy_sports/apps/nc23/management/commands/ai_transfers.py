@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        logging.basicConfig(filename='./nc_23.log', level=logging.DEBUG)
+        logging.getLogger('nc23_manager')
         logging.info(f'Transfers computed on: {timezone.now()}. \n')
         for league in League.objects.all():
             logging.info(f'Transfers for league: {league}. \n')
