@@ -158,14 +158,15 @@ class MatchDay(models.Model):
     ROUND_CHOICES = (
        # ('128', 'Round of 128'),
        # ('64', 'Round of 64'),
-        ('G1', 'Group Stage'),
-        ('G2', 'Group Stage'),
-        ('G3', 'Group Stage'),
+        ('G', 'Group Stage'),
+        #('G2', 'Group Stage'),
+        #('G3', 'Group Stage'),
         ('16', 'Round of 16'),
         ('8', 'Quarter-Finals, LB Round 1 & 2'),
-        ('4', 'Semi-Finals'),
-        ('2', 'Finals'),
-    )
+        ('4', 'Semi-Finals, LB Round 3 & 4'),
+        ('2', 'Winners & Losers Finals'),
+	('1', 'Grand Finals'),
+   )
     tournament_round = models.CharField(max_length=10, choices=ROUND_CHOICES)
     is_active = models.BooleanField(default=False)
     is_booked = models.BooleanField(default=False)

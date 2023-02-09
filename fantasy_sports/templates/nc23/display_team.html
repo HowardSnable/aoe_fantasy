@@ -1,0 +1,141 @@
+
+{% load crispy_forms_tags %}
+
+{% block team %}
+
+
+
+    
+     {% if current_matchday %}
+<div  class="panel-body">
+      <table class="table-row" align="center" style="text-align:center">
+                <tr>
+                    <th colspan="5"><h4 align="center"><b>Line-Up for {{ current_matchday }}</b></h4></th>
+                </tr><tr>
+                    <th>Flank</th>
+                    <th>Pocket</th>
+                    <th>Pocket</th>
+                    <th>Flank</th>
+                    <th></th>
+                </tr>
+                <tr> {% if old_lineup %}
+                      <td>{% if old_lineup.captain is 1 %} <b> {% endif %}
+                        {{ old_lineup.flank1 }}
+                    {% if old_lineup.captain is 1 %} </b> {% endif %}</td>
+                    <td>{% if old_lineup.captain is 2 %} <b> {% endif %}
+                        {{ old_lineup.pocket1 }}
+                          {% if old_lineup.captain is 2 %} </b> {% endif %}</td>
+                    <td>{% if old_lineup.captain is 3 %} <b> {% endif %}
+                        {{ old_lineup.pocket2 }}
+                          {% if old_lineup.captain is 3 %} </b> {% endif %}</td>
+                    <td>  {% if old_lineup.captain is 4 %} <b> {% endif %}
+                    {{ old_lineup.flank2 }}
+                      {% if old_lineup.captain is 4 %} </b> {% endif %}</td>
+                    <td></td>
+                    
+                {% else %}
+                    <td colspan=5"> You did not field a line-up for {{ current_matchday }}. </td>
+                    {% endif %}
+                </tr>
+      </table>
+</div>
+{% endif %}
+<div  class="panel-body" >
+              {% if not my_players %}
+    You have no players in your team yet. Check out the transfer market!
+            {% else %}
+          {% if next_matchday %}
+            <table class="table-row"  style="text-align:center">
+                <tr>
+                    <th colspan="5"><h4 align="center"><b>Line-Up for {{ next_matchday }}</b></h4></th>
+                </tr><tr>
+                    <th>Flank</th>
+                    <th>Pocket</th>
+                    <th>Pocket</th>
+                    <th>Flank</th>
+                    <th></th>
+                </tr>
+
+               {% if new_lineup %}
+                <tr>
+                    <td>{% if new_lineup.captain is 1 %} <b> {% endif %}
+                        {{ new_lineup.flank1 }}
+                    {% if new_lineup.captain is 1 %} </b> {% endif %}</td>
+                    <td>{% if new_lineup.captain is 2 %} <b> {% endif %}
+                        {{ new_lineup.pocket1 }}
+                          {% if new_lineup.captain is 2 %} </b> {% endif %}</td>
+                    <td>{% if new_lineup.captain is 3 %} <b> {% endif %}
+                        {{ new_lineup.pocket2 }}
+                          {% if new_lineup.captain is 3 %} </b> {% endif %}</td>
+                    <td>  {% if new_lineup.captain is 4 %} <b> {% endif %}
+                    {{ new_lineup.flank2 }}
+                      {% if new_lineup.captain is 4 %} </b> {% endif %}</td>
+                    <td></td>
+                </tr>
+              {% endif %}           
+
+             <form action="" method="POST" id="set_lineup">
+                            {% csrf_token %}
+
+               <tr>
+                    <td> {{ lineup_form.flank1 }} </td>
+                    <td> {{ lineup_form.pocket1 }} </td>
+                    <td> {{ lineup_form.pocket2 }} </td>
+                    <td> {{ lineup_form.flank2 }} </td>
+                   <td></td>
+               </tr>
+                 <tr >
+                     {% for choice in lineup_form.captain %}
+                 <td>
+                  <span class="radio" align="center">
+                     {% if forloop.last %} &ensp;&ensp;{% endif %}
+                      {{ choice.tag }}
+                        <div class="tooltip2"> {{ choice.choice_label }}
+                            {% if not forloop.last %}
+                             <span class="tooltip-wrapper"><span class="tooltiptext"> Your Captain's performance has a higher impact.</span></span>
+                            {% endif %}
+                         </div>
+                    </span>
+                 </td>
+                {% endfor %}
+             </tr>
+                 <tr >
+                       <td colspan="5">
+                   <input type="submit" value="Change Line-Up" name="lineup_button">
+                </td>
+                 </tr>
+
+                   {% if new_lineup %}
+                   <input type="hidden" id="lineup" name="lineup" value= "{{ new_lineup.id }}" >
+                   {% endif %}
+                   <input type="hidden" id="matchday" name="matchday" value= "{{ next_matchday.id }}" >
+            </form>
+                 </table>
+                {% endif %}
+
+
+        </div>
+
+        <div  class="panel-body" >
+       <table class="table-row"  style="text-align:center">
+           <tr><th colspan="3"><h4 align="center"><b>{{ manager }}'s Roster</b></h4></th></tr>
+        <tr>
+            <th colspan="2" align="center">Player</th>
+            <th>Points</th>
+        </tr>
+    {% for plr in my_players %}
+      <tr> {% if plr.team.is_alive is False %} <del> {% endif %}
+           {{ plr.table_name }}
+             {% if plr.team.is_alive is False %} </del> {% endif %}
+        <td align="right">
+           {{ plr.get_points|floatformat }}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+
+    {% endif %}
+        </div>
+
+
+{% endblock team %} <!-- if not my_players --->

@@ -14,4 +14,4 @@ POINTS_FOR_VOTE3 = 1
 # number of leagues a user can administrate
 MAX_LEAGUES_PER_ADMIN = 10
 TRANSFERS_PER_DAY = 8
-START_BUDGET = 2500
+START_BUDGET = 1000
