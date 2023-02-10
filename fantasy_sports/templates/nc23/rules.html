@@ -1,5 +1,6 @@
 {% extends "fantasy_sports/base.html" %}
 {% block content %}
+{% load static %}
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="text-center">Rules and Settings</h3>
@@ -27,10 +28,12 @@
     The lineups for a round are locked at the first day of the round at noon (12:00) GMT,
     which are the following:
 <ul>
-        <li>02.06. - group phase round 1</li>
-        <li>09.06. - group phase round 2</li>
-        <li>16.06. - group phase round 3 and quarter finals</li>
-        <li>25.06. - semifinals and finals.</li>
+        <li>22.02. - group stage</li>
+        <li>17.03. - round of 16</li>
+        <li>30.03. - quarter finals and lower bracket round 1 &amp; 2</li>
+        <li>15.04. - semifinals and lower bracket round 3 &amp; 4</li>
+	<li>TBA - winners final and lower bracket round 5</li>
+	<li>TBA - losers final and grand final</li> 
     </ul>
 </p>
 <u><h4>Points</h4></u>
@@ -45,26 +48,26 @@ player are computed as follows:
         <td>Game lost</td><td align="right">{{ POINTS_PER_MATCH_LOSS|floatformat }}</td>
     </tr>
     <tr>
-        <td>Highest score of team</td><td align="right">{{ POINT_FOR_MVP|floatformat }}</td>
-    </tr>
-    <tr>
         <td>Correct position</td><td align="right">{{ POINTS_FOR_POSITION|floatformat }}</td>
     </tr>
     <tr>
-        <td>Captain</td><td align="right"> &times;{{ CAPTAIN_FACTOR|floatformat }}</td>
+        <td>Captain</td><td align="right"> &times;{{ CAPTAIN_FACTOR|floatformat }}.</td>
     </tr>
 </table>
-If a player does not play in any game of that round, he will get 0 points.
+At the end of each round there will be a <a href="vote">community poll</a> for the best player of the round.
+The 1st/2nd/3rd place in that poll recieve {{ POINTS_VOTE.0 }}/{{ POINTS_VOTE.1 }}/{{ POINTS_VOTE.2 }} extra points.
+<br />
 You will recieve the sum of all your player's points the were fielded when
-the lineup was locked. An empty spot in your lineup will be punished by
-{{ POINTS_FOR_EMPTY|floatformat }} points for each round. 
-    A completely empty lineup will get 0 points.
+the lineup was locked. 
+<b>An empty spot in your lineup will be punished by
+{{ POINTS_FOR_EMPTY|floatformat }} points for each round. </b>
+However, a lineup with no players will not change your points at all.
 </p>
 
 <u><h4>Transfer Market</h4></u>
 <p>
-    You can acquire new players on the transfer market.
-    For players without a manger there will be a minimum price.
+    You can acquire new players on the transfer market for <img src="{% static 'icons/gold.png'%}" height="18"></img>.
+    For players without a manager there will be a minimum price.
     Your offer will be accepted if it is the highest offer that is above the minimum price.
     Offers will be accepted each day at midnight GMT.
 
@@ -76,8 +79,8 @@ the lineup was locked. An empty spot in your lineup will be punished by
     If players are out of the tournament,
     their name will be displayed <del>struck through</del>.
     Such a player can still be fielded in a lineup to avoid negative points.
-    The price money that his team achieved will be added to your budget,
-    so you can find new players that are still in the tournament.
+    A compensation of 100<img src="{% static 'icons/gold.png'%}" height="18"></img> will be added to your budget,
+    so you can bid for new players that are still in the tournament.
 </p>
 </div>
     </div>

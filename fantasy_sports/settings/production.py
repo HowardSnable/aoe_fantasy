@@ -11,7 +11,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_SUBJECT_PREFIX = '[NC23 Fantasy Manager] '
 
-ALLOWED_HOSTS = ['raikosef.uber.space', 'localhost']
+ALLOWED_HOSTS = ['raikosef.uber.space', 'localhost', 'www.aoe2fantasy.com', 'aoe2fantasy.com']
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
