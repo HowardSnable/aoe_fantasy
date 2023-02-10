@@ -59,12 +59,5 @@
       </div>
 
     </div>
-         {% if object.administrator == request.user %}
-    <div class="panel-footer">
-
-        <p><a href="{% url 'nc23:update_league' object.id %}">League Settings</a></p>
-
-    </div>
-              {% endif %}
 </div>
 {% endblock content %}

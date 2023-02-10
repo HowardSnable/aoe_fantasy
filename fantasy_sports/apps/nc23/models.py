@@ -381,7 +381,7 @@ class Offer(models.Model):
         return self.price < other.price
 
     def print(self):
-        return f'Offer of {self.price} for {self.player} from {self.sender} to {self.reciever} in league {self.league}'
+        return f'Offer of {self.price} for {self.player.name} from {self.sender} to {self.reciever} in league {self.league}'
 
 
 class TransferMarket(models.Model):

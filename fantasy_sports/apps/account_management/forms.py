@@ -37,12 +37,10 @@ class FantasySportsCreateAccountForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FantasySportsCreateAccountForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
         self.fields['email'].required = True
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-vertical'
+        self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-xs-4'
         self.helper.field_class = 'col-xs-7'
         self.helper.form_method = 'post'

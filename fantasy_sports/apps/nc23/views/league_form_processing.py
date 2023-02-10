@@ -22,7 +22,7 @@ def offer_delete(pk_offer):
 
 def offer_accept(pk_offer, context, request):
     offer = Offer.objects.get(pk=pk_offer)
-    if offer.player in context.get("new_lineup").get_players():
+    if context.get("new_lineup") and offer.player in context.get("new_lineup").get_players():
         messages.error(request,"You cannot sell a player that is in your line-up!")
         return
     offer.accept()
@@ -57,6 +57,10 @@ def handle_offer_form(offer_form, request, my_league):
     my_owner = my_player.manager.filter(league=my_league).first()
 
     if offer_form.is_valid():
+
+	# offer repost after it was already accepted
+        if my_owner == my_manager:
+             return
 
         # if price higher than budget, error
         if int(request.POST['price']) > my_manager.budget:

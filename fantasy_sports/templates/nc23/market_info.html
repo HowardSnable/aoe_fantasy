@@ -73,8 +73,13 @@
         <tr>
             <th></th>
             <th>Team</th>
-            <th  style="text-align: center">	&#x00D8; Price</th>
-            <th>Players</th>
+           <th style="text-align: center"><div class="tooltip2">
+                Value
+                <span class="tooltip-wrapper"><span class="tooltiptext">
+                    Average price of top 4 plaers last week.
+                </span></span></div>
+            </th>
+	    <th>Players</th>
             </tr>
         {% for team in team_data %}
           <tr>

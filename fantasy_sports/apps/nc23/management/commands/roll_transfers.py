@@ -16,7 +16,7 @@ def add_transfers(league, old_transfers):
     num_transfers = league.transfers_per_day
     # add more players to transfer market in new leagues
     if not old_transfers:
-        num_transfers *= 2
+        num_transfers *= 1 
 
     old_player_ids = [transfer.player.id for transfer in old_transfers]  # not necessarily DauT
     managers = Manager.objects.filter(league=league)

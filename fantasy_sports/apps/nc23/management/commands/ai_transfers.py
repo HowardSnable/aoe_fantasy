@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 if not offer_list:
                     continue
 
-                logging.info(f'Transfers for player: {player}.')
+                logging.info(f'Transfers for player: {player.name}.')
                 best_offer = offer_list[0]
 
                 # has to pay minimum price

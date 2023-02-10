@@ -42,7 +42,10 @@
 {% endif %}
 <div  class="panel-body" >
               {% if not my_players %}
-    You have no players in your team yet. Check out the transfer market!
+			    You have no players in your team yet. Check out the transfer market!
+		{% if next_matchday %}
+                	<br /> Line-ups for {{ next_matchday }} will be locked at {{ next_matchday.start_date }} GMT.
+		{% endif %}
             {% else %}
           {% if next_matchday %}
             <table class="table-row"  style="text-align:center">
@@ -111,6 +114,8 @@
                    <input type="hidden" id="matchday" name="matchday" value= "{{ next_matchday.id }}" >
             </form>
                  </table>
+	 Line-ups for {{ next_matchday }} will be locked at {{ next_matchday.start_date }} GMT.
+
                 {% endif %}
 
 

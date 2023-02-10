@@ -21,8 +21,6 @@ class CreateAccount(FormView):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
             )
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
             user.save()
 
             messages.success(

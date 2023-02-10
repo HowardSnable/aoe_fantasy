@@ -52,7 +52,7 @@ def get_matchdays():
     time_now = timezone.now()
     next_matchdays = MatchDay.objects.filter(start_date__gte=time_now).order_by('start_date')
     if next_matchdays:
-        return is_matchday(), next_matchdays.get()
+        return is_matchday(), next_matchdays.first()
     return is_matchday(), None
 
 
