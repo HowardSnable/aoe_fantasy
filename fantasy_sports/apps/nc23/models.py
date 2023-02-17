@@ -52,7 +52,7 @@ class Manager(AbstractManager):
     points = models.FloatField(default=0)
     budget = models.IntegerField(default=START_BUDGET)
     icon = models.TextField(default='', blank=True)
-    name = models.CharField(default='Team', max_length=20)
+    name = models.CharField(default='Team', max_length=40)
 
     league = models.ForeignKey(League, on_delete=models.CASCADE)
 

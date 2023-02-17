@@ -9,6 +9,7 @@ from django_select2 import forms as s2forms
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
+from crispy_forms.bootstrap import StrictButton, Div, FieldWithButtons
 
 from .models import League, Manager, LineUp, Player, settings, Vote
 
@@ -126,6 +127,9 @@ class JoinNCLeagueForm(forms.ModelForm):
             fields.append(('password', password_field))
             self.fields = collections.OrderedDict(fields)
 
+        button_content = f"""<i class="fa fa-refresh"></i>"""
+        reroll_btn = StrictButton(button_content, type='submit', css_class='', id='reroll', onclick='history.go(0);' )
+
         self.helper = FormHelper()
         self.helper.form_class = 'form-vertical'
         self.helper.label_class = 'col-xs-7'
@@ -133,11 +137,11 @@ class JoinNCLeagueForm(forms.ModelForm):
         self.helper.form_method = 'post'
 
         if pw:
-            self.helper.layout = Layout('name',
+            self.helper.layout = Layout(FieldWithButtons('name', reroll_btn),
                                         'password',
                                         Submit('submit', 'Join League', css_class='col-xs-offset-4'), )
         else:
-            self.helper.layout = Layout('name',
+            self.helper.layout = Layout(FieldWithButtons('name', reroll_btn),
                                         Submit('submit', 'Join League', css_class='col-xs-offset-4'), )
 
 

@@ -6,6 +6,14 @@ from django.views.generic import CreateView, FormView
 
 from ..forms import CreateNCLeagueForm, JoinNCLeagueForm
 from ..models import League, Manager
+from .team_names import *
+
+import random
+
+
+def roll_team_name():
+    prefix = random.choice(['', 'The', random.choice(PREFIXES)])
+    return f'{prefix} {random.choice(MIDFIXES)} {random.choice(SUFFIXES)}'
 
 
 class JoinLeague(LoginRequiredMixin, CreateView):
@@ -20,10 +28,12 @@ class JoinLeague(LoginRequiredMixin, CreateView):
         my_league_id = kwargs['pk']
         league = League.objects.get(id=my_league_id)
 
+        initial_data = {'name': roll_team_name()}
+
         if league.password:
-            form = JoinNCLeagueForm(pw=True)
+            form = JoinNCLeagueForm(pw=True, initial=initial_data)
         else:
-            form = JoinNCLeagueForm(pw=False)
+            form = JoinNCLeagueForm(pw=False, initial=initial_data)
 
         context.update({
             'league': league,
@@ -35,7 +45,9 @@ class JoinLeague(LoginRequiredMixin, CreateView):
         return self.object.league.get_absolute_url()
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
+        
+        if not 'submit' in request.POST:
+             return self.get(request, *args, **kwargs)
 
         my_league_id = kwargs['pk']
         league = League.objects.get(id=my_league_id)
